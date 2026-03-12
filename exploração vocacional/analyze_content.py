@@ -28,8 +28,8 @@ for area in areas:
         start: int = max(0, m.start() - 50)
         end: int = min(len(content), m.end() + 300)
 
-        context_slice: str = content[start:end]
-        print(f"Context [{m.start()}]:\n{context_slice}\n{'-'*20}")
+        raw_pdf_text_slice: str = content[start:end]
+        print(f"Context [{m.start()}]:\n{raw_pdf_text_slice}\n{'-'*20}")
 
 # Look for text like "1, 12, 18, 24" etc. which might be the keys
 key_pattern = re.compile(r'[RISAEC]:\s*(\d+(?:,\s*\d+)*)', re.IGNORECASE)
