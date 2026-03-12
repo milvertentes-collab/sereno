@@ -1,0 +1,556 @@
+P0: possibilidade remota
+P1: entrada rápida
+P2: texto curto de descrição
+P3: Exemplo de estrutura
+P4: Profissão: Fisioterapeuta
+Área principal: Saúde e Corpo
+Área secundária: Cuidado Humano
+Subárea: saúde clínica / reabilitação
+Formação: superior
+Contato humano: alto
+Criatividade: médio
+Estabilidade: média/alta
+Potencial remoto: baixo
+Entrada rápida: não
+P6: 16. Banco de profissões — áreas e subáreas finais
+P7: 1. Cuidado Humano
+P8: Subáreas
+P9: escuta, apoio e acolhimento
+P10: cuidado e assistência direta
+P11: Profissões
+P12: psicólogo
+P13: psicanalista
+P14: terapeuta ocupacional
+P15: assistente social
+P16: conselheiro
+P17: acompanhante terapêutico
+P18: orientador familiar
+P19: cuidador de idosos
+P20: cuidador infantil
+P21: auxiliar de cuidados
+P22: atendente humanizado
+P23: apoio domiciliar
+P25: 2. Educação e Desenvolvimento
+P26: Subáreas
+P27: ensino formal
+P28: desenvolvimento e orientação
+P29: Profissões
+P30: professor
+P31: pedagogo
+P32: coordenador pedagógico
+P33: diretor escolar
+P34: professor de educação infantil
+P35: professor de ensino fundamental
+P36: professor de ensino médio
+P37: professor universitário
+P38: psicopedagogo
+P39: tutor
+P40: mentor
+P41: orientador educacional
+P42: instrutor
+P43: facilitador de grupos
+P44: treinador corporativo
+P46: 3. Comunicação e Expressão
+P47: Subáreas
+P48: escrita e conteúdo
+P49: fala, mídia e presença pública
+P50: comunicação digital
+P51: Profissões
+P52: jornalista
+P53: redator
+P54: copywriter
+P55: roteirista
+P56: escritor
+P57: editor de texto
+P58: produtor de conteúdo
+P59: revisor
+P60: locutor
+P61: apresentador
+P62: repórter
+P63: assessor de imprensa
+P64: relações públicas
+P65: comentarista
+P66: radialista
+P67: podcaster
+P68: social media
+P69: estrategista de conteúdo
+P70: community manager
+P71: analista de comunicação digital
+P72: criador de conteúdo
+P74: 4. Criatividade e Estética
+P75: Subáreas
+P76: design e visual
+P77: imagem e audiovisual
+P78: moda, arte e estética
+P79: arquitetura e criação espacial
+P80: Profissões
+P81: designer gráfico
+P82: diretor de arte
+P83: ilustrador
+P84: motion designer
+P85: designer de interiores
+P86: designer de produto
+P87: web designer
+P88: fotógrafo
+P89: videomaker
+P90: editor de vídeo
+P91: animador
+P92: colorista
+P93: cinegrafista
+P94: estilista
+P95: maquiador
+P96: figurinista
+P97: artista visual
+P98: tatuador
+P99: cenógrafo
+P100: arquiteto
+P101: urbanista
+P102: paisagista
+P104: 5. Análise e Organização
+P105: Subáreas
+P106: gestão administrativa e financeira
+P107: planejamento, processos e operação
+P108: dados e inteligência de negócio
+P109: Profissões
+P110: administrador
+P111: analista administrativo
+P112: assistente administrativo
+P113: contador
+P114: economista
+P115: analista financeiro
+P116: controller
+P117: tesoureiro
+P118: analista de processos
+P119: planejador
+P120: gestor de operações
+P121: analista de logística
+P122: coordenador operacional
+P123: analista de qualidade
+P124: analista de dados
+P125: analista de BI
+P126: estatístico
+P127: pesquisador de mercado
+P128: analista de inteligência
+P130: 6. Tecnologia e Sistemas
+P131: Subáreas
+P132: desenvolvimento e programação
+P133: infraestrutura e suporte
+P134: produto, design e experiência digital
+P135: dados, segurança e automação
+P136: Profissões
+P137: programador
+P138: desenvolvedor front-end
+P139: desenvolvedor back-end
+P140: desenvolvedor full stack
+P141: engenheiro de software
+P142: desenvolvedor mobile
+P143: suporte técnico
+P144: analista de suporte
+P145: técnico em informática
+P146: administrador de redes
+P147: especialista em infraestrutura
+P148: técnico de hardware
+P149: UX designer
+P150: UI designer
+P151: product designer
+P152: gerente de produto
+P153: analista de produto
+P154: cientista de dados
+P155: engenheiro de dados
+P156: especialista em segurança da informação
+P157: analista de cibersegurança
+P158: especialista em automação
+P159: QA tester
+P161: 7. Comercial e Negociação
+P162: Subáreas
+P163: vendas e relacionamento
+P164: negócios e expansão
+P165: corretagem e intermediação
+P166: Profissões
+P167: vendedor
+P168: consultor comercial
+P169: representante comercial
+P170: executivo de contas
+P171: SDR
+P172: closer
+P173: gerente de contas
+P174: desenvolvedor de negócios
+P175: gerente comercial
+P176: consultor de negócios
+P177: executivo de parcerias
+P178: analista comercial
+P179: corretor de imóveis
+P180: corretor de seguros
+P181: consultor financeiro comercial
+P182: agente de investimentos comercial
+P184: 8. Liderança e Gestão
+P185: Subáreas
+P186: gestão de pessoas e equipes
+P187: gestão de projetos e processos
+P188: liderança institucional
+P189: Profissões
+P190: coordenador
+P191: gerente
+P192: supervisor
+P193: líder de equipe
+P194: gestor de RH
+P195: business partner de RH
+P196: gestor de projetos
+P197: scrum master
+P198: gerente de operações
+P199: coordenador de processos
+P200: gestor administrativo
+P201: diretor
+P202: gestor escolar
+P203: gestor hospitalar
+P204: gestor público
+P205: coordenador institucional
+P207: 9. Saúde e Corpo
+P208: Subáreas
+P209: saúde clínica
+P210: saúde técnica
+P211: corpo, movimento e bem-estar
+P212: Profissões
+P213: médico
+P214: dentista
+P215: enfermeiro
+P216: farmacêutico
+P217: biomédico
+P218: fisioterapeuta
+P219: fonoaudiólogo
+P220: nutricionista
+P221: terapeuta ocupacional
+P222: técnico em enfermagem
+P223: técnico em radiologia
+P224: técnico em análises clínicas
+P225: técnico em saúde bucal
+P226: técnico em prótese dentária
+P227: educador físico
+P228: personal trainer
+P229: massoterapeuta
+P230: instrutor de pilates
+P231: esteticista
+P232: terapeuta corporal
+P234: 10. Natureza, Ambiente e Sustentabilidade
+P235: Subáreas
+P236: animais e vida natural
+P237: campo e produção rural
+P238: meio ambiente e sustentabilidade
+P239: Profissões
+P240: veterinário
+P241: biólogo
+P242: zootecnista
+P243: cuidador de animais
+P244: adestrador
+P245: agrônomo
+P246: técnico agrícola
+P247: engenheiro florestal
+P248: produtor rural técnico
+P249: gestor agropecuário
+P250: gestor ambiental
+P251: engenheiro ambiental
+P252: analista ambiental
+P253: consultor de sustentabilidade
+P254: educador ambiental
+P256: 11. Justiça, Normas e Segurança
+P257: Subáreas
+P258: jurídica
+P259: compliance, auditoria e normas
+P260: segurança e proteção
+P261: Profissões
+P262: advogado
+P263: defensor público
+P264: promotor
+P265: juiz
+P266: procurador
+P267: assistente jurídico
+P268: analista jurídico
+P269: auditor
+P270: analista de compliance
+P271: especialista em conformidade
+P272: perito
+P273: investigador corporativo
+P274: policial
+P275: bombeiro
+P276: guarda civil
+P277: perito criminal
+P278: agente penitenciário
+P279: segurança patrimonial
+P281: 12. Execução Prática e Técnica
+P282: Subáreas
+P283: manutenção e instalação
+P284: construção e produção
+P285: operação prática especializada
+P286: Profissões
+P287: eletricista
+P288: mecânico
+P289: técnico em refrigeração
+P290: técnico em manutenção
+P291: instalador
+P292: técnico em automação
+P293: técnico em eletrônica
+P294: pedreiro
+P295: mestre de obras
+P296: marceneiro
+P297: soldador
+P298: operador de máquinas
+P299: técnico em edificações
+P300: operador industrial
+P301: torneiro mecânico
+P302: operador logístico
+P303: técnico de campo
+P304: montador técnico
+P306: 17. Combinações importantes para o resultado
+P307: Saúde e Corpo + Cuidado Humano
+P308: Profissões:
+P309: médico
+P310: dentista
+P311: enfermeiro
+P312: fisioterapeuta
+P313: terapeuta ocupacional
+P314: fonoaudiólogo
+P315: nutricionista
+P316: massoterapeuta
+P317: Educação e Desenvolvimento + Comunicação e Expressão
+P318: Profissões:
+P319: professor
+P320: tutor
+P321: mentor
+P322: palestrante
+P323: criador de cursos
+P324: produtor de conteúdo educacional
+P325: Comunicação e Expressão + Criatividade e Estética
+P326: Profissões:
+P327: social media
+P328: copywriter
+P329: publicitário
+P330: roteirista
+P331: designer de conteúdo
+P332: branding
+P333: Análise e Organização + Tecnologia e Sistemas
+P334: Profissões:
+P335: analista de dados
+P336: programador
+P337: engenheiro de software
+P338: QA
+P339: BI
+P340: automação
+P341: Liderança e Gestão + Comercial e Negociação
+P342: Profissões:
+P343: gerente comercial
+P344: coordenador de vendas
+P345: gestor de negócios
+P346: supervisor de equipe
+P347: executivo de contas sênior
+P348: Justiça, Normas e Segurança + Análise e Organização
+P349: Profissões:
+P350: auditor
+P351: compliance
+P352: perito
+P353: analista jurídico
+P354: investigador documental
+P355: Natureza, Ambiente e Sustentabilidade + Execução Prática e Técnica
+P356: Profissões:
+P357: técnico agrícola
+P358: agrônomo de campo
+P359: manejo ambiental
+P360: paisagismo
+P361: manutenção rural
+P362: Criatividade e Estética + Tecnologia e Sistemas
+P363: Profissões:
+P364: UX designer
+P365: UI designer
+P366: product designer
+P367: design digital
+P368: front-end com foco visual
+P370: 18. Combinações triplas mais úteis
+P371: Comunicação + Criatividade + Comercial
+P372: Leitura:
+Você tende a unir expressão, criação e visão de público.
+P373: Profissões:
+P374: marketing
+P375: publicidade
+P376: branding
+P377: social media
+P378: copywriting
+P379: campanhas
+P380: lançamentos
+P381: Cuidado Humano + Educação + Comunicação
+P382: Leitura:
+Você pode se conectar com caminhos em que acolher, ensinar e se comunicar caminham juntos.
+P383: Profissões:
+P384: psicopedagogia
+P385: mentoria
+P386: orientação
+P387: educação emocional
+P388: tutoria
+P389: facilitação de grupos
+P390: Análise + Tecnologia + Organização
+P391: Leitura:
+Você tende a render melhor em contextos lógicos, estruturados e técnicos.
+P392: Profissões:
+P393: análise de dados
+P394: BI
+P395: programação
+P396: produto digital
+P397: automação
+P398: sistemas
+P399: QA
+P400: Liderança + Comunicação + Comercial
+P401: Leitura:
+Você tende a combinar influência, metas e coordenação.
+P402: Profissões:
+P403: gerente comercial
+P404: coordenação de equipes
+P405: expansão de negócios
+P406: liderança de atendimento
+P407: gestão de relacionamento
+P408: Saúde + Cuidado Humano + Educação
+P409: Leitura:
+Você pode se conectar com funções em que cuidar, orientar e promover saúde fazem parte do mesmo caminho.
+P410: Profissões:
+P411: enfermagem educativa
+P412: promoção de saúde
+P413: fisioterapia com orientação
+P414: nutrição com foco comportamental
+P415: educação em saúde
+P417: 19. Filtros que o usuário pode aplicar no resultado
+P418: Depois do resultado, o usuário pode refinar os caminhos.
+P419: Filtros recomendados
+P420: todos os caminhos
+P421: apenas nível superior
+P422: apenas profissões técnicas
+P423: entrada mais rápida
+P424: possibilidade remota
+P425: maior contato humano
+P426: maior estabilidade
+P427: maior potencial de renda
+P428: mais criativas
+P429: mais analíticas
+P430: mais práticas
+P431: mais ligadas à saúde
+P432: mais ligadas à tecnologia
+P434: 20. Como a realidade ajusta o resultado
+P435: A realidade não muda a afinidade, mas muda a forma de sugerir os caminhos.
+P436: Exemplo
+P437: Se o usuário tiver:
+P438: pouco tempo para estudar
+P439: busca renda mais rápida
+P440: preferência por remoto
+P441: E tiver alta afinidade com Comunicação + Criatividade, o app pode priorizar:
+P442: social media
+P443: criação de conteúdo
+P444: copywriting introdutório
+P445: edição básica
+P446: marketing digital
+P447: Em vez de sugerir só formações longas.
+P449: 21. Estrutura final de resposta por versão
+P450: Versão rápida
+P451: Mostrar:
+P452: 3 áreas principais
+P453: 1 texto curto
+P454: 5 a 8 profissões
+P455: frase final:
+Este resultado é um ponto de partida para sua exploração.
+P456: Versão principal
+P457: Mostrar:
+P458: 3 a 5 áreas
+P459: pontos fortes percebidos
+P460: ambientes que combinam
+P461: profissões possíveis
+P462: próximos passos
+P463: Versão mais completa
+P464: Mostrar:
+P465: tudo da principal
+P466: subperfil de ambiente
+P467: afinidades secundárias
+P468: combinação dupla ou tripla
+P469: alertas de conflito interno
+P470: filtros de realidade mais refinados
+P472: 22. Próximos passos sugeridos no resultado
+P473: O app sempre deve terminar com ações práticas.
+P474: Exemplos
+P475: pesquisar a rotina de 2 ou 3 áreas
+P476: assistir vídeos de profissionais da área
+P477: conversar com alguém que atua nesse caminho
+P478: fazer um mini curso introdutório
+P479: comparar formação longa x entrada rápida
+P480: testar uma atividade prática
+P481: salvar caminhos favoritos no app
+P483: 23. Modelo pronto de resposta final
+P484: Suas áreas com maior afinidade
+P485: Comunicação e Expressão
+P486: Criatividade e Estética
+P487: Comercial e Negociação
+P488: Leitura do seu perfil
+P489: Você tende a se conectar com contextos em que expressar ideias, criar soluções e gerar resultado fazem parte da rotina.
+P490: Pontos fortes percebidos
+P491: boa expressão
+P492: criatividade
+P493: iniciativa
+P494: visão de público
+P495: Ambientes que combinam com você
+P496: dinâmicos
+P497: criativos
+P498: orientados a público
+P499: com liberdade de expressão
+P500: com metas e espaço para inovação
+P501: Subáreas compatíveis
+P502: comunicação digital
+P503: criação visual
+P504: marketing e posicionamento
+P505: Possíveis caminhos
+P506: social media
+P507: copywriter
+P508: marketing
+P509: branding
+P510: publicidade
+P511: produção de conteúdo
+P512: campanhas digitais
+P513: Próximos passos
+P514: explorar 2 ou 3 dessas áreas
+P515: assistir à rotina de profissionais
+P516: testar um mini projeto
+P517: fazer um curso introdutório
+P519: 24. Estrutura técnica mínima para o programador
+P520: Cada pergunta:
+P521: id
+P522: texto
+P523: bloco
+P524: pesos por área
+P525: Cada área:
+P526: nome
+P527: descrição curta
+P528: traços
+P529: ambientes
+P530: texto de resultado
+P531: Cada profissão:
+P532: nome
+P533: área principal
+P534: área secundária
+P535: subárea
+P536: formação
+P537: etiquetas de filtro
+P538: descrição curta
+P539: Cada combinação:
+P540: áreas envolvidas
+P541: texto interpretativo
+P542: profissões ligadas
+P544: 25. Decisão final recomendada
+P545: Internamente
+P546: Use:
+P547: 12 áreas
+P548: pesos por pergunta
+P549: pontuação em porcentagem
+P550: combinações duplas e triplas
+P551: filtro por realidade
+P552: Para o usuário
+P553: Mostre:
+P554: 3 áreas principais
+P555: 2 secundárias
+P556: texto claro
+P557: subáreas
+P558: profissões possíveis
+P559: ambientes ideais
+P560: próximos passos
+P561: filtros opcionais

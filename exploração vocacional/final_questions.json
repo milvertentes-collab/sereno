@@ -1,0 +1,247 @@
+[
+  {
+    "id": 1,
+    "text": "Nome do módulo",
+    "area": null
+  },
+  {
+    "id": 2,
+    "text": "Posicionamento do recurso no app",
+    "area": null
+  },
+  {
+    "id": 3,
+    "text": "Estrutura da experiência no app",
+    "area": null
+  },
+  {
+    "id": 4,
+    "text": "Quantidade recomendada por versão",
+    "area": null
+  },
+  {
+    "id": 5,
+    "text": "Modelo de resposta das perguntas",
+    "area": null
+  },
+  {
+    "id": 6,
+    "text": "Blocos de perguntas",
+    "area": null
+  },
+  {
+    "id": 7,
+    "text": "Grandes áreas de afinidade — versão final interna",
+    "area": "Social"
+  },
+  {
+    "id": 1,
+    "text": "Cuidado Humano",
+    "area": "Social"
+  },
+  {
+    "id": 2,
+    "text": "Educação e Desenvolvimento",
+    "area": "Social"
+  },
+  {
+    "id": 3,
+    "text": "Comunicação e Expressão",
+    "area": "Social"
+  },
+  {
+    "id": 4,
+    "text": "Criatividade e Estética",
+    "area": "Social"
+  },
+  {
+    "id": 5,
+    "text": "Análise e Organização",
+    "area": "Social"
+  },
+  {
+    "id": 6,
+    "text": "Tecnologia e Sistemas",
+    "area": "Social"
+  },
+  {
+    "id": 7,
+    "text": "Comercial e Negociação",
+    "area": "Social"
+  },
+  {
+    "id": 8,
+    "text": "Liderança e Gestão",
+    "area": "Social"
+  },
+  {
+    "id": 9,
+    "text": "Saúde e Corpo",
+    "area": "Social"
+  },
+  {
+    "id": 10,
+    "text": "Natureza, Ambiente e Sustentabilidade",
+    "area": "Social"
+  },
+  {
+    "id": 11,
+    "text": "Justiça, Normas e Segurança",
+    "area": "Social"
+  },
+  {
+    "id": 12,
+    "text": "Execução Prática e Técnica",
+    "area": "Social"
+  },
+  {
+    "id": 8,
+    "text": "Macrogrupos visuais para o app",
+    "area": "Social"
+  },
+  {
+    "id": 9,
+    "text": "Lógica de pontuação",
+    "area": "Social"
+  },
+  {
+    "id": 10,
+    "text": "Fórmula de cálculo",
+    "area": "Social"
+  },
+  {
+    "id": 11,
+    "text": "Faixas de interpretação",
+    "area": "Social"
+  },
+  {
+    "id": 12,
+    "text": "Perfil de ambiente de trabalho",
+    "area": "Social"
+  },
+  {
+    "id": 13,
+    "text": "Regras para montar o resultado final",
+    "area": "Social"
+  },
+  {
+    "id": 14,
+    "text": "Estrutura do resultado no app",
+    "area": "Social"
+  },
+  {
+    "id": 15,
+    "text": "Banco de profissões — estrutura final",
+    "area": "Social"
+  },
+  {
+    "id": 16,
+    "text": "Banco de profissões — áreas e subáreas finais",
+    "area": "Social"
+  },
+  {
+    "id": 1,
+    "text": "Cuidado Humano",
+    "area": "Social"
+  },
+  {
+    "id": 2,
+    "text": "Educação e Desenvolvimento",
+    "area": "Social"
+  },
+  {
+    "id": 3,
+    "text": "Comunicação e Expressão",
+    "area": "Social"
+  },
+  {
+    "id": 4,
+    "text": "Criatividade e Estética",
+    "area": "Social"
+  },
+  {
+    "id": 5,
+    "text": "Análise e Organização",
+    "area": "Social"
+  },
+  {
+    "id": 6,
+    "text": "Tecnologia e Sistemas",
+    "area": "Social"
+  },
+  {
+    "id": 7,
+    "text": "Comercial e Negociação",
+    "area": "Social"
+  },
+  {
+    "id": 8,
+    "text": "Liderança e Gestão",
+    "area": "Social"
+  },
+  {
+    "id": 9,
+    "text": "Saúde e Corpo",
+    "area": "Social"
+  },
+  {
+    "id": 10,
+    "text": "Natureza, Ambiente e Sustentabilidade",
+    "area": "Social"
+  },
+  {
+    "id": 11,
+    "text": "Justiça, Normas e Segurança",
+    "area": "Social"
+  },
+  {
+    "id": 12,
+    "text": "Execução Prática e Técnica",
+    "area": "Social"
+  },
+  {
+    "id": 17,
+    "text": "Combinações importantes para o resultado",
+    "area": "Social"
+  },
+  {
+    "id": 18,
+    "text": "Combinações triplas mais úteis",
+    "area": "Social"
+  },
+  {
+    "id": 19,
+    "text": "Filtros que o usuário pode aplicar no resultado",
+    "area": "Social"
+  },
+  {
+    "id": 20,
+    "text": "Como a realidade ajusta o resultado",
+    "area": "Social"
+  },
+  {
+    "id": 21,
+    "text": "Estrutura final de resposta por versão",
+    "area": "Social"
+  },
+  {
+    "id": 22,
+    "text": "Próximos passos sugeridos no resultado",
+    "area": "Social"
+  },
+  {
+    "id": 23,
+    "text": "Modelo pronto de resposta final",
+    "area": "Social"
+  },
+  {
+    "id": 24,
+    "text": "Estrutura técnica mínima para o programador",
+    "area": "Social"
+  },
+  {
+    "id": 25,
+    "text": "Decisão final recomendada",
+    "area": "Social"
+  }
+]

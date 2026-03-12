@@ -1,0 +1,850 @@
+EXPLORA&#199;&#195;O VOCACIONAL &#8212; VERS&#195;O FINAL DO APP
+1. Nome do m&#243;dulo
+&#129517; Explora&#231;&#227;o Vocacional
+Subt&#237;tulo
+Teste de interesses &#8212; descubra &#225;reas, ambientes e caminhos que combinam mais com voc&#234;
+Descri&#231;&#227;o curta
+Um teste guiado para explorar seus interesses, valores, estilo de trabalho e realidade de vida, gerando &#225;reas compat&#237;veis, profiss&#245;es poss&#237;veis e pr&#243;ximos passos pr&#225;ticos.
+Descri&#231;&#227;o longa
+A Explora&#231;&#227;o Vocacional foi criada para ajudar voc&#234; a entender melhor seus interesses, suas prefer&#234;ncias e os ambientes profissionais que mais combinam com o seu perfil. O objetivo n&#227;o &#233; dizer uma profiss&#227;o &#8220;certa&#8221;, e sim mostrar caminhos compat&#237;veis com suas caracter&#237;sticas, sua fase de vida e suas possibilidades reais.
+2. Posicionamento do recurso no app
+Esse m&#243;dulo deve ser apresentado como:
+explora&#231;&#227;o
+autoconhecimento
+direcionamento
+ponto de partida
+N&#227;o como:
+teste definitivo
+profiss&#227;o ideal
+destino fechado
+diagn&#243;stico
+Linguagem correta no app
+Use:
+&#225;reas com maior afinidade
+caminhos compat&#237;veis
+poss&#237;veis dire&#231;&#245;es
+tend&#234;ncias percebidas
+pr&#243;ximos passos
+Evite:
+sua profiss&#227;o ideal &#233;&#8230;
+voc&#234; nasceu para&#8230;
+esse &#233; seu destino&#8230;
+sua carreira certa &#233;&#8230;
+3. Estrutura da experi&#234;ncia no app
+Tela 1 &#8212; Apresenta&#231;&#227;o
+T&#237;tulo: Explora&#231;&#227;o Vocacional
+Texto: Entenda melhor seus interesses, seu estilo de trabalho e os caminhos profissionais que podem combinar com voc&#234;.
+Bot&#227;o principal: Come&#231;ar
+Bot&#227;o secund&#225;rio: Como funciona
+Tela 2 &#8212; Escolha da vers&#227;o do teste
+O usu&#225;rio escolhe o n&#237;vel de profundidade.
+Op&#231;&#227;o 1 &#8212; Vers&#227;o r&#225;pida
+Tempo estimado: curto
+Objetivo: vis&#227;o geral do perfil
+Resultado: 3 &#225;reas principais + sugest&#245;es iniciais
+Op&#231;&#227;o 2 &#8212; Vers&#227;o principal
+Tempo estimado: m&#233;dio
+Objetivo: resultado mais equilibrado e &#250;til
+Resultado: 3 a 5 &#225;reas, pontos fortes, ambientes ideais, profiss&#245;es e pr&#243;ximos passos
+Op&#231;&#227;o 3 &#8212; Vers&#227;o mais completa
+Tempo estimado: maior
+Objetivo: leitura mais profunda do perfil
+Resultado: tudo da principal + perfil de ambiente, compatibilidades secund&#225;rias, combina&#231;&#245;es fortes e conflitos internos
+Texto sugerido na tela
+Escolha a profundidade da sua jornada. Voc&#234; pode come&#231;ar por uma vers&#227;o mais r&#225;pida ou fazer uma an&#225;lise mais completa do seu perfil.
+4. Quantidade recomendada por vers&#227;o
+Para o app, a estrutura final recomendada &#233;:
+Vers&#227;o r&#225;pida
+20 perguntas
+Vers&#227;o principal
+36 perguntas
+Vers&#227;o mais completa
+60 perguntas
+Se o PDF j&#225; tiver n&#250;meros ligeiramente diferentes, mantenha o PDF como fonte oficial do conte&#250;do, mas para produto essa divis&#227;o funciona muito bem.
+5. Modelo de resposta das perguntas
+Todas as perguntas seguem a mesma escala:
+Nada a ver comigo
+Um pouco
+Neutro
+Bastante
+Muito a ver comigo
+Convers&#227;o para pontua&#231;&#227;o
+Nada a ver comigo = 1
+Um pouco = 2
+Neutro = 3
+Bastante = 4
+Muito a ver comigo = 5
+6. Blocos de perguntas
+As perguntas do teste devem estar divididas em 4 blocos.
+Bloco A &#8212; Interesses
+Perguntas sobre o que a pessoa gosta, sente curiosidade ou se imagina fazendo.
+Exemplos:
+Gosto de cuidar de pessoas.
+Gosto de ensinar o que sei.
+Gosto de criar coisas novas.
+Gosto de analisar dados e encontrar padr&#245;es.
+Gosto de trabalhar com tecnologia.
+Gosto de vender ou convencer.
+Gosto de ajudar pessoas a se desenvolver.
+Gosto de lidar com regras e organiza&#231;&#227;o.
+Peso do bloco
+100%
+Bloco B &#8212; Estilo pessoal
+Perguntas sobre como a pessoa prefere trabalhar.
+Exemplos:
+Prefiro trabalhar sozinho.
+Gosto de trabalhar em equipe.
+Gosto de rotina bem definida.
+Prefiro dias variados e din&#226;micos.
+Gosto de falar com p&#250;blico.
+Prefiro atividades mais reservadas.
+Gosto de assumir responsabilidade.
+Prefiro ambientes previs&#237;veis.
+Peso do bloco
+85%
+Bloco C &#8212; Valores
+Perguntas sobre o que mais importa para a pessoa no trabalho.
+Exemplos:
+Ter estabilidade &#233; muito importante para mim.
+Quero um trabalho com prop&#243;sito.
+Quero retorno financeiro.
+Criatividade &#233; essencial para minha realiza&#231;&#227;o.
+Gosto de autonomia.
+Quero impacto social.
+Prefiro seguran&#231;a a risco.
+Quero crescimento r&#225;pido.
+Peso do bloco
+75%
+Bloco D &#8212; Realidade
+Perguntas para ajustar a recomenda&#231;&#227;o &#224; vida real do usu&#225;rio.
+Exemplos:
+Escolaridade atual
+Tempo dispon&#237;vel para estudar
+Renda desejada
+Prefer&#234;ncia por remoto, presencial ou h&#237;brido
+Entrada r&#225;pida ou forma&#231;&#227;o longa
+Limita&#231;&#245;es atuais
+Flexibilidade de hor&#225;rio
+Prioridades pessoais
+Fun&#231;&#227;o do bloco
+Esse bloco n&#227;o define afinidade principal.
+Ele serve para:
+adaptar profiss&#245;es
+ajustar pr&#243;ximos passos
+sugerir rotas mais vi&#225;veis
+7. Grandes &#225;reas de afinidade &#8212; vers&#227;o final interna
+A l&#243;gica do app deve usar 12 &#225;reas internas.
+1. Cuidado Humano
+Afinidade com acolher, escutar, apoiar e cuidar diretamente de pessoas.
+2. Educa&#231;&#227;o e Desenvolvimento
+Afinidade com ensinar, orientar, explicar e ajudar outras pessoas a aprender e evoluir.
+3. Comunica&#231;&#227;o e Express&#227;o
+Afinidade com falar, escrever, interagir e transmitir mensagens com clareza.
+4. Criatividade e Est&#233;tica
+Afinidade com criar, imaginar, inovar e trabalhar com forma, estilo, design ou express&#227;o art&#237;stica.
+5. An&#225;lise e Organiza&#231;&#227;o
+Afinidade com l&#243;gica, estrutura, dados, planejamento, rotina, precis&#227;o e solu&#231;&#227;o organizada de problemas.
+6. Tecnologia e Sistemas
+Afinidade com ferramentas digitais, sistemas, automa&#231;&#227;o e resolu&#231;&#227;o de problemas t&#233;cnicos.
+7. Comercial e Negocia&#231;&#227;o
+Afinidade com vendas, persuas&#227;o, metas, relacionamento com clientes e gera&#231;&#227;o de resultados.
+8. Lideran&#231;a e Gest&#227;o
+Afinidade com coordenar pessoas, tomar decis&#245;es, acompanhar metas e conduzir processos.
+9. Sa&#250;de e Corpo
+Afinidade com bem-estar f&#237;sico, movimento, preven&#231;&#227;o e cuidado com o corpo.
+10. Natureza, Ambiente e Sustentabilidade
+Afinidade com natureza, animais, meio ambiente, campo e equil&#237;brio ambiental.
+11. Justi&#231;a, Normas e Seguran&#231;a
+Afinidade com regras, &#233;tica, prote&#231;&#227;o, investiga&#231;&#227;o, responsabilidade e aplica&#231;&#227;o de normas.
+12. Execu&#231;&#227;o Pr&#225;tica e T&#233;cnica
+Afinidade com fazer, montar, operar, instalar, consertar e produzir resultados concretos.
+8. Macrogrupos visuais para o app
+Para facilitar a visualiza&#231;&#227;o, as 12 &#225;reas podem ser agrupadas em 4 macrogrupos:
+Humanas e Relacionais
+Cuidado Humano
+Educa&#231;&#227;o e Desenvolvimento
+Comunica&#231;&#227;o e Express&#227;o
+Lideran&#231;a e Gest&#227;o
+Criativas e Estrat&#233;gicas
+Criatividade e Est&#233;tica
+Comercial e Negocia&#231;&#227;o
+An&#225;lise e Organiza&#231;&#227;o
+T&#233;cnicas e Digitais
+Tecnologia e Sistemas
+Justi&#231;a, Normas e Seguran&#231;a
+Execu&#231;&#227;o Pr&#225;tica e T&#233;cnica
+Vida, Corpo e Natureza
+Sa&#250;de e Corpo
+Natureza, Ambiente e Sustentabilidade
+9. L&#243;gica de pontua&#231;&#227;o
+Cada pergunta alimenta 1 ou mais &#225;reas com pesos diferentes.
+Pesos permitidos
+peso forte = 1.0
+peso m&#233;dio = 0.5
+peso leve = 0.25
+Exemplo
+Pergunta:
+Gosto de ensinar o que sei.
+Pesos:
+Educa&#231;&#227;o e Desenvolvimento = 1.0
+Comunica&#231;&#227;o e Express&#227;o = 0.5
+Se a resposta for Bastante = 4, ent&#227;o:
+Educa&#231;&#227;o = +4
+Comunica&#231;&#227;o = +2
+10. F&#243;rmula de c&#225;lculo
+Etapa 1
+Converter a resposta em n&#250;mero:
+1 a 5
+Etapa 2
+Multiplicar a resposta pelos pesos da pergunta.
+Etapa 3
+Somar os pontos por &#225;rea.
+Etapa 4
+Aplicar o peso do bloco:
+Interesses = 100%
+Estilo = 85%
+Valores = 75%
+Realidade = filtro, n&#227;o soma principal
+Etapa 5
+Normalizar em porcentagem:
+Pontua&#231;&#227;o final da &#225;rea = (pontos obtidos / pontos m&#225;ximos poss&#237;veis da &#225;rea) &#215; 100
+11. Faixas de interpreta&#231;&#227;o
+85 a 100% = afinidade muito forte
+70 a 84% = afinidade forte
+55 a 69% = afinidade moderada
+40 a 54% = afinidade baixa
+abaixo de 40% = pouca afinidade no momento
+12. Perfil de ambiente de trabalho
+Al&#233;m das &#225;reas, o app deve gerar um retrato do ambiente ideal.
+Vari&#225;veis de ambiente
+Criar subescores para:
+Trabalho em equipe
+Autonomia
+Rotina
+Dinamismo
+Contato com p&#250;blico
+Lideran&#231;a
+Estabilidade
+Criatividade no dia a dia
+Exemplo de interpreta&#231;&#227;o
+Se a pessoa pontuar alto em:
+autonomia
+dinamismo
+criatividade
+Mostrar:
+Voc&#234; tende a se sentir melhor em ambientes com liberdade, variedade e espa&#231;o para cria&#231;&#227;o.
+Se pontuar alto em:
+estabilidade
+rotina
+organiza&#231;&#227;o
+Mostrar:
+Voc&#234; tende a render melhor em contextos com estrutura clara, previsibilidade e processos bem definidos.
+13. Regras para montar o resultado final
+Regra 1 &#8212; &#193;reas principais
+Mostrar as 3 &#225;reas com maior pontua&#231;&#227;o
+Regra 2 &#8212; &#193;reas secund&#225;rias
+Mostrar mais 2 &#225;reas secund&#225;rias quando fizer sentido
+Regra 3 &#8212; Combina&#231;&#227;o dupla
+Se duas &#225;reas tiverem 75% ou mais, mostrar uma leitura de combina&#231;&#227;o
+Regra 4 &#8212; Combina&#231;&#227;o tripla
+Se tr&#234;s &#225;reas tiverem 72% ou mais, mostrar um perfil h&#237;brido
+Regra 5 &#8212; &#193;rea muito destacada
+Se apenas uma &#225;rea estiver muito acima das outras, mostrar:
+&#225;rea principal
+&#225;reas secund&#225;rias
+explica&#231;&#227;o simples
+14. Estrutura do resultado no app
+O resultado deve ter 4 camadas.
+Camada 1 &#8212; &#193;reas principais
+Exemplo:
+Comunica&#231;&#227;o e Express&#227;o
+Criatividade e Est&#233;tica
+Comercial e Negocia&#231;&#227;o
+Camada 2 &#8212; Sub&#225;reas compat&#237;veis
+Exemplo:
+escrita e conte&#250;do
+cria&#231;&#227;o visual
+marketing e posicionamento
+Camada 3 &#8212; Profiss&#245;es poss&#237;veis
+Exemplo:
+social media
+copywriter
+publicit&#225;rio
+designer de conte&#250;do
+branding
+produtor de conte&#250;do
+Camada 4 &#8212; Forma&#231;&#227;o e viabilidade
+Exemplo:
+gradua&#231;&#227;o longa
+gradua&#231;&#227;o intermedi&#225;ria
+t&#233;cnico
+curso livre
+entrada mais r&#225;pida
+15. Banco de profiss&#245;es &#8212; estrutura final
+O app precisa usar um banco amplo, n&#227;o s&#243; exemplos soltos.
+Cada profiss&#227;o deve ter estes campos:
+nome da profiss&#227;o
+&#225;rea principal
+&#225;rea secund&#225;ria
+sub&#225;rea
+n&#237;vel de forma&#231;&#227;o
+contato humano
+criatividade
+estabilidade
+potencial de renda
+possibilidade remota
+entrada r&#225;pida
+texto curto de descri&#231;&#227;o
+Exemplo de estrutura
+Profiss&#227;o: Fisioterapeuta
+&#193;rea principal: Sa&#250;de e Corpo
+&#193;rea secund&#225;ria: Cuidado Humano
+Sub&#225;rea: sa&#250;de cl&#237;nica / reabilita&#231;&#227;o
+Forma&#231;&#227;o: superior
+Contato humano: alto
+Criatividade: m&#233;dio
+Estabilidade: m&#233;dia/alta
+Potencial remoto: baixo
+Entrada r&#225;pida: n&#227;o
+16. Banco de profiss&#245;es &#8212; &#225;reas e sub&#225;reas finais
+1. Cuidado Humano
+Sub&#225;reas
+escuta, apoio e acolhimento
+cuidado e assist&#234;ncia direta
+Profiss&#245;es
+psic&#243;logo
+psicanalista
+terapeuta ocupacional
+assistente social
+conselheiro
+acompanhante terap&#234;utico
+orientador familiar
+cuidador de idosos
+cuidador infantil
+auxiliar de cuidados
+atendente humanizado
+apoio domiciliar
+2. Educa&#231;&#227;o e Desenvolvimento
+Sub&#225;reas
+ensino formal
+desenvolvimento e orienta&#231;&#227;o
+Profiss&#245;es
+professor
+pedagogo
+coordenador pedag&#243;gico
+diretor escolar
+professor de educa&#231;&#227;o infantil
+professor de ensino fundamental
+professor de ensino m&#233;dio
+professor universit&#225;rio
+psicopedagogo
+tutor
+mentor
+orientador educacional
+instrutor
+facilitador de grupos
+treinador corporativo
+3. Comunica&#231;&#227;o e Express&#227;o
+Sub&#225;reas
+escrita e conte&#250;do
+fala, m&#237;dia e presen&#231;a p&#250;blica
+comunica&#231;&#227;o digital
+Profiss&#245;es
+jornalista
+redator
+copywriter
+roteirista
+escritor
+editor de texto
+produtor de conte&#250;do
+revisor
+locutor
+apresentador
+rep&#243;rter
+assessor de imprensa
+rela&#231;&#245;es p&#250;blicas
+comentarista
+radialista
+podcaster
+social media
+estrategista de conte&#250;do
+community manager
+analista de comunica&#231;&#227;o digital
+criador de conte&#250;do
+4. Criatividade e Est&#233;tica
+Sub&#225;reas
+design e visual
+imagem e audiovisual
+moda, arte e est&#233;tica
+arquitetura e cria&#231;&#227;o espacial
+Profiss&#245;es
+designer gr&#225;fico
+diretor de arte
+ilustrador
+motion designer
+designer de interiores
+designer de produto
+web designer
+fot&#243;grafo
+videomaker
+editor de v&#237;deo
+animador
+colorista
+cinegrafista
+estilista
+maquiador
+figurinista
+artista visual
+tatuador
+cen&#243;grafo
+arquiteto
+urbanista
+paisagista
+5. An&#225;lise e Organiza&#231;&#227;o
+Sub&#225;reas
+gest&#227;o administrativa e financeira
+planejamento, processos e opera&#231;&#227;o
+dados e intelig&#234;ncia de neg&#243;cio
+Profiss&#245;es
+administrador
+analista administrativo
+assistente administrativo
+contador
+economista
+analista financeiro
+controller
+tesoureiro
+analista de processos
+planejador
+gestor de opera&#231;&#245;es
+analista de log&#237;stica
+coordenador operacional
+analista de qualidade
+analista de dados
+analista de BI
+estat&#237;stico
+pesquisador de mercado
+analista de intelig&#234;ncia
+6. Tecnologia e Sistemas
+Sub&#225;reas
+desenvolvimento e programa&#231;&#227;o
+infraestrutura e suporte
+produto, design e experi&#234;ncia digital
+dados, seguran&#231;a e automa&#231;&#227;o
+Profiss&#245;es
+programador
+desenvolvedor front-end
+desenvolvedor back-end
+desenvolvedor full stack
+engenheiro de software
+desenvolvedor mobile
+suporte t&#233;cnico
+analista de suporte
+t&#233;cnico em inform&#225;tica
+administrador de redes
+especialista em infraestrutura
+t&#233;cnico de hardware
+UX designer
+UI designer
+product designer
+gerente de produto
+analista de produto
+cientista de dados
+engenheiro de dados
+especialista em seguran&#231;a da informa&#231;&#227;o
+analista de ciberseguran&#231;a
+especialista em automa&#231;&#227;o
+QA tester
+7. Comercial e Negocia&#231;&#227;o
+Sub&#225;reas
+vendas e relacionamento
+neg&#243;cios e expans&#227;o
+corretagem e intermedia&#231;&#227;o
+Profiss&#245;es
+vendedor
+consultor comercial
+representante comercial
+executivo de contas
+SDR
+closer
+gerente de contas
+desenvolvedor de neg&#243;cios
+gerente comercial
+consultor de neg&#243;cios
+executivo de parcerias
+analista comercial
+corretor de im&#243;veis
+corretor de seguros
+consultor financeiro comercial
+agente de investimentos comercial
+8. Lideran&#231;a e Gest&#227;o
+Sub&#225;reas
+gest&#227;o de pessoas e equipes
+gest&#227;o de projetos e processos
+lideran&#231;a institucional
+Profiss&#245;es
+coordenador
+gerente
+supervisor
+l&#237;der de equipe
+gestor de RH
+business partner de RH
+gestor de projetos
+scrum master
+gerente de opera&#231;&#245;es
+coordenador de processos
+gestor administrativo
+diretor
+gestor escolar
+gestor hospitalar
+gestor p&#250;blico
+coordenador institucional
+9. Sa&#250;de e Corpo
+Sub&#225;reas
+sa&#250;de cl&#237;nica
+sa&#250;de t&#233;cnica
+corpo, movimento e bem-estar
+Profiss&#245;es
+m&#233;dico
+dentista
+enfermeiro
+farmac&#234;utico
+biom&#233;dico
+fisioterapeuta
+fonoaudi&#243;logo
+nutricionista
+terapeuta ocupacional
+t&#233;cnico em enfermagem
+t&#233;cnico em radiologia
+t&#233;cnico em an&#225;lises cl&#237;nicas
+t&#233;cnico em sa&#250;de bucal
+t&#233;cnico em pr&#243;tese dent&#225;ria
+educador f&#237;sico
+personal trainer
+massoterapeuta
+instrutor de pilates
+esteticista
+terapeuta corporal
+10. Natureza, Ambiente e Sustentabilidade
+Sub&#225;reas
+animais e vida natural
+campo e produ&#231;&#227;o rural
+meio ambiente e sustentabilidade
+Profiss&#245;es
+veterin&#225;rio
+bi&#243;logo
+zootecnista
+cuidador de animais
+adestrador
+agr&#244;nomo
+t&#233;cnico agr&#237;cola
+engenheiro florestal
+produtor rural t&#233;cnico
+gestor agropecu&#225;rio
+gestor ambiental
+engenheiro ambiental
+analista ambiental
+consultor de sustentabilidade
+educador ambiental
+11. Justi&#231;a, Normas e Seguran&#231;a
+Sub&#225;reas
+jur&#237;dica
+compliance, auditoria e normas
+seguran&#231;a e prote&#231;&#227;o
+Profiss&#245;es
+advogado
+defensor p&#250;blico
+promotor
+juiz
+procurador
+assistente jur&#237;dico
+analista jur&#237;dico
+auditor
+analista de compliance
+especialista em conformidade
+perito
+investigador corporativo
+policial
+bombeiro
+guarda civil
+perito criminal
+agente penitenci&#225;rio
+seguran&#231;a patrimonial
+12. Execu&#231;&#227;o Pr&#225;tica e T&#233;cnica
+Sub&#225;reas
+manuten&#231;&#227;o e instala&#231;&#227;o
+constru&#231;&#227;o e produ&#231;&#227;o
+opera&#231;&#227;o pr&#225;tica especializada
+Profiss&#245;es
+eletricista
+mec&#226;nico
+t&#233;cnico em refrigera&#231;&#227;o
+t&#233;cnico em manuten&#231;&#227;o
+instalador
+t&#233;cnico em automa&#231;&#227;o
+t&#233;cnico em eletr&#244;nica
+pedreiro
+mestre de obras
+marceneiro
+soldador
+operador de m&#225;quinas
+t&#233;cnico em edifica&#231;&#245;es
+operador industrial
+torneiro mec&#226;nico
+operador log&#237;stico
+t&#233;cnico de campo
+montador t&#233;cnico
+17. Combina&#231;&#245;es importantes para o resultado
+Sa&#250;de e Corpo + Cuidado Humano
+Profiss&#245;es:
+m&#233;dico
+dentista
+enfermeiro
+fisioterapeuta
+terapeuta ocupacional
+fonoaudi&#243;logo
+nutricionista
+massoterapeuta
+Educa&#231;&#227;o e Desenvolvimento + Comunica&#231;&#227;o e Express&#227;o
+Profiss&#245;es:
+professor
+tutor
+mentor
+palestrante
+criador de cursos
+produtor de conte&#250;do educacional
+Comunica&#231;&#227;o e Express&#227;o + Criatividade e Est&#233;tica
+Profiss&#245;es:
+social media
+copywriter
+publicit&#225;rio
+roteirista
+designer de conte&#250;do
+branding
+An&#225;lise e Organiza&#231;&#227;o + Tecnologia e Sistemas
+Profiss&#245;es:
+analista de dados
+programador
+engenheiro de software
+QA
+BI
+automa&#231;&#227;o
+Lideran&#231;a e Gest&#227;o + Comercial e Negocia&#231;&#227;o
+Profiss&#245;es:
+gerente comercial
+coordenador de vendas
+gestor de neg&#243;cios
+supervisor de equipe
+executivo de contas s&#234;nior
+Justi&#231;a, Normas e Seguran&#231;a + An&#225;lise e Organiza&#231;&#227;o
+Profiss&#245;es:
+auditor
+compliance
+perito
+analista jur&#237;dico
+investigador documental
+Natureza, Ambiente e Sustentabilidade + Execu&#231;&#227;o Pr&#225;tica e T&#233;cnica
+Profiss&#245;es:
+t&#233;cnico agr&#237;cola
+agr&#244;nomo de campo
+manejo ambiental
+paisagismo
+manuten&#231;&#227;o rural
+Criatividade e Est&#233;tica + Tecnologia e Sistemas
+Profiss&#245;es:
+UX designer
+UI designer
+product designer
+design digital
+front-end com foco visual
+18. Combina&#231;&#245;es triplas mais &#250;teis
+Comunica&#231;&#227;o + Criatividade + Comercial
+Leitura:
+Voc&#234; tende a unir express&#227;o, cria&#231;&#227;o e vis&#227;o de p&#250;blico.
+Profiss&#245;es:
+marketing
+publicidade
+branding
+social media
+copywriting
+campanhas
+lan&#231;amentos
+Cuidado Humano + Educa&#231;&#227;o + Comunica&#231;&#227;o
+Leitura:
+Voc&#234; pode se conectar com caminhos em que acolher, ensinar e se comunicar caminham juntos.
+Profiss&#245;es:
+psicopedagogia
+mentoria
+orienta&#231;&#227;o
+educa&#231;&#227;o emocional
+tutoria
+facilita&#231;&#227;o de grupos
+An&#225;lise + Tecnologia + Organiza&#231;&#227;o
+Leitura:
+Voc&#234; tende a render melhor em contextos l&#243;gicos, estruturados e t&#233;cnicos.
+Profiss&#245;es:
+an&#225;lise de dados
+BI
+programa&#231;&#227;o
+produto digital
+automa&#231;&#227;o
+sistemas
+QA
+Lideran&#231;a + Comunica&#231;&#227;o + Comercial
+Leitura:
+Voc&#234; tende a combinar influ&#234;ncia, metas e coordena&#231;&#227;o.
+Profiss&#245;es:
+gerente comercial
+coordena&#231;&#227;o de equipes
+expans&#227;o de neg&#243;cios
+lideran&#231;a de atendimento
+gest&#227;o de relacionamento
+Sa&#250;de + Cuidado Humano + Educa&#231;&#227;o
+Leitura:
+Voc&#234; pode se conectar com fun&#231;&#245;es em que cuidar, orientar e promover sa&#250;de fazem parte do mesmo caminho.
+Profiss&#245;es:
+enfermagem educativa
+promo&#231;&#227;o de sa&#250;de
+fisioterapia com orienta&#231;&#227;o
+nutri&#231;&#227;o com foco comportamental
+educa&#231;&#227;o em sa&#250;de
+19. Filtros que o usu&#225;rio pode aplicar no resultado
+Depois do resultado, o usu&#225;rio pode refinar os caminhos.
+Filtros recomendados
+todos os caminhos
+apenas n&#237;vel superior
+apenas profiss&#245;es t&#233;cnicas
+entrada mais r&#225;pida
+possibilidade remota
+maior contato humano
+maior estabilidade
+maior potencial de renda
+mais criativas
+mais anal&#237;ticas
+mais pr&#225;ticas
+mais ligadas &#224; sa&#250;de
+mais ligadas &#224; tecnologia
+20. Como a realidade ajusta o resultado
+A realidade n&#227;o muda a afinidade, mas muda a forma de sugerir os caminhos.
+Exemplo
+Se o usu&#225;rio tiver:
+pouco tempo para estudar
+busca renda mais r&#225;pida
+prefer&#234;ncia por remoto
+E tiver alta afinidade com Comunica&#231;&#227;o + Criatividade, o app pode priorizar:
+social media
+cria&#231;&#227;o de conte&#250;do
+copywriting introdut&#243;rio
+edi&#231;&#227;o b&#225;sica
+marketing digital
+Em vez de sugerir s&#243; forma&#231;&#245;es longas.
+21. Estrutura final de resposta por vers&#227;o
+Vers&#227;o r&#225;pida
+Mostrar:
+3 &#225;reas principais
+1 texto curto
+5 a 8 profiss&#245;es
+frase final:
+Este resultado &#233; um ponto de partida para sua explora&#231;&#227;o.
+Vers&#227;o principal
+Mostrar:
+3 a 5 &#225;reas
+pontos fortes percebidos
+ambientes que combinam
+profiss&#245;es poss&#237;veis
+pr&#243;ximos passos
+Vers&#227;o mais completa
+Mostrar:
+tudo da principal
+subperfil de ambiente
+afinidades secund&#225;rias
+combina&#231;&#227;o dupla ou tripla
+alertas de conflito interno
+filtros de realidade mais refinados
+22. Pr&#243;ximos passos sugeridos no resultado
+O app sempre deve terminar com a&#231;&#245;es pr&#225;ticas.
+Exemplos
+pesquisar a rotina de 2 ou 3 &#225;reas
+assistir v&#237;deos de profissionais da &#225;rea
+conversar com algu&#233;m que atua nesse caminho
+fazer um mini curso introdut&#243;rio
+comparar forma&#231;&#227;o longa x entrada r&#225;pida
+testar uma atividade pr&#225;tica
+salvar caminhos favoritos no app
+23. Modelo pronto de resposta final
+Suas &#225;reas com maior afinidade
+Comunica&#231;&#227;o e Express&#227;o
+Criatividade e Est&#233;tica
+Comercial e Negocia&#231;&#227;o
+Leitura do seu perfil
+Voc&#234; tende a se conectar com contextos em que expressar ideias, criar solu&#231;&#245;es e gerar resultado fazem parte da rotina.
+Pontos fortes percebidos
+boa express&#227;o
+criatividade
+iniciativa
+vis&#227;o de p&#250;blico
+Ambientes que combinam com voc&#234;
+din&#226;micos
+criativos
+orientados a p&#250;blico
+com liberdade de express&#227;o
+com metas e espa&#231;o para inova&#231;&#227;o
+Sub&#225;reas compat&#237;veis
+comunica&#231;&#227;o digital
+cria&#231;&#227;o visual
+marketing e posicionamento
+Poss&#237;veis caminhos
+social media
+copywriter
+marketing
+branding
+publicidade
+produ&#231;&#227;o de conte&#250;do
+campanhas digitais
+Pr&#243;ximos passos
+explorar 2 ou 3 dessas &#225;reas
+assistir &#224; rotina de profissionais
+testar um mini projeto
+fazer um curso introdut&#243;rio
+24. Estrutura t&#233;cnica m&#237;nima para o programador
+Cada pergunta:
+id
+texto
+bloco
+pesos por &#225;rea
+Cada &#225;rea:
+nome
+descri&#231;&#227;o curta
+tra&#231;os
+ambientes
+texto de resultado
+Cada profiss&#227;o:
+nome
+&#225;rea principal
+&#225;rea secund&#225;ria
+sub&#225;rea
+forma&#231;&#227;o
+etiquetas de filtro
+descri&#231;&#227;o curta
+Cada combina&#231;&#227;o:
+&#225;reas envolvidas
+texto interpretativo
+profiss&#245;es ligadas
+25. Decis&#227;o final recomendada
+Internamente
+Use:
+12 &#225;reas
+pesos por pergunta
+pontua&#231;&#227;o em porcentagem
+combina&#231;&#245;es duplas e triplas
+filtro por realidade
+Para o usu&#225;rio
+Mostre:
+3 &#225;reas principais
+2 secund&#225;rias
+texto claro
+sub&#225;reas
+profiss&#245;es poss&#237;veis
+ambientes ideais
+pr&#243;ximos passos
+filtros opcionais

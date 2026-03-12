@@ -1,0 +1,125 @@
+24|||Interesses
+1|||Gosto de cuidar de pessoas.
+2|||Gosto de ensinar o que sei.
+3|||Gosto de criar ideias, textos, imagens ou projetos.
+4|||Gosto de analisar dados, números ou informações.
+5|||Gosto de resolver problemas práticos.
+6|||Gosto de vender, convencer ou negociar.
+7|||Gosto de trabalhar com tecnologia.
+8|||Gosto de organizar tarefas, processos ou materiais.
+9|||Prefiro trabalhar em equipe.
+10|||Prefiro trabalhar de forma mais independente.
+11|||Gosto de rotina bem definida.
+12|||Prefiro dias variados e dinâmicos.
+13|||Sinto-me bem falando com pessoas novas.
+14|||Gosto de assumir responsabilidades e tomar decisões.
+15|||Ter propósito no trabalho é muito importante para mim.
+16|||Ter estabilidade profissional é muito importante para mim.
+17|||Ter boa remuneração pesa bastante nas minhas escolhas.
+18|||Ter autonomia para trabalhar do meu jeito é essencial para mim.
+19|||Ter espaço para criatividade é importante para eu me sentir realizado.
+20|||Tenho disposição para estudar por um período longo, se necessário.
+21|||Preciso de uma carreira com entrada mais rápida no mercado.
+22|||Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.
+23|||Consigo me imaginar fazendo cursos, prática e aperfeiçoamento contínuo.
+24|||Estou disposto a começar pequeno para crescer com o tempo.
+38|||Interesses
+1|||Gosto de cuidar de pessoas.
+2|||Gosto de ouvir os outros com atenção e acolhimento.
+3|||Gosto de ensinar o que sei.
+4|||Gosto de explicar assuntos até que fiquem claros para alguém.
+5|||Gosto de criar ideias, textos, imagens ou projetos.
+6|||Gosto de atividades que envolvem criatividade e expressão.
+7|||Gosto de analisar dados, números ou informações.
+8|||Gosto de pesquisar antes de tomar decisões.
+9|||Gosto de resolver problemas práticos.
+10|||Gosto de encontrar melhorias em processos ou sistemas.
+11|||Gosto de vender, convencer ou negociar.
+12|||Gosto de trabalhar com metas e resultados.
+13|||Prefiro trabalhar em equipe.
+14|||Prefiro trabalhar de forma mais independente.
+15|||Gosto de rotina bem definida.
+16|||Prefiro dias variados e dinâmicos.
+17|||Sinto-me bem falando com pessoas novas.
+18|||Prefiro um ambiente mais tranquilo do que muito agitado.
+19|||Gosto de assumir responsabilidades e tomar decisões.
+20|||Prefiro receber orientações claras antes de executar algo.
+21|||Gosto de liderar grupos ou organizar pessoas.
+22|||Consigo lidar bem com pressão e prazos.
+23|||Ter propósito no trabalho é muito importante para mim.
+24|||Ter estabilidade profissional é muito importante para mim.
+25|||Ter boa remuneração pesa bastante nas minhas escolhas.
+26|||Ter autonomia para trabalhar do meu jeito é essencial para mim.
+27|||Ter espaço para criatividade é importante para eu me sentir realizado.
+28|||Sentir que meu trabalho ajuda outras pessoas é importante para mim.
+29|||Prefiro segurança e previsibilidade a risco e incerteza.
+30|||Aceito mais pressão se houver mais crescimento e oportunidades.
+31|||Tenho disposição para estudar por um período longo, se necessário.
+32|||Preciso de uma carreira com entrada mais rápida no mercado.
+33|||Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.
+34|||Consigo me imaginar fazendo faculdade ou formação longa.
+35|||Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.
+36|||Estou disposto a fazer networking e conversar com profissionais da área.
+37|||Consigo me imaginar aprendendo continuamente ao longo da carreira.
+38|||Estou disposto a começar pequeno para crescer com o tempo.
+60|||Interesses
+1|||Gosto de cuidar de pessoas.
+2|||Gosto de ouvir os outros com atenção e acolhimento.
+3|||Gosto de ensinar o que sei.
+4|||Gosto de explicar assuntos até que fiquem claros para alguém.
+5|||Gosto de criar ideias, textos, imagens ou projetos.
+6|||Gosto de atividades que envolvem criatividade e expressão.
+7|||Gosto de analisar dados, números ou informações.
+8|||Gosto de pesquisar antes de tomar decisões.
+9|||Gosto de resolver problemas práticos.
+10|||Gosto de encontrar melhorias em processos ou sistemas.
+11|||Gosto de vender, convencer ou negociar.
+12|||Gosto de trabalhar com metas e resultados.
+13|||Gosto de trabalhar com tecnologia.
+14|||Gosto de aprender ferramentas, plataformas ou sistemas novos.
+15|||Gosto de organizar tarefas, processos ou materiais.
+16|||Gosto de planejar etapas e manter tudo bem estruturado.
+17|||Gosto de escrever, falar ou me comunicar de forma clara.
+18|||Gosto de apresentar ideias para outras pessoas.
+19|||Gosto de trabalhos manuais ou práticos.
+20|||Gosto de observar detalhes e perceber erros com facilidade.
+21|||Prefiro trabalhar em equipe.
+22|||Prefiro trabalhar de forma mais independente.
+23|||Gosto de rotina bem definida.
+24|||Prefiro dias variados e dinâmicos.
+25|||Sinto-me bem falando com pessoas novas.
+26|||Prefiro um ambiente mais tranquilo do que muito agitado.
+27|||Gosto de assumir responsabilidades e tomar decisões.
+28|||Prefiro receber orientações claras antes de executar algo.
+29|||Gosto de liderar grupos ou organizar pessoas.
+30|||Consigo lidar bem com pressão e prazos.
+31|||Prefiro ambientes com regras e processos claros.
+32|||Gosto de liberdade para experimentar novas formas de fazer algo.
+33|||Tenho facilidade para manter foco por bastante tempo.
+34|||Consigo mudar de tarefa rapidamente sem me perder.
+35|||Sinto-me confortável em atividades com muita interação social.
+36|||Ter propósito no trabalho é muito importante para mim.
+37|||Ter estabilidade profissional é muito importante para mim.
+38|||Ter boa remuneração pesa bastante nas minhas escolhas.
+39|||Ter autonomia para trabalhar do meu jeito é essencial para mim.
+40|||Ter espaço para criatividade é importante para eu me sentir realizado.
+41|||Sentir que meu trabalho ajuda outras pessoas é importante para mim.
+42|||Prefiro segurança e previsibilidade a risco e incerteza.
+43|||Aceito mais pressão se houver mais crescimento e oportunidades.
+44|||Ter tempo de vida pessoal e equilíbrio com o trabalho é muito importante para mim.
+45|||Quero uma carreira em que eu possa continuar aprendendo e evoluindo.
+46|||Valorizo reconhecimento e valorização pelo que entrego.
+47|||Prefiro um trabalho alinhado com meus valores, mesmo que demore mais para dar 
+48|||Tenho disposição para estudar por um período longo, se necessário.
+49|||Preciso de uma carreira com entrada mais rápida no mercado.
+50|||Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.
+51|||Consigo me imaginar fazendo faculdade ou formação longa.
+52|||Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.
+53|||Estou disposto a fazer networking e conversar com profissionais da área.
+54|||Consigo me imaginar aprendendo continuamente ao longo da carreira.
+55|||Estou disposto a começar pequeno para crescer com o tempo.
+56|||Tenho facilidade para manter disciplina de estudos.
+57|||Tenho abertura para mudar de área, se perceber que outra combina mais comigo.
+58|||Levo em conta minha realidade financeira ao pensar em profissão.
+59|||Consigo me imaginar conciliando trabalho e estudo por um período.
+60|||Estou disposto a fazer experiências práticas antes de decidir um caminho.

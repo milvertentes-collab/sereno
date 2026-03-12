@@ -1,0 +1,60 @@
+1 [S]: Gosto de cuidar de pessoas.
+2 [S]: Gosto de ouvir os outros com atenção e acolhimento.
+3 [A]: Gosto de criar ideias, textos, imagens ou projetos.
+4 [N/A]: Gosto de explicar assuntos até que fiquem claros para alguém.
+5 [A]: Gosto de criar ideias, textos, imagens ou projetos.
+6 [A]: Gosto de atividades que envolvem criatividade e expressão.
+7 [I]: Gosto de analisar dados, números ou informações.
+8 [C]: Gosto de organizar tarefas, processos ou materiais.
+9 [R]: Gosto de resolver problemas práticos.
+10 [N/A]: Gosto de encontrar melhorias em processos ou sistemas.
+11 [E]: Gosto de vender, convencer ou negociar.
+12 [E]: Gosto de trabalhar com metas e resultados.
+13 [S]: Sinto-me bem falando com pessoas novas.
+14 [R]: Gosto de aprender ferramentas, plataformas ou sistemas novos.
+15 [N/A]: Ter propósito no trabalho é muito importante para mim.
+16 [N/A]: Ter estabilidade profissional é muito importante para mim.
+17 [A]: Gosto de escrever, falar ou me comunicar de forma clara.
+18 [N/A]: Ter autonomia para trabalhar do meu jeito é essencial para mim.
+19 [N/A]: Ter espaço para criatividade é importante para eu me sentir realizado.
+20 [N/A]: Tenho disposição para estudar por um período longo, se necessário.
+21 [N/A]: Preciso de uma carreira com entrada mais rápida no mercado.
+22 [N/A]: Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.
+23 [N/A]: Consigo me imaginar fazendo cursos, prática e aperfeiçoamento contínuo.
+24 [N/A]: Estou disposto a começar pequeno para crescer com o tempo.
+25 [N/A]: Ter boa remuneração pesa bastante nas minhas escolhas.
+26 [N/A]: Ter autonomia para trabalhar do meu jeito é essencial para mim.
+27 [N/A]: Ter espaço para criatividade é importante para eu me sentir realizado.
+28 [S]: Sentir que meu trabalho ajuda outras pessoas é importante para mim.
+29 [N/A]: Prefiro segurança e previsibilidade a risco e incerteza.
+30 [N/A]: Aceito mais pressão se houver mais crescimento e oportunidades.
+31 [N/A]: Tenho disposição para estudar por um período longo, se necessário.
+32 [N/A]: Gosto de liberdade para experimentar novas formas de fazer algo.
+33 [N/A]: Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.
+34 [N/A]: Consigo me imaginar fazendo faculdade ou formação longa.
+35 [N/A]: Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.
+36 [N/A]: Estou disposto a fazer networking e conversar com profissionais da área.
+37 [N/A]: Consigo me imaginar aprendendo continuamente ao longo da carreira.
+38 [N/A]: Estou disposto a começar pequeno para crescer com o tempo.
+39 [N/A]: Ter autonomia para trabalhar do meu jeito é essencial para mim.
+40 [N/A]: Ter espaço para criatividade é importante para eu me sentir realizado.
+41 [S]: Sentir que meu trabalho ajuda outras pessoas é importante para mim.
+42 [N/A]: Prefiro segurança e previsibilidade a risco e incerteza.
+43 [N/A]: Aceito mais pressão se houver mais crescimento e oportunidades.
+44 [N/A]: Ter tempo de vida pessoal e equilíbrio com o trabalho é muito importante para mim.
+45 [N/A]: Quero uma carreira em que eu possa continuar aprendendo e evoluindo.
+46 [I]: Valorizo reconhecimento e valorização pelo que entrego.
+47 [N/A]: Prefiro um trabalho alinhado com meus valores, mesmo que demore mais para dar  retorno.
+48 [N/A]: Tenho disposição para estudar por um período longo, se necessário.
+49 [N/A]: Preciso de uma carreira com entrada mais rápida no mercado.
+50 [N/A]: Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.
+51 [N/A]: Consigo me imaginar fazendo faculdade ou formação longa.
+52 [N/A]: Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.
+53 [N/A]: Estou disposto a fazer networking e conversar com profissionais da área.
+54 [N/A]: Consigo me imaginar aprendendo continuamente ao longo da carreira.
+55 [N/A]: Estou disposto a começar pequeno para crescer com o tempo.
+56 [N/A]: Tenho facilidade para manter disciplina de estudos.
+57 [N/A]: Tenho abertura para mudar de área, se perceber que outra combina mais comigo.
+58 [N/A]: Levo em conta minha realidade financeira ao pensar em profissão.
+59 [N/A]: Consigo me imaginar conciliando trabalho e estudo por um período.
+60 [N/A]: Estou disposto a fazer experiências práticas antes de decidir um caminho.

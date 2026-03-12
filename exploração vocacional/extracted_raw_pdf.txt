@@ -1,0 +1,278 @@
+Exploracao Vocacional
+Tres versoes de questionario para o usuario escolher o nivel de profundidade
+Como usar
+• Escolha uma das tres versoes: rapida, principal ou mais completa.
+• Marque apenas uma alternativa por pergunta.
+• O ideal e interpretar o resultado por afinidade, e nao como uma profissao definitiva.
+• As alternativas sao sempre as mesmas em todas as versoes para facilitar a experiencia no app.
+Escala de resposta padrao
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Descricao curta: Um teste guiado para explorar interesses, valores e estilo de trabalho, gerando 
+areas compativeis e proximos passos praticos.
+Sugestao de interpretacao do resultado: ao final, o app pode agrupar as maiores afinidades em 
+areas como cuidado humano, educacao, comunicacao, criatividade, analise, tecnologia, organizacao e 
+comercial.
+Versão rápida
+18 a 24 perguntas. Ideal para um primeiro panorama vocacional. Total de perguntas nesta versao: 24.
+Interesses
+1. Gosto de cuidar de pessoas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+2. Gosto de ensinar o que sei.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+3. Gosto de criar ideias, textos, imagens ou projetos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+4. Gosto de analisar dados, números ou informações.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+5. Gosto de resolver problemas práticos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+6. Gosto de vender, convencer ou negociar.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+7. Gosto de trabalhar com tecnologia.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+8. Gosto de organizar tarefas, processos ou materiais.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Estilo pessoal
+9. Prefiro trabalhar em equipe.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+10. Prefiro trabalhar de forma mais independente.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+11. Gosto de rotina bem definida.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+12. Prefiro dias variados e dinâmicos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+13. Sinto-me bem falando com pessoas novas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+14. Gosto de assumir responsabilidades e tomar decisões.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Valores
+15. Ter propósito no trabalho é muito importante para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+16. Ter estabilidade profissional é muito importante para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+17. Ter boa remuneração pesa bastante nas minhas escolhas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+18. Ter autonomia para trabalhar do meu jeito é essencial para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+19. Ter espaço para criatividade é importante para eu me sentir realizado.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Realidade e contexto
+20. Tenho disposição para estudar por um período longo, se necessário.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+21. Preciso de uma carreira com entrada mais rápida no mercado.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+22. Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+23. Consigo me imaginar fazendo cursos, prática e aperfeiçoamento contínuo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+24. Estou disposto a começar pequeno para crescer com o tempo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Versão principal
+30 a 45 perguntas. Ideal para um resultado mais equilibrado e útil. Total de perguntas nesta versao: 38.
+Interesses
+1. Gosto de cuidar de pessoas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+2. Gosto de ouvir os outros com atenção e acolhimento.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+3. Gosto de ensinar o que sei.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+4. Gosto de explicar assuntos até que fiquem claros para alguém.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+5. Gosto de criar ideias, textos, imagens ou projetos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+6. Gosto de atividades que envolvem criatividade e expressão.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+7. Gosto de analisar dados, números ou informações.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+8. Gosto de pesquisar antes de tomar decisões.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+9. Gosto de resolver problemas práticos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+10. Gosto de encontrar melhorias em processos ou sistemas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+11. Gosto de vender, convencer ou negociar.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+12. Gosto de trabalhar com metas e resultados.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Estilo pessoal
+13. Prefiro trabalhar em equipe.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+14. Prefiro trabalhar de forma mais independente.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+15. Gosto de rotina bem definida.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+16. Prefiro dias variados e dinâmicos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+17. Sinto-me bem falando com pessoas novas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+18. Prefiro um ambiente mais tranquilo do que muito agitado.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+19. Gosto de assumir responsabilidades e tomar decisões.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+20. Prefiro receber orientações claras antes de executar algo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+21. Gosto de liderar grupos ou organizar pessoas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+22. Consigo lidar bem com pressão e prazos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Valores
+23. Ter propósito no trabalho é muito importante para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+24. Ter estabilidade profissional é muito importante para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+25. Ter boa remuneração pesa bastante nas minhas escolhas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+26. Ter autonomia para trabalhar do meu jeito é essencial para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+27. Ter espaço para criatividade é importante para eu me sentir realizado.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+28. Sentir que meu trabalho ajuda outras pessoas é importante para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+29. Prefiro segurança e previsibilidade a risco e incerteza.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+30. Aceito mais pressão se houver mais crescimento e oportunidades.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Realidade e contexto
+31. Tenho disposição para estudar por um período longo, se necessário.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+32. Preciso de uma carreira com entrada mais rápida no mercado.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+33. Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+34. Consigo me imaginar fazendo faculdade ou formação longa.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+35. Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+36. Estou disposto a fazer networking e conversar com profissionais da área.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+37. Consigo me imaginar aprendendo continuamente ao longo da carreira.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+38. Estou disposto a começar pequeno para crescer com o tempo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Versão mais completa
+50 a 60 perguntas. Ideal para reflexão mais profunda antes de escolher caminhos. Total de perguntas 
+nesta versao: 60.
+Interesses
+1. Gosto de cuidar de pessoas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+2. Gosto de ouvir os outros com atenção e acolhimento.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+3. Gosto de ensinar o que sei.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+4. Gosto de explicar assuntos até que fiquem claros para alguém.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+5. Gosto de criar ideias, textos, imagens ou projetos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+6. Gosto de atividades que envolvem criatividade e expressão.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+7. Gosto de analisar dados, números ou informações.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+8. Gosto de pesquisar antes de tomar decisões.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+9. Gosto de resolver problemas práticos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+10. Gosto de encontrar melhorias em processos ou sistemas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+11. Gosto de vender, convencer ou negociar.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+12. Gosto de trabalhar com metas e resultados.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+13. Gosto de trabalhar com tecnologia.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+14. Gosto de aprender ferramentas, plataformas ou sistemas novos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+15. Gosto de organizar tarefas, processos ou materiais.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+16. Gosto de planejar etapas e manter tudo bem estruturado.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+17. Gosto de escrever, falar ou me comunicar de forma clara.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+18. Gosto de apresentar ideias para outras pessoas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+19. Gosto de trabalhos manuais ou práticos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+20. Gosto de observar detalhes e perceber erros com facilidade.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Estilo pessoal
+21. Prefiro trabalhar em equipe.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+22. Prefiro trabalhar de forma mais independente.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+23. Gosto de rotina bem definida.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+24. Prefiro dias variados e dinâmicos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+25. Sinto-me bem falando com pessoas novas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+26. Prefiro um ambiente mais tranquilo do que muito agitado.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+27. Gosto de assumir responsabilidades e tomar decisões.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+28. Prefiro receber orientações claras antes de executar algo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+29. Gosto de liderar grupos ou organizar pessoas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+30. Consigo lidar bem com pressão e prazos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+31. Prefiro ambientes com regras e processos claros.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+32. Gosto de liberdade para experimentar novas formas de fazer algo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+33. Tenho facilidade para manter foco por bastante tempo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+34. Consigo mudar de tarefa rapidamente sem me perder.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+35. Sinto-me confortável em atividades com muita interação social.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Valores
+36. Ter propósito no trabalho é muito importante para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+37. Ter estabilidade profissional é muito importante para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+38. Ter boa remuneração pesa bastante nas minhas escolhas.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+39. Ter autonomia para trabalhar do meu jeito é essencial para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+40. Ter espaço para criatividade é importante para eu me sentir realizado.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+41. Sentir que meu trabalho ajuda outras pessoas é importante para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+42. Prefiro segurança e previsibilidade a risco e incerteza.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+43. Aceito mais pressão se houver mais crescimento e oportunidades.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+44. Ter tempo de vida pessoal e equilíbrio com o trabalho é muito importante para mim.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+45. Quero uma carreira em que eu possa continuar aprendendo e evoluindo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+46. Valorizo reconhecimento e valorização pelo que entrego.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+47. Prefiro um trabalho alinhado com meus valores, mesmo que demore mais para dar 
+retorno.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+Realidade e contexto
+48. Tenho disposição para estudar por um período longo, se necessário.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+49. Preciso de uma carreira com entrada mais rápida no mercado.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+50. Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+51. Consigo me imaginar fazendo faculdade ou formação longa.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+52. Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+53. Estou disposto a fazer networking e conversar com profissionais da área.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+54. Consigo me imaginar aprendendo continuamente ao longo da carreira.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+55. Estou disposto a começar pequeno para crescer com o tempo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+56. Tenho facilidade para manter disciplina de estudos.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+57. Tenho abertura para mudar de área, se perceber que outra combina mais comigo.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+58. Levo em conta minha realidade financeira ao pensar em profissão.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+59. Consigo me imaginar conciliando trabalho e estudo por um período.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo
+60. Estou disposto a fazer experiências práticas antes de decidir um caminho.
+Nada a ver comigo Um pouco Neutro Bastante Muito a ver comigo

@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "text": "Gosto de cuidar de pessoas.",
+    "category": "S"
+  },
+  {
+    "id": 2,
+    "text": "Gosto de ouvir os outros com atenção e acolhimento.",
+    "category": "I"
+  },
+  {
+    "id": 3,
+    "text": "Gosto de criar ideias, textos, imagens ou projetos.",
+    "category": "A"
+  },
+  {
+    "id": 4,
+    "text": "Gosto de explicar assuntos até que fiquem claros para alguém.",
+    "category": "R"
+  },
+  {
+    "id": 5,
+    "text": "Gosto de criar ideias, textos, imagens ou projetos.",
+    "category": "E"
+  },
+  {
+    "id": 6,
+    "text": "Gosto de atividades que envolvem criatividade e expressão.",
+    "category": "C"
+  },
+  {
+    "id": 7,
+    "text": "Gosto de analisar dados, números ou informações.",
+    "category": "S"
+  },
+  {
+    "id": 8,
+    "text": "Gosto de organizar tarefas, processos ou materiais.",
+    "category": "I"
+  },
+  {
+    "id": 9,
+    "text": "Gosto de resolver problemas práticos.",
+    "category": "A"
+  },
+  {
+    "id": 10,
+    "text": "Gosto de encontrar melhorias em processos ou sistemas.",
+    "category": "R"
+  },
+  {
+    "id": 11,
+    "text": "Gosto de vender, convencer ou negociar.",
+    "category": "E"
+  },
+  {
+    "id": 12,
+    "text": "Gosto de trabalhar com metas e resultados.",
+    "category": "C"
+  },
+  {
+    "id": 13,
+    "text": "Sinto-me bem falando com pessoas novas.",
+    "category": "S"
+  },
+  {
+    "id": 14,
+    "text": "Gosto de aprender ferramentas, plataformas ou sistemas novos.",
+    "category": "I"
+  },
+  {
+    "id": 15,
+    "text": "Ter propósito no trabalho é muito importante para mim.",
+    "category": "A"
+  },
+  {
+    "id": 16,
+    "text": "Ter estabilidade profissional é muito importante para mim.",
+    "category": "R"
+  },
+  {
+    "id": 17,
+    "text": "Gosto de escrever, falar ou me comunicar de forma clara.",
+    "category": "E"
+  },
+  {
+    "id": 18,
+    "text": "Ter autonomia para trabalhar do meu jeito é essencial para mim.",
+    "category": "C"
+  },
+  {
+    "id": 19,
+    "text": "Ter espaço para criatividade é importante para eu me sentir realizado.",
+    "category": "S"
+  },
+  {
+    "id": 20,
+    "text": "Tenho disposição para estudar por um período longo, se necessário.",
+    "category": "I"
+  },
+  {
+    "id": 21,
+    "text": "Preciso de uma carreira com entrada mais rápida no mercado.",
+    "category": "A"
+  },
+  {
+    "id": 22,
+    "text": "Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.",
+    "category": "R"
+  },
+  {
+    "id": 23,
+    "text": "Consigo me imaginar fazendo cursos, prática e aperfeiçoamento contínuo.",
+    "category": "E"
+  },
+  {
+    "id": 24,
+    "text": "Estou disposto a começar pequeno para crescer com o tempo.",
+    "category": "C"
+  },
+  {
+    "id": 25,
+    "text": "Ter boa remuneração pesa bastante nas minhas escolhas.",
+    "category": "S"
+  },
+  {
+    "id": 26,
+    "text": "Ter autonomia para trabalhar do meu jeito é essencial para mim.",
+    "category": "I"
+  },
+  {
+    "id": 27,
+    "text": "Ter espaço para criatividade é importante para eu me sentir realizado.",
+    "category": "A"
+  },
+  {
+    "id": 28,
+    "text": "Sentir que meu trabalho ajuda outras pessoas é importante para mim.",
+    "category": "R"
+  },
+  {
+    "id": 29,
+    "text": "Prefiro segurança e previsibilidade a risco e incerteza.",
+    "category": "E"
+  },
+  {
+    "id": 30,
+    "text": "Aceito mais pressão se houver mais crescimento e oportunidades.",
+    "category": "C"
+  },
+  {
+    "id": 31,
+    "text": "Tenho disposição para estudar por um período longo, se necessário.",
+    "category": "S"
+  },
+  {
+    "id": 32,
+    "text": "Gosto de liberdade para experimentar novas formas de fazer algo.",
+    "category": "I"
+  },
+  {
+    "id": 33,
+    "text": "Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.",
+    "category": "A"
+  },
+  {
+    "id": 34,
+    "text": "Consigo me imaginar fazendo faculdade ou formação longa.",
+    "category": "R"
+  },
+  {
+    "id": 35,
+    "text": "Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.",
+    "category": "E"
+  },
+  {
+    "id": 36,
+    "text": "Estou disposto a fazer networking e conversar com profissionais da área.",
+    "category": "C"
+  },
+  {
+    "id": 37,
+    "text": "Consigo me imaginar aprendendo continuamente ao longo da carreira.",
+    "category": "S"
+  },
+  {
+    "id": 38,
+    "text": "Estou disposto a começar pequeno para crescer com o tempo.",
+    "category": "I"
+  },
+  {
+    "id": 39,
+    "text": "Ter autonomia para trabalhar do meu jeito é essencial para mim.",
+    "category": "A"
+  },
+  {
+    "id": 40,
+    "text": "Ter espaço para criatividade é importante para eu me sentir realizado.",
+    "category": "R"
+  },
+  {
+    "id": 41,
+    "text": "Sentir que meu trabalho ajuda outras pessoas é importante para mim.",
+    "category": "E"
+  },
+  {
+    "id": 42,
+    "text": "Prefiro segurança e previsibilidade a risco e incerteza.",
+    "category": "C"
+  },
+  {
+    "id": 43,
+    "text": "Aceito mais pressão se houver mais crescimento e oportunidades.",
+    "category": "S"
+  },
+  {
+    "id": 44,
+    "text": "Ter tempo de vida pessoal e equilíbrio com o trabalho é muito importante para mim.",
+    "category": "I"
+  },
+  {
+    "id": 45,
+    "text": "Quero uma carreira em que eu possa continuar aprendendo e evoluindo.",
+    "category": "A"
+  },
+  {
+    "id": 46,
+    "text": "Valorizo reconhecimento e valorização pelo que entrego.",
+    "category": "R"
+  },
+  {
+    "id": 47,
+    "text": "Prefiro um trabalho alinhado com meus valores, mesmo que demore mais para dar  retorno.",
+    "category": "E"
+  },
+  {
+    "id": 48,
+    "text": "Tenho disposição para estudar por um período longo, se necessário.",
+    "category": "C"
+  },
+  {
+    "id": 49,
+    "text": "Preciso de uma carreira com entrada mais rápida no mercado.",
+    "category": "S"
+  },
+  {
+    "id": 50,
+    "text": "Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.",
+    "category": "I"
+  },
+  {
+    "id": 51,
+    "text": "Consigo me imaginar fazendo faculdade ou formação longa.",
+    "category": "A"
+  },
+  {
+    "id": 52,
+    "text": "Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.",
+    "category": "R"
+  },
+  {
+    "id": 53,
+    "text": "Estou disposto a fazer networking e conversar com profissionais da área.",
+    "category": "E"
+  },
+  {
+    "id": 54,
+    "text": "Consigo me imaginar aprendendo continuamente ao longo da carreira.",
+    "category": "C"
+  },
+  {
+    "id": 55,
+    "text": "Estou disposto a começar pequeno para crescer com o tempo.",
+    "category": "S"
+  },
+  {
+    "id": 56,
+    "text": "Tenho facilidade para manter disciplina de estudos.",
+    "category": "I"
+  },
+  {
+    "id": 57,
+    "text": "Tenho abertura para mudar de área, se perceber que outra combina mais comigo.",
+    "category": "A"
+  },
+  {
+    "id": 58,
+    "text": "Levo em conta minha realidade financeira ao pensar em profissão.",
+    "category": "R"
+  },
+  {
+    "id": 59,
+    "text": "Consigo me imaginar conciliando trabalho e estudo por um período.",
+    "category": "E"
+  },
+  {
+    "id": 60,
+    "text": "Estou disposto a fazer experiências práticas antes de decidir um caminho.",
+    "category": "C"
+  }
+]

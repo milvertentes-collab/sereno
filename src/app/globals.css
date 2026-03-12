@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: hsl(210 40% 98%);
+  --color-foreground: hsl(222 47% 11%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(222 47% 11%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(222 47% 11%);
+  --color-primary: hsl(210 70% 50%);
+  --color-primary-foreground: hsl(210 40% 98%);
+  --color-secondary: hsl(210 40% 96%);
+  --color-secondary-foreground: hsl(222 47% 11%);
+  --color-muted: hsl(210 40% 96%);
+  --color-muted-foreground: hsl(215 16% 47%);
+  --color-accent: hsl(210 40% 96%);
+  --color-accent-foreground: hsl(222 47% 11%);
+  --color-destructive: hsl(0 84% 60%);
+  --color-destructive-foreground: hsl(210 40% 98%);
+  --color-border: hsl(214 32% 91%);
+  --color-input: hsl(214 32% 91%);
+  --color-ring: hsl(210 70% 50%);
+  --radius: 0.75rem;
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+/* Base styles */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(215 16% 47% / 0.3);
+  border-radius: 2px;
+}
+
+/* Animations */
+@keyframes breathe {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-soft {
+
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-breathe {
+  animation: breathe 8s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+.animate-ripple {
+  animation: ripple 2s ease-out infinite;
+}
+
+@keyframes bounce-subtle {
+
+  0%,
+  100% {
+    transform: translateY(-3%);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 0.6s ease-in-out infinite;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-calm {
+  background: linear-gradient(135deg, hsl(210 40% 98%) 0%, hsl(270 40% 96%) 50%, hsl(200 40% 96%) 100%);
+}
+
+.bg-gradient-night {
+  background: linear-gradient(180deg, hsl(250 30% 15%) 0%, hsl(270 30% 20%) 50%, hsl(220 30% 25%) 100%);
+}
+
+.bg-gradient-breathing {
+  background: radial-gradient(circle at center, hsl(210 70% 80%) 0%, hsl(210 70% 60%) 50%, hsl(210 70% 40%) 100%);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.card-hover:active {
+  transform: translateY(0);
+}
+
+/* Safe area padding for mobile */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Global Font Scaling and Family classes set on html tag */
+html.font-small {
+  font-size: 14px !important;
+}
+
+html.font-medium {
+  font-size: 18px !important;
+}
+
+html.font-large {
+  font-size: 22px !important;
+}
+
+html.font-extra-large {
+  font-size: 26px !important;
+}
+
+/* Font Families */
+html.family-sans {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+html.family-serif {
+  font-family: 'Georgia', 'Times New Roman', serif !important;
+}
+
+html.family-dyslexic {
+  font-family: 'OpenDyslexic', sans-serif !important;
+}
+
+/* In a web app, "Discreet Mode" blurs when the window loses focus */
+
+/* In a web app, "Discreet Mode" blurs when the window loses focus */
+.discreet-active {
+  filter: blur(20px) grayscale(80%) !important;
+  user-select: none !important;
+  pointer-events: none !important;
+  transition: filter 0.3s ease !important;
+}
+
+/* Base Utility for focus */
+.focus-ring:focus-visible {
+  outline: 2px solid hsl(210 70% 50%);
+  outline-offset: 2px;
+}
+
+/* Hide Next.js dev floating badge/tools icon */
+nextjs-portal,
+[data-nextjs-dev-tools-button],
+[data-nextjs-devtools],
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay],
+button[aria-label='Open Next.js Dev Tools'],
+button[aria-label='Open issues overlay'],
+button[aria-label='Collapse issues badge'] {
+  display: none !important;
+}

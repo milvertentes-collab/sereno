@@ -1,0 +1,377 @@
+O nome da Janela vai ser: ✋ Método dos 5 Dedos
+
+Ideia central
+
+A mão vira um roteiro emocional e relacional.
+
+Cada dedo representa uma ação:
+
+algo que eu reconheço
+
+algo que eu observo
+
+algo que eu sinto
+
+algo que eu valorizo ou preciso
+
+algo que eu peço ou escolho fazer
+
+E o polegar começa com algo positivo:
+dar um “joinha” para si mesmo e para o outro.
+
+Método dos 5 Dedos — versão adaptada para o app
+👍 Polegar — Reconhecer uma qualidade
+
+Ação: dar um joinha para si mesmo e para o outro.
+
+Esse dedo abre a prática com reconhecimento, humanidade e acolhimento.
+
+O que a pessoa faz
+
+reconhece uma qualidade em si
+
+reconhece uma qualidade no outro
+
+lembra que ninguém é só erro, conflito ou falha
+
+Exemplos
+
+Em mim:
+
+Eu reconheço que estou tentando lidar com isso da melhor forma que consigo.
+
+Eu tenho valor, mesmo quando estou sensível.
+
+Eu posso errar e ainda merecer respeito.
+
+No outro:
+
+Essa pessoa também tem qualidades, mesmo que eu esteja chateado.
+
+Talvez o outro também esteja tentando, mesmo sem saber fazer melhor.
+
+Eu posso reconhecer algo bom sem concordar com tudo.
+
+Frase curta do app
+
+Comece reconhecendo valor em você e no outro.
+
+👉 Indicador — Apontar o fato
+
+Ação: apontar o que aconteceu, sem exagero e sem ataque.
+
+Esse dedo serve para sair da confusão e ir para a clareza.
+
+O que a pessoa faz
+
+descreve a situação
+
+separa fato de interpretação
+
+fala do que aconteceu sem acusar
+
+Exemplos
+
+Quando isso aconteceu…
+
+Quando você falou isso…
+
+Quando eu fui interrompido…
+
+Quando essa mudança foi feita sem me avisar…
+
+Frase curta do app
+
+Aponte o fato com clareza, sem ferir.
+
+Dedo do meio — Expressar o sentimento
+
+Ação: dizer o que sentiu de verdade.
+
+Esse dedo representa o centro da intensidade emocional.
+
+O que a pessoa faz
+
+nomeia a emoção
+
+fala do impacto emocional
+
+evita transformar sentimento em acusação
+
+Exemplos
+
+Eu me senti triste.
+
+Eu me senti desrespeitado.
+
+Eu me senti confuso.
+
+Eu me senti inseguro.
+
+Isso me deixou frustrado.
+
+Frase curta do app
+
+Diga o que sentiu, sem transformar dor em ataque.
+
+💍 Anelar — Lembrar do valor ou da necessidade
+
+Ação: identificar o que é importante para você naquela situação.
+
+O anelar combina com vínculo, compromisso, importância, necessidade e valor.
+
+O que a pessoa faz
+
+identifica o que precisa
+
+reconhece o que está tentando proteger
+
+conecta emoção com necessidade
+
+Exemplos
+
+Eu preciso de mais clareza.
+
+Eu preciso me sentir respeitado.
+
+Eu valorizo honestidade.
+
+Eu preciso de mais espaço.
+
+Eu preciso de previsibilidade.
+
+Eu valorizo diálogo.
+
+Frase curta do app
+
+Reconheça o que é importante para você.
+
+🤏 Mindinho — Fazer um pequeno Combinado
+
+Ação: transformar tudo em um pedido simples, possível e objetivo.
+
+O mindinho representa o passo concreto.
+
+O que a pessoa faz
+
+faz um pedido claro
+
+escolhe um próximo passo
+
+evita cobrança vaga
+
+sai do “você sempre / nunca”
+
+Exemplos
+
+Da próxima vez, me avise antes.
+
+Eu gostaria que você falasse comigo com mais calma.
+
+Podemos conversar sobre isso depois?
+
+Preciso de alguns minutos antes de continuar essa conversa.
+
+Quero combinar melhor isso com você.
+
+Frase curta do app
+
+Peça com clareza o próximo passo que você precisa.
+
+Resumo simples do método
+Os 5 dedos da prática
+
+Polegar: reconhecer uma qualidade
+
+Indicador: apontar o fato
+
+Dedo do meio: expressar o sentimento
+
+Anelar: identificar a necessidade
+
+Mindinho: fazer um pedido claro
+
+Frase-mestre do método
+
+Reconheça. Aponte. Sinta. Valorize. Peça.
+
+Ou, mais suave:
+
+Veja o valor. Veja o fato. Veja o que sente. Veja o que precisa. Veja o próximo passo.
+
+Como isso ficaria no app
+Nome sugerido
+
+✋ Método dos 5 Dedos
+
+Subtítulo
+
+Uma prática guiada para reconhecer, comunicar e se posicionar com mais consciência
+
+Descrição curta
+
+Use os 5 dedos da mão como guia para organizar emoções, reconhecer qualidades, comunicar fatos, expressar sentimentos, identificar necessidades e fazer pedidos claros.
+
+Estrutura da prática no app
+Tela 1 — Introdução
+
+Título: Método dos 5 Dedos
+Texto: Use sua mão como guia para se entender melhor e se comunicar com mais clareza, respeito e consciência.
+
+Botão: Começar
+
+Tela 2 — Polegar
+
+👍 Reconheça uma qualidade
+
+Perguntas
+
+O que eu posso reconhecer de bom em mim neste momento?
+
+O que eu posso reconhecer no outro, mesmo com a dificuldade?
+
+Campo de resposta
+
+Em mim…
+
+No outro…
+
+Tela 3 — Indicador
+
+👉 Aponte o fato
+
+Perguntas
+
+O que aconteceu de forma objetiva?
+
+Qual é o fato, sem exagero e sem acusação?
+
+Campo de resposta
+
+Quando isso aconteceu…
+
+Tela 4 — Dedo do meio
+
+Sentimento
+
+Perguntas
+
+O que eu senti?
+
+Qual foi o impacto emocional disso em mim?
+
+Emoções sugeridas
+
+tristeza
+
+raiva
+
+frustração
+
+medo
+
+ansiedade
+
+culpa
+
+vergonha
+
+confusão
+
+decepção
+
+alívio
+
+Campo de resposta
+
+Eu me senti…
+
+Tela 5 — Anelar
+
+💍 Necessidade ou valor
+
+Perguntas
+
+O que isso tocou em mim?
+
+O que eu preciso?
+
+O que é importante para mim aqui?
+
+Campo de resposta
+
+Eu preciso…
+
+Eu valorizo…
+
+Tela 6 — Mindinho
+
+🤏 Pequeno Combinado
+
+Perguntas
+
+O que eu quero pedir?
+
+Qual é o próximo passo mais simples e claro?
+
+Campo de resposta
+
+Da próxima vez, eu peço que…
+
+O que eu gostaria agora é…
+
+Exemplo completo no app
+Situação
+
+A pessoa se sentiu ignorada numa conversa.
+
+👍 Polegar
+
+Em mim: reconheço que estou tentando me expressar com sinceridade.
+No outro: reconheço que talvez a outra pessoa também esteja sobrecarregada.
+
+👉 Indicador
+
+Quando eu estava falando, fui interrompido várias vezes.
+
+Dedo do meio
+
+Eu me senti frustrado e desrespeitado.
+
+💍 Anelar
+
+Eu preciso de escuta e mais espaço para terminar o que quero dizer.
+
+🤏 Mindinho
+
+Da próxima vez, peço que você me deixe concluir antes de responder.
+
+Isso serve para quais áreas do app?
+
+Esse método pode entrar em mais de um lugar:
+
+1. Posicionamento assertivo
+
+Funciona perfeitamente aqui.
+
+2. Inteligência emocional
+
+Também funciona, porque ajuda a:
+
+reconhecer
+
+nomear
+
+compreender
+
+comunicar
+
+escolher
+
+3. Conflitos e relacionamentos
+
+Também encaixa muito bem.
+
+
+
+para animação no exercicio faça a animação de uma mao e em cada parte do exercício um dos dedos que estará em destaque e os demais estarão abaixados

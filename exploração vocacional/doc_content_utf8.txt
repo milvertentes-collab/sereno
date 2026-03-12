@@ -1,0 +1,850 @@
+EXPLORAÇÃO VOCACIONAL — VERSÃO FINAL DO APP
+1. Nome do módulo
+🧭 Exploração Vocacional
+Subtítulo
+Teste de interesses — descubra áreas, ambientes e caminhos que combinam mais com você
+Descrição curta
+Um teste guiado para explorar seus interesses, valores, estilo de trabalho e realidade de vida, gerando áreas compatíveis, profissões possíveis e próximos passos práticos.
+Descrição longa
+A Exploração Vocacional foi criada para ajudar você a entender melhor seus interesses, suas preferências e os ambientes profissionais que mais combinam com o seu perfil. O objetivo não é dizer uma profissão “certa”, e sim mostrar caminhos compatíveis com suas características, sua fase de vida e suas possibilidades reais.
+2. Posicionamento do recurso no app
+Esse módulo deve ser apresentado como:
+exploração
+autoconhecimento
+direcionamento
+ponto de partida
+Não como:
+teste definitivo
+profissão ideal
+destino fechado
+diagnóstico
+Linguagem correta no app
+Use:
+áreas com maior afinidade
+caminhos compatíveis
+possíveis direções
+tendências percebidas
+próximos passos
+Evite:
+sua profissão ideal é…
+você nasceu para…
+esse é seu destino…
+sua carreira certa é…
+3. Estrutura da experiência no app
+Tela 1 — Apresentação
+Título: Exploração Vocacional
+Texto: Entenda melhor seus interesses, seu estilo de trabalho e os caminhos profissionais que podem combinar com você.
+Botão principal: Começar
+Botão secundário: Como funciona
+Tela 2 — Escolha da versão do teste
+O usuário escolhe o nível de profundidade.
+Opção 1 — Versão rápida
+Tempo estimado: curto
+Objetivo: visão geral do perfil
+Resultado: 3 áreas principais + sugestões iniciais
+Opção 2 — Versão principal
+Tempo estimado: médio
+Objetivo: resultado mais equilibrado e útil
+Resultado: 3 a 5 áreas, pontos fortes, ambientes ideais, profissões e próximos passos
+Opção 3 — Versão mais completa
+Tempo estimado: maior
+Objetivo: leitura mais profunda do perfil
+Resultado: tudo da principal + perfil de ambiente, compatibilidades secundárias, combinações fortes e conflitos internos
+Texto sugerido na tela
+Escolha a profundidade da sua jornada. Você pode começar por uma versão mais rápida ou fazer uma análise mais completa do seu perfil.
+4. Quantidade recomendada por versão
+Para o app, a estrutura final recomendada é:
+Versão rápida
+20 perguntas
+Versão principal
+36 perguntas
+Versão mais completa
+60 perguntas
+Se o PDF já tiver números ligeiramente diferentes, mantenha o PDF como fonte oficial do conteúdo, mas para produto essa divisão funciona muito bem.
+5. Modelo de resposta das perguntas
+Todas as perguntas seguem a mesma escala:
+Nada a ver comigo
+Um pouco
+Neutro
+Bastante
+Muito a ver comigo
+Conversão para pontuação
+Nada a ver comigo = 1
+Um pouco = 2
+Neutro = 3
+Bastante = 4
+Muito a ver comigo = 5
+6. Blocos de perguntas
+As perguntas do teste devem estar divididas em 4 blocos.
+Bloco A — Interesses
+Perguntas sobre o que a pessoa gosta, sente curiosidade ou se imagina fazendo.
+Exemplos:
+Gosto de cuidar de pessoas.
+Gosto de ensinar o que sei.
+Gosto de criar coisas novas.
+Gosto de analisar dados e encontrar padrões.
+Gosto de trabalhar com tecnologia.
+Gosto de vender ou convencer.
+Gosto de ajudar pessoas a se desenvolver.
+Gosto de lidar com regras e organização.
+Peso do bloco
+100%
+Bloco B — Estilo pessoal
+Perguntas sobre como a pessoa prefere trabalhar.
+Exemplos:
+Prefiro trabalhar sozinho.
+Gosto de trabalhar em equipe.
+Gosto de rotina bem definida.
+Prefiro dias variados e dinâmicos.
+Gosto de falar com público.
+Prefiro atividades mais reservadas.
+Gosto de assumir responsabilidade.
+Prefiro ambientes previsíveis.
+Peso do bloco
+85%
+Bloco C — Valores
+Perguntas sobre o que mais importa para a pessoa no trabalho.
+Exemplos:
+Ter estabilidade é muito importante para mim.
+Quero um trabalho com propósito.
+Quero retorno financeiro.
+Criatividade é essencial para minha realização.
+Gosto de autonomia.
+Quero impacto social.
+Prefiro segurança a risco.
+Quero crescimento rápido.
+Peso do bloco
+75%
+Bloco D — Realidade
+Perguntas para ajustar a recomendação à vida real do usuário.
+Exemplos:
+Escolaridade atual
+Tempo disponível para estudar
+Renda desejada
+Preferência por remoto, presencial ou híbrido
+Entrada rápida ou formação longa
+Limitações atuais
+Flexibilidade de horário
+Prioridades pessoais
+Função do bloco
+Esse bloco não define afinidade principal.
+Ele serve para:
+adaptar profissões
+ajustar próximos passos
+sugerir rotas mais viáveis
+7. Grandes áreas de afinidade — versão final interna
+A lógica do app deve usar 12 áreas internas.
+1. Cuidado Humano
+Afinidade com acolher, escutar, apoiar e cuidar diretamente de pessoas.
+2. Educação e Desenvolvimento
+Afinidade com ensinar, orientar, explicar e ajudar outras pessoas a aprender e evoluir.
+3. Comunicação e Expressão
+Afinidade com falar, escrever, interagir e transmitir mensagens com clareza.
+4. Criatividade e Estética
+Afinidade com criar, imaginar, inovar e trabalhar com forma, estilo, design ou expressão artística.
+5. Análise e Organização
+Afinidade com lógica, estrutura, dados, planejamento, rotina, precisão e solução organizada de problemas.
+6. Tecnologia e Sistemas
+Afinidade com ferramentas digitais, sistemas, automação e resolução de problemas técnicos.
+7. Comercial e Negociação
+Afinidade com vendas, persuasão, metas, relacionamento com clientes e geração de resultados.
+8. Liderança e Gestão
+Afinidade com coordenar pessoas, tomar decisões, acompanhar metas e conduzir processos.
+9. Saúde e Corpo
+Afinidade com bem-estar físico, movimento, prevenção e cuidado com o corpo.
+10. Natureza, Ambiente e Sustentabilidade
+Afinidade com natureza, animais, meio ambiente, campo e equilíbrio ambiental.
+11. Justiça, Normas e Segurança
+Afinidade com regras, ética, proteção, investigação, responsabilidade e aplicação de normas.
+12. Execução Prática e Técnica
+Afinidade com fazer, montar, operar, instalar, consertar e produzir resultados concretos.
+8. Macrogrupos visuais para o app
+Para facilitar a visualização, as 12 áreas podem ser agrupadas em 4 macrogrupos:
+Humanas e Relacionais
+Cuidado Humano
+Educação e Desenvolvimento
+Comunicação e Expressão
+Liderança e Gestão
+Criativas e Estratégicas
+Criatividade e Estética
+Comercial e Negociação
+Análise e Organização
+Técnicas e Digitais
+Tecnologia e Sistemas
+Justiça, Normas e Segurança
+Execução Prática e Técnica
+Vida, Corpo e Natureza
+Saúde e Corpo
+Natureza, Ambiente e Sustentabilidade
+9. Lógica de pontuação
+Cada pergunta alimenta 1 ou mais áreas com pesos diferentes.
+Pesos permitidos
+peso forte = 1.0
+peso médio = 0.5
+peso leve = 0.25
+Exemplo
+Pergunta:
+Gosto de ensinar o que sei.
+Pesos:
+Educação e Desenvolvimento = 1.0
+Comunicação e Expressão = 0.5
+Se a resposta for Bastante = 4, então:
+Educação = +4
+Comunicação = +2
+10. Fórmula de cálculo
+Etapa 1
+Converter a resposta em número:
+1 a 5
+Etapa 2
+Multiplicar a resposta pelos pesos da pergunta.
+Etapa 3
+Somar os pontos por área.
+Etapa 4
+Aplicar o peso do bloco:
+Interesses = 100%
+Estilo = 85%
+Valores = 75%
+Realidade = filtro, não soma principal
+Etapa 5
+Normalizar em porcentagem:
+Pontuação final da área = (pontos obtidos / pontos máximos possíveis da área) × 100
+11. Faixas de interpretação
+85 a 100% = afinidade muito forte
+70 a 84% = afinidade forte
+55 a 69% = afinidade moderada
+40 a 54% = afinidade baixa
+abaixo de 40% = pouca afinidade no momento
+12. Perfil de ambiente de trabalho
+Além das áreas, o app deve gerar um retrato do ambiente ideal.
+Variáveis de ambiente
+Criar subescores para:
+Trabalho em equipe
+Autonomia
+Rotina
+Dinamismo
+Contato com público
+Liderança
+Estabilidade
+Criatividade no dia a dia
+Exemplo de interpretação
+Se a pessoa pontuar alto em:
+autonomia
+dinamismo
+criatividade
+Mostrar:
+Você tende a se sentir melhor em ambientes com liberdade, variedade e espaço para criação.
+Se pontuar alto em:
+estabilidade
+rotina
+organização
+Mostrar:
+Você tende a render melhor em contextos com estrutura clara, previsibilidade e processos bem definidos.
+13. Regras para montar o resultado final
+Regra 1 — Áreas principais
+Mostrar as 3 áreas com maior pontuação
+Regra 2 — Áreas secundárias
+Mostrar mais 2 áreas secundárias quando fizer sentido
+Regra 3 — Combinação dupla
+Se duas áreas tiverem 75% ou mais, mostrar uma leitura de combinação
+Regra 4 — Combinação tripla
+Se três áreas tiverem 72% ou mais, mostrar um perfil híbrido
+Regra 5 — Área muito destacada
+Se apenas uma área estiver muito acima das outras, mostrar:
+área principal
+áreas secundárias
+explicação simples
+14. Estrutura do resultado no app
+O resultado deve ter 4 camadas.
+Camada 1 — Áreas principais
+Exemplo:
+Comunicação e Expressão
+Criatividade e Estética
+Comercial e Negociação
+Camada 2 — Subáreas compatíveis
+Exemplo:
+escrita e conteúdo
+criação visual
+marketing e posicionamento
+Camada 3 — Profissões possíveis
+Exemplo:
+social media
+copywriter
+publicitário
+designer de conteúdo
+branding
+produtor de conteúdo
+Camada 4 — Formação e viabilidade
+Exemplo:
+graduação longa
+graduação intermediária
+técnico
+curso livre
+entrada mais rápida
+15. Banco de profissões — estrutura final
+O app precisa usar um banco amplo, não só exemplos soltos.
+Cada profissão deve ter estes campos:
+nome da profissão
+área principal
+área secundária
+subárea
+nível de formação
+contato humano
+criatividade
+estabilidade
+potencial de renda
+possibilidade remota
+entrada rápida
+texto curto de descrição
+Exemplo de estrutura
+Profissão: Fisioterapeuta
+Área principal: Saúde e Corpo
+Área secundária: Cuidado Humano
+Subárea: saúde clínica / reabilitação
+Formação: superior
+Contato humano: alto
+Criatividade: médio
+Estabilidade: média/alta
+Potencial remoto: baixo
+Entrada rápida: não
+16. Banco de profissões — áreas e subáreas finais
+1. Cuidado Humano
+Subáreas
+escuta, apoio e acolhimento
+cuidado e assistência direta
+Profissões
+psicólogo
+psicanalista
+terapeuta ocupacional
+assistente social
+conselheiro
+acompanhante terapêutico
+orientador familiar
+cuidador de idosos
+cuidador infantil
+auxiliar de cuidados
+atendente humanizado
+apoio domiciliar
+2. Educação e Desenvolvimento
+Subáreas
+ensino formal
+desenvolvimento e orientação
+Profissões
+professor
+pedagogo
+coordenador pedagógico
+diretor escolar
+professor de educação infantil
+professor de ensino fundamental
+professor de ensino médio
+professor universitário
+psicopedagogo
+tutor
+mentor
+orientador educacional
+instrutor
+facilitador de grupos
+treinador corporativo
+3. Comunicação e Expressão
+Subáreas
+escrita e conteúdo
+fala, mídia e presença pública
+comunicação digital
+Profissões
+jornalista
+redator
+copywriter
+roteirista
+escritor
+editor de texto
+produtor de conteúdo
+revisor
+locutor
+apresentador
+repórter
+assessor de imprensa
+relações públicas
+comentarista
+radialista
+podcaster
+social media
+estrategista de conteúdo
+community manager
+analista de comunicação digital
+criador de conteúdo
+4. Criatividade e Estética
+Subáreas
+design e visual
+imagem e audiovisual
+moda, arte e estética
+arquitetura e criação espacial
+Profissões
+designer gráfico
+diretor de arte
+ilustrador
+motion designer
+designer de interiores
+designer de produto
+web designer
+fotógrafo
+videomaker
+editor de vídeo
+animador
+colorista
+cinegrafista
+estilista
+maquiador
+figurinista
+artista visual
+tatuador
+cenógrafo
+arquiteto
+urbanista
+paisagista
+5. Análise e Organização
+Subáreas
+gestão administrativa e financeira
+planejamento, processos e operação
+dados e inteligência de negócio
+Profissões
+administrador
+analista administrativo
+assistente administrativo
+contador
+economista
+analista financeiro
+controller
+tesoureiro
+analista de processos
+planejador
+gestor de operações
+analista de logística
+coordenador operacional
+analista de qualidade
+analista de dados
+analista de BI
+estatístico
+pesquisador de mercado
+analista de inteligência
+6. Tecnologia e Sistemas
+Subáreas
+desenvolvimento e programação
+infraestrutura e suporte
+produto, design e experiência digital
+dados, segurança e automação
+Profissões
+programador
+desenvolvedor front-end
+desenvolvedor back-end
+desenvolvedor full stack
+engenheiro de software
+desenvolvedor mobile
+suporte técnico
+analista de suporte
+técnico em informática
+administrador de redes
+especialista em infraestrutura
+técnico de hardware
+UX designer
+UI designer
+product designer
+gerente de produto
+analista de produto
+cientista de dados
+engenheiro de dados
+especialista em segurança da informação
+analista de cibersegurança
+especialista em automação
+QA tester
+7. Comercial e Negociação
+Subáreas
+vendas e relacionamento
+negócios e expansão
+corretagem e intermediação
+Profissões
+vendedor
+consultor comercial
+representante comercial
+executivo de contas
+SDR
+closer
+gerente de contas
+desenvolvedor de negócios
+gerente comercial
+consultor de negócios
+executivo de parcerias
+analista comercial
+corretor de imóveis
+corretor de seguros
+consultor financeiro comercial
+agente de investimentos comercial
+8. Liderança e Gestão
+Subáreas
+gestão de pessoas e equipes
+gestão de projetos e processos
+liderança institucional
+Profissões
+coordenador
+gerente
+supervisor
+líder de equipe
+gestor de RH
+business partner de RH
+gestor de projetos
+scrum master
+gerente de operações
+coordenador de processos
+gestor administrativo
+diretor
+gestor escolar
+gestor hospitalar
+gestor público
+coordenador institucional
+9. Saúde e Corpo
+Subáreas
+saúde clínica
+saúde técnica
+corpo, movimento e bem-estar
+Profissões
+médico
+dentista
+enfermeiro
+farmacêutico
+biomédico
+fisioterapeuta
+fonoaudiólogo
+nutricionista
+terapeuta ocupacional
+técnico em enfermagem
+técnico em radiologia
+técnico em análises clínicas
+técnico em saúde bucal
+técnico em prótese dentária
+educador físico
+personal trainer
+massoterapeuta
+instrutor de pilates
+esteticista
+terapeuta corporal
+10. Natureza, Ambiente e Sustentabilidade
+Subáreas
+animais e vida natural
+campo e produção rural
+meio ambiente e sustentabilidade
+Profissões
+veterinário
+biólogo
+zootecnista
+cuidador de animais
+adestrador
+agrônomo
+técnico agrícola
+engenheiro florestal
+produtor rural técnico
+gestor agropecuário
+gestor ambiental
+engenheiro ambiental
+analista ambiental
+consultor de sustentabilidade
+educador ambiental
+11. Justiça, Normas e Segurança
+Subáreas
+jurídica
+compliance, auditoria e normas
+segurança e proteção
+Profissões
+advogado
+defensor público
+promotor
+juiz
+procurador
+assistente jurídico
+analista jurídico
+auditor
+analista de compliance
+especialista em conformidade
+perito
+investigador corporativo
+policial
+bombeiro
+guarda civil
+perito criminal
+agente penitenciário
+segurança patrimonial
+12. Execução Prática e Técnica
+Subáreas
+manutenção e instalação
+construção e produção
+operação prática especializada
+Profissões
+eletricista
+mecânico
+técnico em refrigeração
+técnico em manutenção
+instalador
+técnico em automação
+técnico em eletrônica
+pedreiro
+mestre de obras
+marceneiro
+soldador
+operador de máquinas
+técnico em edificações
+operador industrial
+torneiro mecânico
+operador logístico
+técnico de campo
+montador técnico
+17. Combinações importantes para o resultado
+Saúde e Corpo + Cuidado Humano
+Profissões:
+médico
+dentista
+enfermeiro
+fisioterapeuta
+terapeuta ocupacional
+fonoaudiólogo
+nutricionista
+massoterapeuta
+Educação e Desenvolvimento + Comunicação e Expressão
+Profissões:
+professor
+tutor
+mentor
+palestrante
+criador de cursos
+produtor de conteúdo educacional
+Comunicação e Expressão + Criatividade e Estética
+Profissões:
+social media
+copywriter
+publicitário
+roteirista
+designer de conteúdo
+branding
+Análise e Organização + Tecnologia e Sistemas
+Profissões:
+analista de dados
+programador
+engenheiro de software
+QA
+BI
+automação
+Liderança e Gestão + Comercial e Negociação
+Profissões:
+gerente comercial
+coordenador de vendas
+gestor de negócios
+supervisor de equipe
+executivo de contas sênior
+Justiça, Normas e Segurança + Análise e Organização
+Profissões:
+auditor
+compliance
+perito
+analista jurídico
+investigador documental
+Natureza, Ambiente e Sustentabilidade + Execução Prática e Técnica
+Profissões:
+técnico agrícola
+agrônomo de campo
+manejo ambiental
+paisagismo
+manutenção rural
+Criatividade e Estética + Tecnologia e Sistemas
+Profissões:
+UX designer
+UI designer
+product designer
+design digital
+front-end com foco visual
+18. Combinações triplas mais úteis
+Comunicação + Criatividade + Comercial
+Leitura:
+Você tende a unir expressão, criação e visão de público.
+Profissões:
+marketing
+publicidade
+branding
+social media
+copywriting
+campanhas
+lançamentos
+Cuidado Humano + Educação + Comunicação
+Leitura:
+Você pode se conectar com caminhos em que acolher, ensinar e se comunicar caminham juntos.
+Profissões:
+psicopedagogia
+mentoria
+orientação
+educação emocional
+tutoria
+facilitação de grupos
+Análise + Tecnologia + Organização
+Leitura:
+Você tende a render melhor em contextos lógicos, estruturados e técnicos.
+Profissões:
+análise de dados
+BI
+programação
+produto digital
+automação
+sistemas
+QA
+Liderança + Comunicação + Comercial
+Leitura:
+Você tende a combinar influência, metas e coordenação.
+Profissões:
+gerente comercial
+coordenação de equipes
+expansão de negócios
+liderança de atendimento
+gestão de relacionamento
+Saúde + Cuidado Humano + Educação
+Leitura:
+Você pode se conectar com funções em que cuidar, orientar e promover saúde fazem parte do mesmo caminho.
+Profissões:
+enfermagem educativa
+promoção de saúde
+fisioterapia com orientação
+nutrição com foco comportamental
+educação em saúde
+19. Filtros que o usuário pode aplicar no resultado
+Depois do resultado, o usuário pode refinar os caminhos.
+Filtros recomendados
+todos os caminhos
+apenas nível superior
+apenas profissões técnicas
+entrada mais rápida
+possibilidade remota
+maior contato humano
+maior estabilidade
+maior potencial de renda
+mais criativas
+mais analíticas
+mais práticas
+mais ligadas à saúde
+mais ligadas à tecnologia
+20. Como a realidade ajusta o resultado
+A realidade não muda a afinidade, mas muda a forma de sugerir os caminhos.
+Exemplo
+Se o usuário tiver:
+pouco tempo para estudar
+busca renda mais rápida
+preferência por remoto
+E tiver alta afinidade com Comunicação + Criatividade, o app pode priorizar:
+social media
+criação de conteúdo
+copywriting introdutório
+edição básica
+marketing digital
+Em vez de sugerir só formações longas.
+21. Estrutura final de resposta por versão
+Versão rápida
+Mostrar:
+3 áreas principais
+1 texto curto
+5 a 8 profissões
+frase final:
+Este resultado é um ponto de partida para sua exploração.
+Versão principal
+Mostrar:
+3 a 5 áreas
+pontos fortes percebidos
+ambientes que combinam
+profissões possíveis
+próximos passos
+Versão mais completa
+Mostrar:
+tudo da principal
+subperfil de ambiente
+afinidades secundárias
+combinação dupla ou tripla
+alertas de conflito interno
+filtros de realidade mais refinados
+22. Próximos passos sugeridos no resultado
+O app sempre deve terminar com ações práticas.
+Exemplos
+pesquisar a rotina de 2 ou 3 áreas
+assistir vídeos de profissionais da área
+conversar com alguém que atua nesse caminho
+fazer um mini curso introdutório
+comparar formação longa x entrada rápida
+testar uma atividade prática
+salvar caminhos favoritos no app
+23. Modelo pronto de resposta final
+Suas áreas com maior afinidade
+Comunicação e Expressão
+Criatividade e Estética
+Comercial e Negociação
+Leitura do seu perfil
+Você tende a se conectar com contextos em que expressar ideias, criar soluções e gerar resultado fazem parte da rotina.
+Pontos fortes percebidos
+boa expressão
+criatividade
+iniciativa
+visão de público
+Ambientes que combinam com você
+dinâmicos
+criativos
+orientados a público
+com liberdade de expressão
+com metas e espaço para inovação
+Subáreas compatíveis
+comunicação digital
+criação visual
+marketing e posicionamento
+Possíveis caminhos
+social media
+copywriter
+marketing
+branding
+publicidade
+produção de conteúdo
+campanhas digitais
+Próximos passos
+explorar 2 ou 3 dessas áreas
+assistir à rotina de profissionais
+testar um mini projeto
+fazer um curso introdutório
+24. Estrutura técnica mínima para o programador
+Cada pergunta:
+id
+texto
+bloco
+pesos por área
+Cada área:
+nome
+descrição curta
+traços
+ambientes
+texto de resultado
+Cada profissão:
+nome
+área principal
+área secundária
+subárea
+formação
+etiquetas de filtro
+descrição curta
+Cada combinação:
+áreas envolvidas
+texto interpretativo
+profissões ligadas
+25. Decisão final recomendada
+Internamente
+Use:
+12 áreas
+pesos por pergunta
+pontuação em porcentagem
+combinações duplas e triplas
+filtro por realidade
+Para o usuário
+Mostre:
+3 áreas principais
+2 secundárias
+texto claro
+subáreas
+profissões possíveis
+ambientes ideais
+próximos passos
+filtros opcionais

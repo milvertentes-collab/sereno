@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "text": "Gosto de cuidar de pessoas.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 2,
+    "text": "Gosto de ouvir os outros com atenção e acolhimento.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 3,
+    "text": "Gosto de criar ideias, textos, imagens ou projetos.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 4,
+    "text": "Gosto de explicar assuntos até que fiquem claros para alguém.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 5,
+    "text": "Gosto de criar ideias, textos, imagens ou projetos.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 6,
+    "text": "Gosto de atividades que envolvem criatividade e expressão.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 7,
+    "text": "Gosto de analisar dados, números ou informações.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 8,
+    "text": "Gosto de organizar tarefas, processos ou materiais.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo\nEstilo pessoal"
+  },
+  {
+    "id": 9,
+    "text": "Gosto de resolver problemas práticos.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 10,
+    "text": "Gosto de encontrar melhorias em processos ou sistemas.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 11,
+    "text": "Gosto de vender, convencer ou negociar.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 12,
+    "text": "Gosto de trabalhar com metas e resultados.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo\nEstilo pessoal"
+  },
+  {
+    "id": 13,
+    "text": "Sinto-me bem falando com pessoas novas.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 14,
+    "text": "Gosto de aprender ferramentas, plataformas ou sistemas novos.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 15,
+    "text": "Ter propósito no trabalho é muito importante para mim.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 16,
+    "text": "Ter estabilidade profissional é muito importante para mim.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 17,
+    "text": "Gosto de escrever, falar ou me comunicar de forma clara.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 18,
+    "text": "Ter autonomia para trabalhar do meu jeito é essencial para mim.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 19,
+    "text": "Ter espaço para criatividade é importante para eu me sentir realizado.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo\nRealidade e contexto"
+  },
+  {
+    "id": 20,
+    "text": "Gosto de observar detalhes e perceber erros com facilidade.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo\nEstilo pessoal"
+  },
+  {
+    "id": 21,
+    "text": "Preciso de uma carreira com entrada mais rápida no mercado.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 22,
+    "text": "Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 23,
+    "text": "Consigo me imaginar fazendo cursos, prática e aperfeiçoamento contínuo.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 24,
+    "text": "Estou disposto a começar pequeno para crescer com o tempo.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo\nVersão principal\n30 a 45 perguntas. Ideal para um resultado mais equilibrado e útil. Total de perguntas nesta versao:"
+  },
+  {
+    "id": 25,
+    "text": "Ter boa remuneração pesa bastante nas minhas escolhas.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 26,
+    "text": "Ter autonomia para trabalhar do meu jeito é essencial para mim.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 27,
+    "text": "Ter espaço para criatividade é importante para eu me sentir realizado.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 28,
+    "text": "Sentir que meu trabalho ajuda outras pessoas é importante para mim.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 29,
+    "text": "Prefiro segurança e previsibilidade a risco e incerteza.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 30,
+    "text": "Aceito mais pressão se houver mais crescimento e oportunidades.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo\nRealidade e contexto"
+  },
+  {
+    "id": 31,
+    "text": "Tenho disposição para estudar por um período longo, se necessário.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 32,
+    "text": "Gosto de liberdade para experimentar novas formas de fazer algo.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 33,
+    "text": "Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 34,
+    "text": "Consigo me imaginar fazendo faculdade ou formação longa.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 35,
+    "text": "Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 36,
+    "text": "Estou disposto a fazer networking e conversar com profissionais da área.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 37,
+    "text": "Consigo me imaginar aprendendo continuamente ao longo da carreira.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 38,
+    "text": "Estou disposto a começar pequeno para crescer com o tempo.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo\nVersão mais completa\n50 a 60 perguntas. Ideal para reflexão mais profunda antes de escolher caminhos. Total de perguntas \nnesta versao:"
+  },
+  {
+    "id": 39,
+    "text": "Ter autonomia para trabalhar do meu jeito é essencial para mim.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 40,
+    "text": "Ter espaço para criatividade é importante para eu me sentir realizado.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 41,
+    "text": "Sentir que meu trabalho ajuda outras pessoas é importante para mim.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 42,
+    "text": "Prefiro segurança e previsibilidade a risco e incerteza.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 43,
+    "text": "Aceito mais pressão se houver mais crescimento e oportunidades.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 44,
+    "text": "Ter tempo de vida pessoal e equilíbrio com o trabalho é muito importante para mim.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 45,
+    "text": "Quero uma carreira em que eu possa continuar aprendendo e evoluindo.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 46,
+    "text": "Valorizo reconhecimento e valorização pelo que entrego.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 47,
+    "text": "Prefiro um trabalho alinhado com meus valores, mesmo que demore mais para dar \nretorno.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo\nRealidade e contexto"
+  },
+  {
+    "id": 48,
+    "text": "Tenho disposição para estudar por um período longo, se necessário.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 49,
+    "text": "Preciso de uma carreira com entrada mais rápida no mercado.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 50,
+    "text": "Valorizo a possibilidade de trabalhar remotamente ou com flexibilidade.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 51,
+    "text": "Consigo me imaginar fazendo faculdade ou formação longa.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 52,
+    "text": "Consigo me imaginar fazendo cursos técnicos, livres ou profissionalizantes.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 53,
+    "text": "Estou disposto a fazer networking e conversar com profissionais da área.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 54,
+    "text": "Consigo me imaginar aprendendo continuamente ao longo da carreira.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 55,
+    "text": "Estou disposto a começar pequeno para crescer com o tempo.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 56,
+    "text": "Tenho facilidade para manter disciplina de estudos.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 57,
+    "text": "Tenho abertura para mudar de área, se perceber que outra combina mais comigo.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 58,
+    "text": "Levo em conta minha realidade financeira ao pensar em profissão.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 59,
+    "text": "Consigo me imaginar conciliando trabalho e estudo por um período.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  },
+  {
+    "id": 60,
+    "text": "Estou disposto a fazer experiências práticas antes de decidir um caminho.\nNada a ver comigo Um pouco Neutro Bastante Muito a ver comigo"
+  }
+]
