@@ -1,23 +1,23 @@
-.next
-backup
-node_modules
-.venv
-.tts_cache
-piper_voices
-tmp
-.claude
-.vscode
-data
-docs
-supabase
-scripts
-exploração vocacional
-Ho'oponopono
-Meditações
-Método dos 5 Dedos
-Respiração
-Sons Exercicio de Respiração
-YOGA NIDRA
+/\.next
+/backup
+/node_modules
+/\.venv
+/\.tts_cache
+/piper_voices
+/tmp
+/\.claude
+/\.vscode
+/data
+/docs
+/supabase
+/scripts
+/exploração vocacional
+/Ho'oponopono
+/Meditações
+/Método dos 5 Dedos
+/Respiração
+/Sons Exercicio de Respiração
+/YOGA NIDRA
 *.py
 *.cjs
 extracted_meditations.txt
