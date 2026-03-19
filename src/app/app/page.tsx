@@ -5800,6 +5800,10 @@ export default function MentalHealthApp({ desktopMode = false }: { desktopMode?:
       .then(({ data }) => {
         const user = data.session?.user;
         if (!mounted) return;
+        console.info('[sereno-auth] app:getSession', {
+          hasUser: Boolean(user),
+          userId: user?.id ?? null,
+        });
         if (user) {
           setUserAccount(buildAccountFromAuthUser(user));
           setIsLoggedIn(true);
@@ -5814,8 +5818,13 @@ export default function MentalHealthApp({ desktopMode = false }: { desktopMode?:
         setAuthResolved(true);
       });
 
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
       const user = session?.user;
+      console.info('[sereno-auth] app:onAuthStateChange', {
+        event,
+        hasUser: Boolean(user),
+        userId: user?.id ?? null,
+      });
       if (user) {
         lastSyncedSupabaseProfileRef.current = '';
         setUserAccount(buildAccountFromAuthUser(user));

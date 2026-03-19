@@ -297,6 +297,11 @@ export default function LoginScreen({ onLogin, desktopMode = false }: LoginScree
           })()
         : undefined;
 
+      console.info('[sereno-auth] oauth:start', {
+        provider,
+        redirectTo,
+      });
+
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
