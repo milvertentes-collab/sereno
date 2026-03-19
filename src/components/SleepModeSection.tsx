@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { cancelBrowserSpeech, speakBrowserText } from '@/lib/browserSpeech';
 import { natureMixerTracks } from './NatureMixerSection';
 import SectionHeroCard from './SectionHeroCard';
 
@@ -93,18 +94,30 @@ export default function SleepModeSection({ darkMode: dm, defaultVoice, setDefaul
                     voice: voiceRef.current === 'masculino' ? 'pt-BR-AntonioNeural' : 'pt-BR-FranciscaNeural'
                 })
             });
-            if (res.ok) {
-                const blob = await res.blob();
-                const url = URL.createObjectURL(blob);
-                const audio = new Audio(url);
-                ttsAudioRef.current = audio;
-                audio.volume = Math.max(0, Math.min(1, voiceVolumeRef.current / 100));
-                audio.onended = () => { URL.revokeObjectURL(url); };
-                audio.onerror = () => { URL.revokeObjectURL(url); };
-                await audio.play();
+            if (!res.ok) {
+                await speakBrowserText(text, {
+                    voice: voiceRef.current,
+                    volume: voiceVolumeRef.current,
+                });
+                return;
             }
+
+            const blob = await res.blob();
+            const url = URL.createObjectURL(blob);
+            const audio = new Audio(url);
+            ttsAudioRef.current = audio;
+            audio.volume = Math.max(0, Math.min(1, voiceVolumeRef.current / 100));
+            audio.onended = () => { URL.revokeObjectURL(url); };
+            audio.onerror = () => { URL.revokeObjectURL(url); };
+            await audio.play();
         } catch (e) { 
-            if ((e as any).name !== 'AbortError') console.error('Sleep TTS failed:', e); 
+            if ((e as any).name !== 'AbortError') {
+                console.error('Sleep TTS failed:', e);
+                await speakBrowserText(text, {
+                    voice: voiceRef.current,
+                    volume: voiceVolumeRef.current,
+                });
+            }
         }
     };
 
@@ -116,6 +129,7 @@ export default function SleepModeSection({ darkMode: dm, defaultVoice, setDefaul
                 ttsAudioRef.current.currentTime = 0;
             }
             if (ttsAbortController.current) ttsAbortController.current.abort();
+            cancelBrowserSpeech();
         }
     }, [defaultVoice, showBreathing]);
 
@@ -161,6 +175,7 @@ export default function SleepModeSection({ darkMode: dm, defaultVoice, setDefaul
         breathingTimeouts.current = [];
         if (ttsAudioRef.current) { ttsAudioRef.current.pause(); ttsAudioRef.current.currentTime = 0; }
         if (ttsAbortController.current) ttsAbortController.current.abort();
+        cancelBrowserSpeech();
     };
 
     // Robust Breathing 4-7-8 logic

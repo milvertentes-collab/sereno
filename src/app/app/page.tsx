@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useAppPersistence } from '@/hooks/useAppPersistence';
 import dynamic from 'next/dynamic';
+import { cancelBrowserSpeech, speakBrowserText } from '@/lib/browserSpeech';
 import ExploracaoVocacionalSection from '@/components/ExploracaoVocacionalSection';
 import FiveFingersMethodSection from '@/components/FiveFingersMethodSection';
 import EmotionalMindMapSection from '@/components/EmotionalMindMapSection';
@@ -568,7 +569,16 @@ const ChatSection = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: spokenContent, gender }),
       });
-      if (!response.ok) return;
+      if (!response.ok) {
+        setSpeakingMessageIndex(index);
+        const spoken = await speakBrowserText(spokenContent, {
+          voice: gender,
+          volume: Number(audioSettings?.voiceVolume ?? 80),
+        });
+        setSpeakingMessageIndex(null);
+        if (!spoken) return;
+        return;
+      }
 
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
@@ -588,6 +598,20 @@ const ChatSection = ({
       };
       await audio.play();
     } catch {
+      const gender = defaultVoice === 'feminino' ? 'feminino' : 'masculino';
+      const spokenContent = content
+        .replace(/\[\[ACTIVITY:[^\]]+\]\]/g, '')
+        .replace(/[*_`#>-]+/g, ' ')
+        .replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (spokenContent) {
+        setSpeakingMessageIndex(index);
+        await speakBrowserText(spokenContent, {
+          voice: gender,
+          volume: Number(audioSettings?.voiceVolume ?? 80),
+        });
+      }
       setSpeakingMessageIndex(null);
     }
   };
@@ -1412,6 +1436,10 @@ const BreathingSection = ({ darkMode: dm, initialExerciseId, onComplete, onNavig
         }),
       });
       if (!response.ok) {
+        await speakBrowserText(text, {
+          voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
+          volume: Number(audioSettings?.voiceVolume ?? 80),
+        });
         onEnd?.();
         return;
       }
@@ -1434,6 +1462,10 @@ const BreathingSection = ({ darkMode: dm, initialExerciseId, onComplete, onNavig
       };
       await audio.play();
     } catch {
+      await speakBrowserText(text, {
+        voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
+        volume: Number(audioSettings?.voiceVolume ?? 80),
+      });
       onEnd?.();
     }
   }, [audioSettings?.voiceVolume, defaultVoice, stopBreathingNarration]);
@@ -1702,7 +1734,15 @@ const BreathingSection = ({ darkMode: dm, initialExerciseId, onComplete, onNavig
             voice: defaultVoice === 'feminino' ? 'pt-BR-FranciscaNeural' : 'pt-BR-AntonioNeural',
           }),
         });
-        if (!response.ok) return;
+        if (!response.ok) {
+          await speakBrowserText(phrase, {
+            voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
+            volume: breathingAudioEnabledRef.current
+              ? Math.max(0, Math.min(1, Number(audioSettings?.voiceVolume ?? 80) / 100))
+              : 0,
+          });
+          return;
+        }
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
         const audio = new Audio(url);
@@ -1712,15 +1752,31 @@ const BreathingSection = ({ darkMode: dm, initialExerciseId, onComplete, onNavig
           : 0;
         audio.onended = () => URL.revokeObjectURL(url);
         audio.onerror = () => URL.revokeObjectURL(url);
-        await audio.play();
+        await audio.play().catch(async () => {
+          URL.revokeObjectURL(url);
+          await speakBrowserText(phrase, {
+            voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
+            volume: breathingAudioEnabledRef.current
+              ? Math.max(0, Math.min(1, Number(audioSettings?.voiceVolume ?? 80) / 100))
+              : 0,
+          });
+        });
       } catch (error: any) {
         if (error?.name !== 'AbortError') {
-          console.error('Breathing narration failed:', error);
+          await speakBrowserText(phrase, {
+            voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
+            volume: breathingAudioEnabledRef.current
+              ? Math.max(0, Math.min(1, Number(audioSettings?.voiceVolume ?? 80) / 100))
+              : 0,
+          });
         }
       }
     })();
 
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+      cancelBrowserSpeech();
+    };
   }, [audioEnabled, running, stepIndex, breathingSteps, defaultVoice, audioSettings?.voiceVolume]);
 
   const phaseLabel = breathingSteps[stepIndex]?.label || 'Respire';
@@ -2601,28 +2657,32 @@ const MeditationSection = ({ darkMode: dm, onComplete, hasUnlimitedAccess = fals
       const preloadNarrativePromise = Promise.all(
         narrativePlan.map(async (cue) => {
           if (cue.type !== 'speech' || !cue.text) return cue;
-          const response = await fetch('/api/piper-tts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: cue.text, gender, voice }),
-          });
-          if (!response.ok) {
-            throw new Error('Failed to preload meditation cue');
+          try {
+            const response = await fetch('/api/piper-tts', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ text: cue.text, gender, voice }),
+            });
+            if (!response.ok) {
+              return { ...cue, durationMs: Math.max(1000, cue.text!.split(/\s+/).filter(Boolean).length * 340) };
+            }
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            meditationPreloadedUrlsRef.current.push(url);
+            const durationMs = await new Promise<number>((resolve) => {
+              const probe = new Audio(url);
+              const finalize = () => {
+                const duration = Number.isFinite(probe.duration) && probe.duration > 0 ? probe.duration * 1000 : Math.max(1000, cue.text!.split(/\s+/).filter(Boolean).length * 340);
+                probe.src = '';
+                resolve(duration);
+              };
+              probe.onloadedmetadata = finalize;
+              probe.onerror = finalize;
+            });
+            return { ...cue, audioUrl: url, durationMs };
+          } catch {
+            return { ...cue, durationMs: Math.max(1000, cue.text!.split(/\s+/).filter(Boolean).length * 340) };
           }
-          const blob = await response.blob();
-          const url = URL.createObjectURL(blob);
-          meditationPreloadedUrlsRef.current.push(url);
-          const durationMs = await new Promise<number>((resolve) => {
-            const probe = new Audio(url);
-            const finalize = () => {
-              const duration = Number.isFinite(probe.duration) && probe.duration > 0 ? probe.duration * 1000 : Math.max(1000, cue.text!.split(/\s+/).filter(Boolean).length * 340);
-              probe.src = '';
-              resolve(duration);
-            };
-            probe.onloadedmetadata = finalize;
-            probe.onerror = finalize;
-          });
-          return { ...cue, audioUrl: url, durationMs };
         }),
       );
 
@@ -2634,18 +2694,29 @@ const MeditationSection = ({ darkMode: dm, onComplete, hasUnlimitedAccess = fals
         let url = preloaded?.audioUrl;
         let shouldRevokeUrl = false;
         if (!url) {
-          const response = await fetch('/api/piper-tts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text, gender, voice }),
-          });
-          if (!response.ok || meditationRunIdRef.current !== currentRunId) {
-            setSpeaking(false);
-            return false;
+          try {
+            const response = await fetch('/api/piper-tts', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ text, gender, voice }),
+            });
+            if (!response.ok || meditationRunIdRef.current !== currentRunId) {
+              const spoken = await speakBrowserText(text, {
+                voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
+                volume,
+              });
+              return spoken;
+            }
+            const blob = await response.blob();
+            url = URL.createObjectURL(blob);
+            shouldRevokeUrl = true;
+          } catch {
+            const spoken = await speakBrowserText(text, {
+              voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
+              volume,
+            });
+            return spoken;
           }
-          const blob = await response.blob();
-          url = URL.createObjectURL(blob);
-          shouldRevokeUrl = true;
         }
 
         await new Promise<void>((resolve) => {
@@ -12990,7 +13061,14 @@ function YogaNidraSection({ onComplete, darkMode: dm, onCheckAccess, defaultVoic
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, gender, voice }),
       });
-      if (!res.ok) return;
+      if (!res.ok) {
+        const spoken = await speakBrowserText(text, {
+          voice: gender,
+          volume: 80,
+        });
+        if (spoken) opts?.onEnd?.();
+        return;
+      }
 
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
@@ -13004,7 +13082,11 @@ function YogaNidraSection({ onComplete, darkMode: dm, onCheckAccess, defaultVoic
       await audio.play();
       applyBackgroundDucking(true);
     } catch {
-      // silent fail
+      const spoken = await speakBrowserText(text, {
+        voice: gender,
+        volume: 80,
+      });
+      if (spoken) opts?.onEnd?.();
     } finally {
       setPiperLoading(false);
     }

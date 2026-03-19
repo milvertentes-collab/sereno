@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { cancelBrowserSpeech, speakBrowserText } from '@/lib/browserSpeech';
 import AppNoticeModal from './AppNoticeModal';
 import SectionHeroCard from './SectionHeroCard';
 
@@ -1807,11 +1808,13 @@ export default function PsychoeducationSection({ darkMode: dm, desktopMode = fal
 
   const speakPillWithThemeVoice = async (pill: Pill) => {
     const voiceConfig = themeVoice[pill.theme];
+    const spokenText = stripEmojiFromNarration(`${pill.title}. ${pill.content}. Prática sugerida: ${pill.action}`);
 
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.src = '';
       audioRef.current = null;
+      cancelBrowserSpeech();
       return;
     }
 
@@ -1820,13 +1823,16 @@ export default function PsychoeducationSection({ darkMode: dm, desktopMode = fal
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          text: stripEmojiFromNarration(`${pill.title}. ${pill.content}. Prática sugerida: ${pill.action}`),
+          text: spokenText,
           gender: voiceConfig.gender,
           voice: voiceConfig.voice,
         }),
       });
 
-      if (!res.ok) return;
+      if (!res.ok) {
+        await speakBrowserText(spokenText, { voice: voiceConfig.gender });
+        return;
+      }
 
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
@@ -1842,6 +1848,7 @@ export default function PsychoeducationSection({ darkMode: dm, desktopMode = fal
       };
       await audio.play();
     } catch {
+      await speakBrowserText(spokenText, { voice: voiceConfig.gender });
       audioRef.current = null;
     }
   };
@@ -1851,6 +1858,7 @@ export default function PsychoeducationSection({ darkMode: dm, desktopMode = fal
     audioRef.current.pause();
     audioRef.current.src = '';
     audioRef.current = null;
+    cancelBrowserSpeech();
   };
 
   useEffect(() => {

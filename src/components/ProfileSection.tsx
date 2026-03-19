@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { jsPDF } from 'jspdf';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { cancelBrowserSpeech, speakBrowserText } from '@/lib/browserSpeech';
 import AppNoticeModal from './AppNoticeModal';
 import { BillingPlanKey, getPlanDefinition } from '@/lib/subscriptionPlans';
 import { SubscriptionSeatGroup, getSeatSummary } from '@/lib/subscriptionSeats';
@@ -884,6 +885,7 @@ ${latestSolta.length ? latestSolta.join('\n') : 'Nenhum registro'}
         if (previewingProfileVoice === voice) {
             profileVoicePreviewRef.current?.pause();
             if (profileVoicePreviewRef.current) profileVoicePreviewRef.current.currentTime = 0;
+            cancelBrowserSpeech();
             setPreviewingProfileVoice(null);
             return;
         }
@@ -892,6 +894,7 @@ ${latestSolta.length ? latestSolta.join('\n') : 'Nenhum registro'}
             profileVoicePreviewRef.current.pause();
             profileVoicePreviewRef.current.currentTime = 0;
         }
+        cancelBrowserSpeech();
 
         setPreviewingProfileVoice(voice);
         try {
@@ -904,7 +907,15 @@ ${latestSolta.length ? latestSolta.join('\n') : 'Nenhum registro'}
                     voice: voice === 'masculino' ? 'pt-BR-AntonioNeural' : 'pt-BR-FranciscaNeural',
                 }),
             });
-            if (!response.ok) throw new Error('Falha ao gerar prévia');
+            if (!response.ok) {
+                const spoken = await speakBrowserText(`Oi, como vai? Sou a voz ${voice === 'masculino' ? 'Sereno' : 'Serena'}.`, {
+                    voice,
+                    volume: audioSettings.voiceVolume,
+                });
+                setPreviewingProfileVoice(null);
+                if (!spoken) throw new Error('Falha ao gerar prévia');
+                return;
+            }
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
             const audio = new Audio(url);
@@ -920,6 +931,10 @@ ${latestSolta.length ? latestSolta.join('\n') : 'Nenhum registro'}
             profileVoicePreviewRef.current = audio;
             await audio.play();
         } catch {
+            void speakBrowserText(`Oi, como vai? Sou a voz ${voice === 'masculino' ? 'Sereno' : 'Serena'}.`, {
+                voice,
+                volume: audioSettings.voiceVolume,
+            }).finally(() => setPreviewingProfileVoice(null));
             setPreviewingProfileVoice(null);
         }
     };

@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { parseSRT, Subtitle } from '@/lib/srtParser';
 import { loadAmbientFavoriteMixOptions, loadNatureMixPresets, natureMixerTracks, type NatureMixPreset } from '@/components/NatureMixerSection';
+import { cancelBrowserSpeech, speakBrowserText } from '@/lib/browserSpeech';
 
 interface ModernAudioPlayerProps {
   title: string;
@@ -604,6 +605,7 @@ export default function ModernAudioPlayer({
   }, [onClose, resetSession]);
 
   const stopGuidanceAudio = useCallback((options?: { preservePreparationState?: boolean }) => {
+    cancelBrowserSpeech();
     guidanceRunIdRef.current += 1;
     setGuidanceSpeaking(false);
     if (guidancePauseTimeoutRef.current) {
@@ -655,42 +657,55 @@ export default function ModernAudioPlayer({
         const sentence = sentences[index];
         if (guidanceRunIdRef.current !== currentRunId) return;
 
-        const response = await fetch('/api/piper-tts', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: sentence, gender, voice }),
-        });
-        if (!response.ok || guidanceRunIdRef.current !== currentRunId) {
-          onEnd?.();
-          return;
+        let usedBrowserFallback = false;
+        try {
+          const response = await fetch('/api/piper-tts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: sentence, gender, voice }),
+          });
+          if (!response.ok || guidanceRunIdRef.current !== currentRunId) {
+            usedBrowserFallback = true;
+          } else {
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            await new Promise<void>((resolve) => {
+              guidanceSegmentResolveRef.current = resolve;
+              const audio = new Audio(url);
+              guidanceAudioRef.current = audio;
+              setGuidanceSpeaking(true);
+              audio.volume = volume;
+              let settled = false;
+              const finalize = () => {
+                if (settled) return;
+                settled = true;
+                setGuidanceSpeaking(false);
+                URL.revokeObjectURL(url);
+                if (guidanceAudioRef.current === audio) guidanceAudioRef.current = null;
+                if (guidanceSegmentResolveRef.current === resolve) guidanceSegmentResolveRef.current = null;
+                resolve();
+              };
+              audio.onended = finalize;
+              audio.onerror = finalize;
+              audio.onpause = () => {
+                if (guidanceManualPauseRef.current) return;
+                finalize();
+              };
+              audio.play().catch(finalize);
+            });
+          }
+        } catch {
+          usedBrowserFallback = true;
         }
 
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        await new Promise<void>((resolve) => {
-          guidanceSegmentResolveRef.current = resolve;
-          const audio = new Audio(url);
-          guidanceAudioRef.current = audio;
+        if (usedBrowserFallback) {
           setGuidanceSpeaking(true);
-          audio.volume = volume;
-          let settled = false;
-          const finalize = () => {
-            if (settled) return;
-            settled = true;
-            setGuidanceSpeaking(false);
-            URL.revokeObjectURL(url);
-            if (guidanceAudioRef.current === audio) guidanceAudioRef.current = null;
-            if (guidanceSegmentResolveRef.current === resolve) guidanceSegmentResolveRef.current = null;
-            resolve();
-          };
-          audio.onended = finalize;
-          audio.onerror = finalize;
-          audio.onpause = () => {
-            if (guidanceManualPauseRef.current) return;
-            finalize();
-          };
-          audio.play().catch(finalize);
-        });
+          await speakBrowserText(sentence, {
+            voice: selectedVoice === 'masculino' ? 'masculino' : 'feminino',
+            volume,
+          });
+          setGuidanceSpeaking(false);
+        }
 
         if (guidanceRunIdRef.current !== currentRunId) return;
         if (index < sentences.length - 1) {
