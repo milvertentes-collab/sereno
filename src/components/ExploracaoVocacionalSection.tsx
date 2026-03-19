@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useAppPersistence } from '@/hooks/useAppPersistence';
+import { useToast } from "@/hooks/use-toast";
+import SectionHeroCard from './SectionHeroCard';
 
 type RIASEC = 'R' | 'I' | 'A' | 'S' | 'E' | 'C';
 type TestVersion = 'rapid' | 'medium' | 'complete';
@@ -18,6 +20,19 @@ interface SavedResult {
     scores: Record<RIASEC, number>;
     topCode: string;
 }
+
+type CareerFilter = 'all' | 'human' | 'technical' | 'creative' | 'structured';
+
+const areaNames: Record<RIASEC, string> = { R: 'Realista', I: 'Investigativo', A: 'Artístico', S: 'Social', E: 'Empreendedor', C: 'Convencional' };
+const areaColors: Record<RIASEC, string> = { R: 'bg-red-500', I: 'bg-blue-500', A: 'bg-purple-500', S: 'bg-emerald-500', E: 'bg-orange-500', C: 'bg-slate-500' };
+const profileInsights: Record<RIASEC, { learn: string; thrive: string; drains: string; next: string[] }> = {
+    R: { learn: 'Aprende melhor fazendo, testando e vendo aplicação prática.', thrive: 'Rende melhor em ambientes concretos, ativos e com resultado visível.', drains: 'Pode se desgastar com excesso de abstração e pouca ação direta.', next: ['Buscar vivências práticas, visitas técnicas ou projetos mão na massa.', 'Comparar áreas em que execução e resultado concreto importam.'] },
+    I: { learn: 'Aprende melhor pesquisando, analisando e conectando padrões.', thrive: 'Rende melhor em ambientes com investigação, estudo e autonomia intelectual.', drains: 'Pode se desgastar com rotinas superficiais e sem profundidade.', next: ['Explorar cursos, leitura e projetos de pesquisa.', 'Observar carreiras orientadas a análise e resolução de problemas.'] },
+    A: { learn: 'Aprende melhor criando, experimentando linguagem e expressão própria.', thrive: 'Rende melhor em ambientes flexíveis, criativos e com espaço de autoria.', drains: 'Pode se desgastar com excesso de rigidez e pouca liberdade criativa.', next: ['Testar produção autoral, portfólio e projetos criativos.', 'Comparar contextos em que criatividade vira trabalho concreto.'] },
+    S: { learn: 'Aprende melhor trocando com pessoas, ensinando e acolhendo.', thrive: 'Rende melhor em ambientes colaborativos e orientados a cuidado ou desenvolvimento humano.', drains: 'Pode se desgastar com isolamento e tarefas sem sentido relacional.', next: ['Explorar atividades de apoio, ensino, saúde ou mediação.', 'Observar profissões com impacto humano direto.'] },
+    E: { learn: 'Aprende melhor quando precisa mobilizar, liderar e transformar ideia em movimento.', thrive: 'Rende melhor em ambientes dinâmicos, com meta, influência e decisão.', drains: 'Pode se desgastar com lentidão excessiva e pouca autonomia.', next: ['Testar papéis de liderança, negócio ou comunicação.', 'Comparar ambientes com negociação, influência e iniciativa.'] },
+    C: { learn: 'Aprende melhor com estrutura clara, sequência e critério definido.', thrive: 'Rende melhor em ambientes organizados, previsíveis e orientados a processo.', drains: 'Pode se desgastar com desorganização constante e ambiguidades.', next: ['Explorar áreas administrativas, financeiras ou de controle.', 'Testar contextos com método, rotina e precisão.'] },
+};
 
 const allQuestions: Record<TestVersion, Question[]> = {
     rapid: [
@@ -193,15 +208,20 @@ const professions = [
     { name: "Corretor de Seguros", code: "ECS", desc: "Análise de riscos, negociação comercial e suporte a clientes.", areas: ['Empreendedor', 'Convencional', 'Social'] },
 ];
 
-export default function ExploracaoVocacionalSection({ darkMode, initialStep, onStepChange }: { darkMode?: boolean, initialStep?: string, onStepChange?: (step: string) => void }) {
+export default function ExploracaoVocacionalSection({ darkMode, initialStep, onStepChange, onComplete, onNavigate }: { darkMode?: boolean, initialStep?: string, onStepChange?: (step: string) => void, onComplete?: (resultId: string) => void, onNavigate?: (tab: any, params?: Record<string, any>) => void }) {
+    const { toast } = useToast();
     const [step, setStep] = useState<'intro' | 'test' | 'results' | 'history'>((initialStep as any) || 'intro');
     const [version, setVersion] = useState<TestVersion>('medium');
     const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [scores, setScores] = useState<Record<RIASEC, number>>({ R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 });
-    const [savedResults, setSavedResults] = useLocalStorage<SavedResult[]>('vocational_results', []);
+    const [savedResults, setSavedResults] = useAppPersistence<SavedResult[]>('vocational_results', []);
+    const [favoriteCareers, setFavoriteCareers] = useAppPersistence<string[]>('vocational_favorite_careers', []);
     const [isMounted, setIsMounted] = useState(false);
     const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [selectedHistoryId, setSelectedHistoryId] = useState<string | null>(null);
+    const [comparisonIds, setComparisonIds] = useState<string[]>([]);
+    const [careerFilter, setCareerFilter] = useState<CareerFilter>('all');
 
     useEffect(() => {
         setIsMounted(true);
@@ -257,7 +277,9 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
             topCode
         };
         setSavedResults(prev => [newResult, ...prev]);
-        alert('Resultado salvo com sucesso no seu histórico!');
+        setSelectedHistoryId(newResult.id);
+        onComplete?.(newResult.id);
+        toast({ title: 'Resultado salvo', description: 'Seu perfil vocacional foi guardado no histórico.' });
     };
 
     const handleDeleteResult = (e: React.MouseEvent, id: string) => {
@@ -267,6 +289,10 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
         if (confirmDeleteId === id) {
             setSavedResults(prev => (prev || []).filter(r => r.id !== id));
             setConfirmDeleteId(null);
+            if (selectedHistoryId === id) {
+                setSelectedHistoryId(null);
+            }
+            toast({ title: 'Resultado excluído', description: 'O teste foi removido do histórico.' });
         } else {
             setConfirmDeleteId(id);
             // Reset confirmation after 3 seconds if not clicked again
@@ -293,16 +319,85 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
     };
 
     const currentProgress = ((currentQuestionIndex + 1) / (shuffledQuestions.length || 1)) * 100;
+    const latestResult = savedResults?.[0];
+    const selectedHistoryResult = savedResults?.find((result) => result.id === selectedHistoryId) || latestResult;
+    const comparisonResults = comparisonIds
+        .map((id) => savedResults?.find((result) => result.id === id))
+        .filter(Boolean) as SavedResult[];
+
+    const matchesCareerFilter = (areas: string[]) => {
+        if (careerFilter === 'all') return true;
+        if (careerFilter === 'human') return areas.includes('Social');
+        if (careerFilter === 'technical') return areas.includes('Investigativo') || areas.includes('Realista');
+        if (careerFilter === 'creative') return areas.includes('Artístico');
+        if (careerFilter === 'structured') return areas.includes('Convencional');
+        return true;
+    };
+
+    const toggleFavoriteCareer = (careerName: string) => {
+        const isFavorite = favoriteCareers.includes(careerName);
+        const next = isFavorite
+            ? favoriteCareers.filter((item) => item !== careerName)
+            : [...favoriteCareers, careerName];
+        setFavoriteCareers(next);
+        toast({
+            title: isFavorite ? 'Carreira removida' : 'Carreira favoritada',
+            description: isFavorite ? 'A carreira saiu da sua shortlist.' : 'A carreira entrou na sua shortlist.'
+        });
+    };
+
+    const toggleComparisonId = (id: string) => {
+        setComparisonIds((prev) => {
+            if (prev.includes(id)) return prev.filter((item) => item !== id);
+            if (prev.length >= 2) return [prev[1], id];
+            return [...prev, id];
+        });
+    };
+
+    const exportResult = async () => {
+        const summary = [
+            `Exploração Vocacional - Perfil ${topCode}`,
+            `Versão: ${version === 'rapid' ? 'Rápida' : version === 'medium' ? 'Média' : 'Completa'}`,
+            '',
+            'Top áreas:',
+            ...topAreas.map(([code, score]) => `- ${areaNames[code as RIASEC]} (${score} pontos)`),
+            '',
+            primaryInsight ? `Como costuma aprender: ${primaryInsight.learn}` : '',
+            primaryInsight ? `Onde tende a render melhor: ${primaryInsight.thrive}` : '',
+            primaryInsight ? `O que pode desgastar: ${primaryInsight.drains}` : '',
+        ].filter(Boolean).join('\n');
+
+        try {
+            await navigator.clipboard.writeText(summary);
+            toast({ title: 'Resultado exportado', description: 'O resumo foi copiado para a área de transferência.' });
+        } catch {
+            toast({ title: 'Falha ao exportar', description: 'Não foi possível copiar o resultado agora.', variant: 'destructive' });
+        }
+    };
 
     if (step === 'intro') {
         return (
             <div className="p-6 space-y-6 animate-fade-in pb-32">
-                <div className="text-center space-y-4">
-                    <div className="w-20 h-20 bg-indigo-100 rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-inner">🧭</div>
-                    <h2 className={`text-2xl font-black ${darkMode ? 'text-white' : 'text-slate-800'}`}>Exploração Vocacional</h2>
-                    <p className={`${darkMode ? 'text-slate-400' : 'text-slate-600'} leading-relaxed`}>
-                        Descubra seu perfil profissional com o modelo RIASEC de Holland. Escolha a profundidade do seu teste:
-                    </p>
+                <div className="pt-2">
+                    <SectionHeroCard
+                        darkMode={darkMode}
+                        eyebrow="Clareza de caminho"
+                        title="Exploração Vocacional"
+                        description="Reconheça interesses predominantes, compare perfis e explore caminhos sem se fechar em uma única resposta."
+                        icon="🧭"
+                    />
+                </div>
+
+                <div className="grid grid-cols-1 gap-3">
+                    {[
+                        'Reconhecer interesses predominantes',
+                        'Comparar combinações de perfil',
+                        'Explorar caminhos profissionais com mais critério'
+                    ].map((item) => (
+                        <div key={item} className={`rounded-3xl px-5 py-4 text-sm font-semibold ${darkMode ? 'bg-slate-800 border border-slate-700 text-slate-200' : 'bg-white border border-slate-100 text-slate-700 shadow-sm'}`}>
+                            {item}
+                        </div>
+                    ))}
                 </div>
 
                 <div className="grid grid-cols-1 gap-4">
@@ -334,31 +429,115 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
                 <div className={`p-6 rounded-[2rem] ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-slate-50 border border-slate-100'}`}>
                     <h3 className="font-bold mb-3 flex items-center gap-2"><span>💡</span> Dica</h3>
                     <p className="text-sm opacity-70 leading-relaxed">
-                        A ordem das perguntas muda a cada teste para garantir uma experiência dinâmica. Escolha a versão completa para maior precisão!
+                        A ordem muda a cada teste. Se você quiser mais nuance para comparar áreas parecidas, a versão completa entrega uma leitura mais estável.
                     </p>
+                </div>
+
+                <div className={`rounded-[2rem] p-5 ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-slate-100 shadow-sm'}`}>
+                    <p className="text-[10px] font-black uppercase tracking-[0.18em] text-emerald-500">Se quiser ampliar a leitura</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                        {[
+                            { label: 'Mapa da Minha Vida', hint: 'ver propósito e outras áreas em conjunto', tab: 'mapavida' },
+                            { label: 'Diário', hint: 'escrever o que chamou mais atenção no teste', tab: 'diary' },
+                            { label: 'Missões', hint: 'transformar insight em próximos passos', tab: 'missions' },
+                            { label: 'Inteligência Emocional', hint: 'olhar funcionamento emocional junto com carreira', tab: 'emocional' },
+                        ].map((item) => (
+                            <button
+                                key={item.tab}
+                                type="button"
+                                onClick={() => onNavigate?.(item.tab)}
+                                className={`rounded-[1.3rem] border p-4 min-h-[88px] text-left ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-slate-50 border-slate-100 text-slate-700'}`}
+                            >
+                                <p className="text-sm font-black">{item.label}</p>
+                                <p className="text-xs mt-1 opacity-70">{item.hint}</p>
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
         );
     }
 
     if (step === 'history') {
-        const areaNames: Record<string, string> = { R: 'Realista', I: 'Investigativo', A: 'Artístico', S: 'Social', E: 'Empreendedor', C: 'Convencional' };
         return (
             <div className="p-6 space-y-6 animate-fade-in pb-32">
-                <header className="flex items-center justify-center mb-6">
+                <header className="text-center space-y-2 mb-6">
                     <h2 className={`text-2xl font-black ${darkMode ? 'text-white' : 'text-slate-800'}`}>Meus Testes</h2>
+                    <p className={`${darkMode ? 'text-slate-400' : 'text-slate-600'} text-sm`}>Veja o resultado mais recente, compare perfis salvos e abra o que fizer mais sentido retomar.</p>
                 </header>
+
+                {selectedHistoryResult && (
+                    <div className={`rounded-[2rem] p-6 ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-indigo-50 border border-indigo-100'}`}>
+                        <div className="flex items-center justify-between gap-4">
+                            <div>
+                                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-500">Resultado mais recente</p>
+                                <h3 className={`text-xl font-black ${darkMode ? 'text-white' : 'text-slate-800'}`}>Perfil {selectedHistoryResult.topCode}</h3>
+                                <p className="text-sm opacity-70">{selectedHistoryResult.date}</p>
+                            </div>
+                            <button
+                                onClick={() => {
+                                    setScores(selectedHistoryResult.scores);
+                                    setVersion(selectedHistoryResult.version);
+                                    changeStep('results');
+                                }}
+                                className="rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-bold text-white"
+                            >
+                                Abrir
+                            </button>
+                        </div>
+                        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                            {Object.entries(selectedHistoryResult.scores)
+                                .sort(([, a], [, b]) => b - a)
+                                .slice(0, 3)
+                                .map(([code]) => (
+                                    <div key={code} className={`rounded-2xl px-4 py-3 ${darkMode ? 'bg-slate-900 border border-slate-700' : 'bg-white border border-white/70'}`}>
+                                        <p className="text-[10px] font-black uppercase tracking-[0.16em] opacity-50">Área forte</p>
+                                        <p className="mt-1 text-sm font-bold">{areaNames[code as RIASEC]}</p>
+                                    </div>
+                                ))}
+                        </div>
+                    </div>
+                )}
+
+                <div className={`rounded-[2rem] p-6 ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-slate-100 shadow-sm'}`}>
+                    <div className="flex items-center justify-between gap-4">
+                        <div>
+                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-500">Comparar dois resultados</p>
+                            <p className="mt-1 text-sm opacity-70">Marque até 2 testes para ver o que mudou entre eles.</p>
+                        </div>
+                        <div className="text-xs font-bold opacity-60">{comparisonIds.length}/2</div>
+                    </div>
+                    {comparisonResults.length === 2 && (
+                        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                            {comparisonResults.map((result) => (
+                                <div key={result.id} className={`rounded-2xl px-4 py-4 ${darkMode ? 'bg-slate-900 border border-slate-700' : 'bg-slate-50 border border-slate-100'}`}>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.16em] opacity-50">{result.date}</p>
+                                    <p className="mt-1 text-sm font-black">Perfil {result.topCode}</p>
+                                    <div className="mt-3 space-y-1">
+                                        {Object.entries(result.scores)
+                                            .sort(([, a], [, b]) => b - a)
+                                            .slice(0, 3)
+                                            .map(([code]) => (
+                                                <p key={code} className="text-sm opacity-80">• {areaNames[code as RIASEC]}</p>
+                                            ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
 
                 <div className="grid grid-cols-1 gap-4">
                     {savedResults.map((res) => (
                         <div
                             key={res.id}
                             onClick={() => {
+                                setSelectedHistoryId(res.id);
                                 setScores(res.scores);
                                 setVersion(res.version);
                                 changeStep('results');
                             }}
-                            className={`p-6 rounded-[2rem] relative group cursor-pointer transition-all active:scale-[0.98] ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-white shadow-xl border border-slate-50'}`}
+                            className={`p-6 rounded-[2rem] relative group cursor-pointer transition-all active:scale-[0.98] ${selectedHistoryId === res.id ? 'ring-2 ring-indigo-500' : ''} ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-white shadow-xl border border-slate-50'}`}
                         >
                             <button
                                 type="button"
@@ -390,7 +569,19 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
                             </div>
                             <div className="mt-4 flex justify-between items-center text-[10px] font-bold opacity-40">
                                 <span>{res.date}</span>
-                                <span>Clique para ver →</span>
+                                <div className="flex items-center gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleComparisonId(res.id);
+                                        }}
+                                        className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] ${comparisonIds.includes(res.id) ? 'bg-indigo-600 text-white' : darkMode ? 'bg-slate-700 text-slate-200' : 'bg-slate-100 text-slate-600'}`}
+                                    >
+                                        {comparisonIds.includes(res.id) ? 'Comparando' : 'Comparar'}
+                                    </button>
+                                    <span>Clique para ver →</span>
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -423,6 +614,10 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
                     </h3>
                 </div>
 
+                <div className={`rounded-3xl p-4 text-sm ${darkMode ? 'bg-slate-800 border border-slate-700 text-slate-300' : 'bg-slate-50 border border-slate-100 text-slate-600'}`}>
+                    Responda pensando no que tende a te energizar no longo prazo, não só no que você consegue fazer por obrigação.
+                </div>
+
                 <div className="grid grid-cols-1 gap-3">
                     {[
                         { label: 'Nada a ver comigo', value: 1, color: 'hover:bg-red-50 hover:text-red-600 border-red-100' },
@@ -446,6 +641,9 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
 
     const topAreas = getTopAreas();
     const topCode = topAreas.map(([code]) => code).join('');
+    const primaryArea = topAreas[0]?.[0] as RIASEC | undefined;
+    const secondaryArea = topAreas[1]?.[0] as RIASEC | undefined;
+    const primaryInsight = primaryArea ? profileInsights[primaryArea] : null;
 
     return (
         <div className="p-6 space-y-8 animate-fade-in pb-32">
@@ -458,19 +656,17 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
 
             <div className="grid grid-cols-1 gap-4">
                 {topAreas.map(([code, score], idx) => {
-                    const areaNames: Record<string, string> = { R: 'Realista', I: 'Investigativo', A: 'Artístico', S: 'Social', E: 'Empreendedor', C: 'Convencional' };
-                    const colors: Record<string, string> = { R: 'bg-red-500', I: 'bg-blue-500', A: 'bg-purple-500', S: 'bg-emerald-500', E: 'bg-orange-500', C: 'bg-slate-500' };
                     const questionsCount = allQuestions[version].length;
                     const percentage = Math.min(100, Math.round((score / (questionsCount / 6 * 5)) * 100));
 
                     return (
                         <div key={code} className={`p-5 rounded-3xl flex items-center justify-between shadow-lg ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-slate-50'}`}>
                             <div className="flex items-center gap-4">
-                                <div className={`w-12 h-12 rounded-2xl ${colors[code]} text-white flex items-center justify-center font-black text-xl shadow-lg`}>
+                                <div className={`w-12 h-12 rounded-2xl ${areaColors[code as RIASEC]} text-white flex items-center justify-center font-black text-xl shadow-lg`}>
                                     {code}
                                 </div>
                                 <div>
-                                    <h4 className={`font-bold ${darkMode ? 'text-slate-100' : 'text-slate-800'}`}>{areaNames[code]}</h4>
+                                    <h4 className={`font-bold ${darkMode ? 'text-slate-100' : 'text-slate-800'}`}>{areaNames[code as RIASEC]}</h4>
                                     <p className="text-xs opacity-60">{idx === 0 ? 'Área Predominante' : 'Forte Afinidade'}</p>
                                 </div>
                             </div>
@@ -492,14 +688,88 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
                 </p>
             </div>
 
+            {primaryInsight && (
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className={`rounded-[2rem] p-5 ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-slate-50 shadow-sm'}`}>
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-500">Como costuma aprender</p>
+                        <p className="mt-2 text-sm leading-relaxed">{primaryInsight.learn}</p>
+                    </div>
+                    <div className={`rounded-[2rem] p-5 ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-slate-50 shadow-sm'}`}>
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-500">Onde tende a render melhor</p>
+                        <p className="mt-2 text-sm leading-relaxed">{primaryInsight.thrive}</p>
+                    </div>
+                    <div className={`rounded-[2rem] p-5 ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-slate-50 shadow-sm'}`}>
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-amber-500">O que pode desgastar</p>
+                        <p className="mt-2 text-sm leading-relaxed">{primaryInsight.drains}</p>
+                    </div>
+                    <div className={`rounded-[2rem] p-5 ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-slate-50 shadow-sm'}`}>
+                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-emerald-500">Próximos passos de exploração</p>
+                        <div className="mt-2 space-y-2 text-sm leading-relaxed">
+                            {primaryInsight.next.map((item) => (
+                                <p key={item}>• {item}</p>
+                            ))}
+                            {secondaryArea && <p>• Compare isso com contextos ligados a {areaNames[secondaryArea]}.</p>}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <div className={`rounded-[2rem] p-5 ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-indigo-50 border border-indigo-100'}`}>
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-indigo-500">Próximo passo no app</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                    {[
+                        { label: 'Levar para o Diário', hint: 'registrar dúvidas, interesses e resistências', tab: 'diary' },
+                        { label: 'Abrir Mapa da Minha Vida', hint: 'comparar carreira com propósito e energia', tab: 'mapavida' },
+                        { label: 'Transformar em Missão', hint: 'testar um passo concreto nesta semana', tab: 'missions' },
+                        { label: 'Cruzar com Inteligência Emocional', hint: 'entender como você funciona ao aprender e decidir', tab: 'emocional' },
+                    ].map((item) => (
+                        <button
+                            key={item.tab}
+                            type="button"
+                            onClick={() => onNavigate?.(item.tab)}
+                            className={`rounded-[1.3rem] border p-4 min-h-[88px] text-left ${darkMode ? 'bg-slate-900 border-slate-700 text-slate-200' : 'bg-white border-white text-slate-700'}`}
+                        >
+                            <p className="text-sm font-black">{item.label}</p>
+                            <p className="text-xs mt-1 opacity-70">{item.hint}</p>
+                        </button>
+                    ))}
+                </div>
+            </div>
+
             <div className="space-y-4">
-                <h3 className={`text-xl font-black ${darkMode ? 'text-white' : 'text-slate-800'}`}>Carreiras Compatíveis</h3>
+                <div className="flex flex-col gap-3">
+                    <h3 className={`text-xl font-black ${darkMode ? 'text-white' : 'text-slate-800'}`}>Carreiras Compatíveis</h3>
+                    <div className="flex flex-wrap gap-2">
+                        {[
+                            { id: 'all' as CareerFilter, label: 'Todas' },
+                            { id: 'human' as CareerFilter, label: 'Mais humano' },
+                            { id: 'technical' as CareerFilter, label: 'Mais técnico' },
+                            { id: 'creative' as CareerFilter, label: 'Mais criativo' },
+                            { id: 'structured' as CareerFilter, label: 'Mais estruturado' },
+                        ].map((filter) => (
+                            <button
+                                key={filter.id}
+                                onClick={() => setCareerFilter(filter.id)}
+                                className={`rounded-full px-4 py-2 text-xs font-black uppercase tracking-[0.14em] ${careerFilter === filter.id ? 'bg-indigo-600 text-white' : darkMode ? 'bg-slate-800 border border-slate-700 text-slate-300' : 'bg-white border border-slate-100 text-slate-600'}`}
+                            >
+                                {filter.label}
+                            </button>
+                        ))}
+                    </div>
+                    {favoriteCareers.length > 0 && (
+                        <div className={`rounded-3xl p-4 ${darkMode ? 'bg-slate-800 border border-slate-700' : 'bg-amber-50 border border-amber-100'}`}>
+                            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-amber-500">Sua shortlist</p>
+                            <p className="mt-2 text-sm leading-relaxed">{favoriteCareers.join(' • ')}</p>
+                        </div>
+                    )}
+                </div>
                 <div className="grid grid-cols-1 gap-4">
                     {professions
                         .map(prof => ({
                             ...prof,
                             match: calculateMatch(prof.code, scores, version)
                         }))
+                        .filter(prof => matchesCareerFilter(prof.areas))
                         .filter(prof => prof.match > 40) // Threshold for relevance
                         .sort((a, b) => b.match - a.match) // Sort by compatibility
                         .map((prof) => (
@@ -520,7 +790,40 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
                                         <div className="text-[8px] font-bold uppercase opacity-40">Compatível</div>
                                     </div>
                                 </div>
+                                <button
+                                    type="button"
+                                    onClick={() => toggleFavoriteCareer(prof.name)}
+                                    className={`mt-3 rounded-2xl px-4 py-2 text-xs font-black uppercase tracking-[0.14em] ${favoriteCareers.includes(prof.name) ? 'bg-amber-500 text-white' : darkMode ? 'bg-slate-900 border border-slate-700 text-slate-200' : 'bg-amber-50 border border-amber-100 text-amber-700'}`}
+                                >
+                                    {favoriteCareers.includes(prof.name) ? 'Na shortlist' : 'Favoritar carreira'}
+                                </button>
                                 <p className="text-sm opacity-70 mt-3 border-t border-slate-100 pt-3 dark:border-slate-700">{prof.desc}</p>
+                                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                    <div className={`rounded-2xl px-4 py-3 ${darkMode ? 'bg-slate-900 border border-slate-700' : 'bg-slate-50 border border-slate-100'}`}>
+                                        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-500">Por que combina</p>
+                                        <p className="mt-1 text-sm opacity-80">
+                                            Essa combinação se aproxima de quem mistura {prof.areas.slice(0, 2).join(' e ').toLowerCase()} no dia a dia.
+                                        </p>
+                                    </div>
+                                    <div className={`rounded-2xl px-4 py-3 ${darkMode ? 'bg-slate-900 border border-slate-700' : 'bg-slate-50 border border-slate-100'}`}>
+                                        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-500">Estilo de rotina</p>
+                                        <p className="mt-1 text-sm opacity-80">
+                                            {prof.areas.includes('Convencional') ? 'Rotina mais estruturada, com processo e previsibilidade.' : prof.areas.includes('Empreendedor') ? 'Rotina dinâmica, com decisão, ritmo e interação frequente.' : 'Rotina mista, equilibrando aprofundamento e execução.'}
+                                        </p>
+                                    </div>
+                                    <div className={`rounded-2xl px-4 py-3 ${darkMode ? 'bg-slate-900 border border-slate-700' : 'bg-slate-50 border border-slate-100'}`}>
+                                        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-500">Tipo de contato</p>
+                                        <p className="mt-1 text-sm opacity-80">
+                                            {prof.areas.includes('Social') ? 'Contato humano relevante e leitura constante de pessoas.' : prof.areas.includes('Investigativo') ? 'Contato mais técnico, com análise e profundidade.' : 'Contato equilibrado entre execução, coordenação e entrega.'}
+                                        </p>
+                                    </div>
+                                    <div className={`rounded-2xl px-4 py-3 ${darkMode ? 'bg-slate-900 border border-slate-700' : 'bg-slate-50 border border-slate-100'}`}>
+                                        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-indigo-500">Estrutura x autonomia</p>
+                                        <p className="mt-1 text-sm opacity-80">
+                                            {prof.areas.includes('Artístico') ? 'Tende a pedir mais autonomia e espaço de autoria.' : prof.areas.includes('Convencional') ? 'Tende a pedir mais processo, regra e consistência.' : 'Equilíbrio entre orientação clara e margem de decisão.'}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                 </div>
@@ -532,6 +835,12 @@ export default function ExploracaoVocacionalSection({ darkMode, initialStep, onS
                     className="w-full py-4 rounded-3xl bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-100 transition-all active:scale-95"
                 >
                     Novo Teste
+                </button>
+                <button
+                    onClick={exportResult}
+                    className={`w-full py-4 rounded-3xl font-bold transition-all active:scale-95 ${darkMode ? 'bg-slate-800 border border-slate-700 text-white' : 'bg-white border border-slate-100 text-slate-700'}`}
+                >
+                    Exportar Resultado
                 </button>
                 <button
                     onClick={handleSave}

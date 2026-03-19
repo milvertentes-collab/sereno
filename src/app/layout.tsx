@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Fraunces, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const appSans = Plus_Jakarta_Sans({
+  variable: "--font-app-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const appDisplay = Fraunces({
+  variable: "--font-app-display",
+  subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -42,6 +49,8 @@ export const viewport: Viewport = {
   themeColor: "#0f172a",
 };
 
+import { SplashScreen } from "@/components/SplashScreen";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -68,8 +77,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${appSans.variable} ${appDisplay.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
+        <SplashScreen />
         {children}
         <Toaster />
       </body>

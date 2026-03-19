@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useAppPersistence } from '@/hooks/useAppPersistence';
 import { MoodEntry } from '@/components/MoodSection';
 
 interface Props { darkMode?: boolean }
@@ -14,8 +14,8 @@ const interventions = [
 ];
 
 export default function PreventiveIntervention({ darkMode: dm }: Props) {
-  const [moodHistory] = useLocalStorage<MoodEntry[]>('moodHistory', []);
-  const [dismissed, setDismissed] = useLocalStorage<string[]>('psico_preventive_dismissed', []);
+  const [moodHistory] = useAppPersistence<MoodEntry[]>('moodHistory', []);
+  const [dismissed, setDismissed] = useAppPersistence<string[]>('psico_preventive_dismissed', []);
   const c = (l: string, d: string) => (dm ? d : l);
 
   const alert = useMemo(() => {

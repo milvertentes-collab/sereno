@@ -97,8 +97,8 @@ export default function AudioSettingsTabs({
             <p className="text-xs font-bold text-slate-500 mb-2">Escolha a narração:</p>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { id: 'feminino', icon: '👩', label: 'Feminina' },
-                { id: 'masculino', icon: '👨', label: 'Masculina' },
+                { id: 'feminino', icon: '👩', label: 'SERENA' },
+                { id: 'masculino', icon: '👨', label: 'SERENO' },
               ].map((v) => (
                 <button
                   key={v.id}
@@ -145,11 +145,11 @@ export default function AudioSettingsTabs({
                         <option value="pt_BR-edresson-low">Edresson</option>
                         <option value="pt_BR-jeff-medium">Jeff</option>
                         <option value="pt_BR-faber-medium">Faber</option>
-                        <option value="pt-BR-AntonioNeural">Antonio</option>
+                        <option value="pt-BR-AntonioNeural">SERENO</option>
                       </>
                     ) : (
                       <>
-                        <option value="pt-BR-FranciscaNeural">Francisca (Natural)</option>
+                        <option value="pt-BR-FranciscaNeural">SERENA (Natural)</option>
                         <option value="pt-BR-ThalitaMultilingualNeural">Thalita</option>
                       </>
                     )}

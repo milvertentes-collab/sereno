@@ -1,67 +1,77 @@
 'use client';
 
 import { useState } from 'react';
+import RecommendAppModal from './RecommendAppModal';
 
-interface Props { darkMode?: boolean }
-
-const templates = [
-  { id: 1, text: 'Estou usando o Sereno para cuidar da minha saúde mental. Experimenta, acho que você vai gostar! 💙' },
-  { id: 2, text: 'Sei que você tem passado por momentos difíceis. Esse app tem me ajudado bastante. Talvez te ajude também. 🤗' },
-  { id: 3, text: 'Encontrei uma ferramenta legal para registrar emoções e praticar respiração. Vamos testar juntos?' },
-  { id: 4, text: 'Lembrei de você quando vi essa ferramenta de autocuidado. Espero que ajude. 💜' },
-];
-
-export default function InviteFriendSection({ darkMode: dm }: Props) {
-  const [selected, setSelected] = useState(templates[0].text);
-  const [copied, setCopied] = useState(false);
-  const c = (l: string, d: string) => (dm ? d : l);
-
-  const share = (platform: 'whatsapp' | 'telegram' | 'email') => {
-    const text = encodeURIComponent(selected + '\n\nBaixe em: https://sereno.app');
-    const urls: Record<string, string> = {
-      whatsapp: `https://wa.me/?text=${text}`,
-      telegram: `https://t.me/share/url?url=${text}`,
-      email: `mailto:?subject=Convite%20Sereno&body=${text}`,
-    };
-    window.open(urls[platform], '_blank');
-  };
-
-  const copy = () => {
-    navigator.clipboard.writeText(selected);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+export default function InviteFriendSection({ darkMode }: { darkMode?: boolean }) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const c = (l: string, d: string) => (darkMode ? d : l);
 
   return (
-    <div className={`p-4 pb-24 max-w-lg mx-auto ${dm ? 'text-white' : ''}`}>
-      <div className="text-center pt-4 mb-6">
-        <h2 className={`text-3xl font-extrabold ${c('text-slate-900', 'text-slate-100')}`}>💌 Indicar para um Amigo</h2>
-        <p className={`text-sm mt-2 ${c('text-slate-600', 'text-slate-400')}`}>Compartilhe o Sereno com uma mensagem de apoio.</p>
-      </div>
+    <div className="p-4 pb-32 max-w-lg mx-auto animate-fade-in">
+      <div className={`overflow-hidden rounded-[2.4rem] border ${c('border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f7faff_100%)] shadow-[0_20px_50px_rgba(15,23,42,0.08)]', 'border-slate-800 bg-[linear-gradient(180deg,#0f172a_0%,#101a31_100%)] shadow-[0_24px_60px_rgba(2,6,23,0.5)]')}`}>
+        <div className={`relative h-56 overflow-hidden ${c('bg-[radial-gradient(circle_at_top_left,#c7d2fe_0%,#8b5cf6_32%,#0f172a_100%)]', 'bg-[radial-gradient(circle_at_top_left,#8b5cf6_0%,#4338ca_32%,#0b1220_100%)]')}`}>
+          <div className="absolute inset-0">
+            <div className="absolute -left-10 top-0 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
+            <div className="absolute bottom-0 right-0 h-44 w-44 rounded-full bg-fuchsia-300/20 blur-3xl" />
+            <div className="absolute left-8 top-8 h-20 w-20 rounded-[2rem] border border-white/20 bg-white/10 backdrop-blur-xl" />
+            <div className="absolute right-12 top-14 h-12 w-12 rounded-full border border-white/15 bg-white/10 backdrop-blur-xl" />
+          </div>
+          <div className="relative flex h-full flex-col justify-between p-6 text-white">
+            <div className="flex items-center justify-between">
+              <div className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.2em] text-white/80 backdrop-blur-xl">
+                Compartilhe o Sereno
+              </div>
+              <div className="rounded-[1.3rem] border border-white/15 bg-white/10 px-4 py-3 text-3xl shadow-[0_18px_40px_rgba(15,23,42,0.2)] backdrop-blur-xl">
+                ✨
+              </div>
+            </div>
+            <div>
+              <h2 className="max-w-[14rem] text-[2rem] font-black leading-[1.02]">Indique cuidado de um jeito bonito.</h2>
+              <p className="mt-3 max-w-[16rem] text-sm leading-relaxed text-white/80">
+                Monte uma mensagem com contexto, tom certo e envio rápido para quem você quer acolher.
+              </p>
+            </div>
+          </div>
+        </div>
 
-      <div className={`rounded-3xl p-5 border mb-5 ${c('bg-white border-slate-100', 'bg-slate-800/80 border-slate-700')}`}>
-        <h3 className="font-bold mb-3">Escolha uma mensagem</h3>
-        <div className="space-y-2">
-          {templates.map((t) => (
-            <button key={t.id} onClick={() => setSelected(t.text)} className={`w-full p-3 rounded-xl text-left text-sm transition-all ${selected === t.text ? 'bg-blue-500 text-white' : c('bg-slate-50', 'bg-slate-700')}`}>
-              {t.text}
+        <div className="p-6">
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { title: 'Escolha o contexto', text: 'apoio, família, autocuidado' },
+              { title: 'Ajuste o tom', text: 'mais acolhedor ou mais direto' },
+              { title: 'Envie rápido', text: 'WhatsApp, Telegram, e-mail ou copiar' },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className={`rounded-[1.6rem] border p-3 ${c('border-slate-200 bg-white/80', 'border-slate-800 bg-white/5')}`}
+              >
+                <p className={`text-[11px] font-black uppercase tracking-[0.16em] ${c('text-violet-700', 'text-violet-300')}`}>{item.title}</p>
+                <p className={`mt-2 text-xs leading-relaxed ${c('text-slate-600', 'text-slate-300')}`}>{item.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 space-y-3">
+            <button
+              onClick={() => setModalOpen(true)}
+              className={`group relative w-full overflow-hidden rounded-[1.6rem] px-5 py-4 text-base font-black transition-all active:scale-[0.98] ${c('bg-[linear-gradient(135deg,#6d28d9_0%,#7c3aed_50%,#2563eb_100%)] text-white shadow-[0_20px_40px_rgba(109,40,217,0.25)]', 'bg-[linear-gradient(135deg,#7c3aed_0%,#8b5cf6_55%,#22c55e_120%)] text-white shadow-[0_24px_48px_rgba(76,29,149,0.4)]')}`}
+            >
+              <span className="absolute inset-y-0 left-[-30%] w-24 rotate-12 bg-white/20 blur-md transition-transform duration-1000 group-hover:translate-x-[360%] group-active:translate-x-[360%]" />
+              <span className="relative">Montar indicação</span>
             </button>
-          ))}
+            <p className={`text-center text-[10px] font-black uppercase tracking-[0.2em] ${c('text-slate-400', 'text-slate-500')}`}>
+              Feito para soar pessoal, não genérico
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className={`rounded-3xl p-5 border mb-5 ${c('bg-white border-slate-100', 'bg-slate-800/80 border-slate-700')}`}>
-        <h3 className="font-bold mb-3">Prévia</h3>
-        <p className={`text-sm ${c('text-slate-600', 'text-slate-300')}`}>{selected}</p>
-        <p className={`text-xs mt-2 ${c('text-slate-400', 'text-slate-500')}`}>+ Link para download</p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <button onClick={() => share('whatsapp')} className="py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm">WhatsApp</button>
-        <button onClick={() => share('telegram')} className="py-3 rounded-xl bg-sky-600 text-white font-bold text-sm">Telegram</button>
-        <button onClick={() => share('email')} className="py-3 rounded-xl bg-slate-600 text-white font-bold text-sm">E-mail</button>
-        <button onClick={copy} className={`py-3 rounded-xl font-bold text-sm ${copied ? 'bg-emerald-600 text-white' : c('bg-slate-100 text-slate-700', 'bg-slate-700 text-slate-200')}`}>{copied ? 'Copiado!' : 'Copiar'}</button>
-      </div>
+      <RecommendAppModal
+        open={modalOpen}
+        darkMode={darkMode}
+        onClose={() => setModalOpen(false)}
+      />
     </div>
   );
 }

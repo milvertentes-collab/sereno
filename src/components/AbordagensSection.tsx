@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import SectionHeroCard from './SectionHeroCard';
 
 const categories = [
     {
@@ -139,22 +140,36 @@ const categories = [
     }
 ];
 
-export default function AbordagensSection({ darkMode: dm }: { darkMode?: boolean }) {
+interface Props {
+    darkMode?: boolean;
+    onNavigate?: (tab: any, params?: Record<string, any>) => void;
+}
+
+export default function AbordagensSection({ darkMode: dm, onNavigate }: Props) {
     const [selectedId, setSelectedId] = useState<string | null>(null);
+    const c = (l: string, d: string) => (dm ? d : l);
 
     return (
         <div className="p-4 sm:p-6 animate-fade-in pb-32 max-w-lg mx-auto overflow-x-hidden">
-            {/* Cabeçalho */}
-            <div className="text-center mb-10 pt-4">
-                <div className={`w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-4xl mb-4 shadow-sm ${dm ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-gray-100'}`}>
-                    🎓
-                </div>
-                <h2 className={`text-2xl font-black tracking-tight mb-2 ${dm ? 'text-slate-100' : 'text-slate-900'}`}>
-                    Abordagens Psicológicas
-                </h2>
-                <p className={`text-sm max-w-xs mx-auto ${dm ? 'text-slate-400' : 'text-gray-600'}`}>
-                    Cada linha de terapia oferece uma forma única de cuidar do seu bem-estar.
-                </p>
+            <div className="pt-4 mb-8">
+                <SectionHeroCard
+                    darkMode={dm}
+                    eyebrow="Clareza de cuidado"
+                    title="Abordagens Psicológicas"
+                    description="Entenda estilos de terapia e reconheça por onde vale começar no seu momento."
+                    icon="🎓"
+                >
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                        <div className={`rounded-2xl p-3 ${c('bg-white/80 border border-white text-slate-700', 'bg-slate-900/50 border border-slate-700 text-slate-200')}`}>
+                            <p className="text-sm font-black">4 famílias principais</p>
+                            <p className={`text-xs mt-1 ${c('text-slate-500', 'text-slate-400')}`}>Profundidade, padrões, presença e vínculos.</p>
+                        </div>
+                        <div className={`rounded-2xl p-3 ${c('bg-white/80 border border-white text-slate-700', 'bg-slate-900/50 border border-slate-700 text-slate-200')}`}>
+                            <p className="text-sm font-black">Toque para abrir</p>
+                            <p className={`text-xs mt-1 ${c('text-slate-500', 'text-slate-400')}`}>Cada abordagem mostra resumo e quando costuma fazer mais sentido.</p>
+                        </div>
+                    </div>
+                </SectionHeroCard>
             </div>
 
             {/* Categorias e Abordagens */}
@@ -227,7 +242,28 @@ export default function AbordagensSection({ darkMode: dm }: { darkMode?: boolean
                 ))}
             </div>
 
-            {/* Rodapé Importante */}
+            <div className={`mt-10 p-5 rounded-[2rem] border ${c('bg-amber-50 border-amber-100', 'bg-amber-500/10 border-amber-500/20')}`}>
+                <p className={`text-[10px] font-black uppercase tracking-[0.18em] ${c('text-amber-700', 'text-amber-300')}`}>Se quiser seguir daqui</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                    {[
+                        { label: 'Psicoeducação', hint: 'aprofundar temas com mais contexto', tab: 'psychoedu' },
+                        { label: 'Dicionário Emocional', hint: 'nomear melhor o que você sente', tab: 'dictionary' },
+                        { label: 'Exploração Vocacional', hint: 'seguir por identidade e caminho', tab: 'vocacional' },
+                        { label: 'Mapa da Minha Vida', hint: 'olhar seu momento de forma mais ampla', tab: 'mapavida' },
+                    ].map((item) => (
+                        <button
+                            key={item.tab}
+                            type="button"
+                            onClick={() => onNavigate?.(item.tab)}
+                            className={`rounded-[1.4rem] border p-4 min-h-[88px] text-left transition-all ${c('bg-white border-white hover:border-amber-200', 'bg-slate-900/70 border-slate-700 hover:border-amber-500/30')}`}
+                        >
+                            <p className="text-sm font-black">{item.label}</p>
+                            <p className={`text-xs mt-1 ${c('text-slate-500', 'text-slate-400')}`}>{item.hint}</p>
+                        </button>
+                    ))}
+                </div>
+            </div>
+
             <div className={`mt-16 p-8 rounded-3xl border text-center shadow-sm relative overflow-hidden backdrop-blur-md ${dm ? 'bg-slate-800/80 border-slate-700' : 'bg-white border-gray-100'}`}>
                 <div className={`w-12 h-12 rounded-xl mx-auto mb-4 flex items-center justify-center text-2xl shadow-sm ${dm ? 'bg-slate-700' : 'bg-gray-50 text-indigo-600'}`}>
                     ✨
@@ -237,7 +273,7 @@ export default function AbordagensSection({ darkMode: dm }: { darkMode?: boolean
                     Lembrete Importante
                 </h4>
                 <p className={`text-sm leading-relaxed font-medium ${dm ? 'text-slate-400' : 'text-gray-600'}`}>
-                    A escolha da abordagem depende do seu momento de vida e da sua conexão com o terapeuta. O vínculo e a confiança são os fatores mais importantes para o seu progresso.
+                    Mais importante do que o rótulo da abordagem é o vínculo, a segurança e a confiança no processo.
                 </p>
             </div>
         </div>

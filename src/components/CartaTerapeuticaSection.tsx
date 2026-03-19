@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
+import SectionHeroCard from './SectionHeroCard';
 
 type LetterType = 'nao_enviada' | 'despedida' | 'perdao' | 'passado' | 'dor' | 'gratidao' | 'ciclo' | 'resposta' | 'personalizada' | null;
 
@@ -13,6 +14,17 @@ interface SavedLetter {
     date: number;
     expiresAt?: number;
     status: 'saved' | 'ripped';
+}
+
+type ResponseTone = 'acolhedor' | 'honesto' | 'reparador';
+
+interface CartaTerapeuticaSectionProps {
+    darkMode?: boolean;
+    registerBackHandler?: ((handler: (() => boolean) | null) => void);
+    initialDraft?: string;
+    initialDraftKey?: string | number;
+    initialType?: Exclude<LetterType, null>;
+    onNavigate?: (tab: 'diary' | 'solta' | 'esperanca', params?: Record<string, any>) => void;
 }
 
 const letterModels = [
@@ -27,17 +39,46 @@ const letterModels = [
     { id: 'personalizada', icon: '✍️', title: 'Carta Personalizada', desc: 'Escreva livremente com o seu próprio propósito.', bg: 'from-indigo-50 to-white', text: 'text-indigo-900' }
 ];
 
-export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: boolean }) {
+const letterPrompts: Record<Exclude<LetterType, null>, string[]> = {
+    nao_enviada: ['O que você nunca conseguiu dizer?', 'O que ficou preso na garganta?', 'Se pudesse falar sem interrupção, por onde começaria?'],
+    despedida: ['Do que você está se despedindo?', 'O que ainda é difícil soltar?', 'O que você quer levar consigo e o que quer deixar ir?'],
+    perdao: ['O que ainda dói quando você lembra?', 'Que peso você não quer mais carregar?', 'O que precisaria ser reconhecido para abrir espaço ao perdão?'],
+    passado: ['O que você gostaria que seu eu do passado ouvisse?', 'Do que aquela versão sua precisava?', 'Que abraço, frase ou cuidado faltou naquele momento?'],
+    dor: ['Se a sua dor pudesse falar, o que ela diria?', 'Onde isso machuca mais hoje?', 'Do que essa dor está tentando te proteger?'],
+    gratidao: ['O que você gostaria de agradecer em voz alta?', 'Quem te fez bem e talvez nunca tenha ouvido isso?', 'Que gesto marcou você de forma silenciosa?'],
+    ciclo: ['O que esse ciclo significou para você?', 'O que ainda está difícil encerrar?', 'Como você quer fechar essa fase por dentro?'],
+    resposta: ['Qual foi o seu lado dessa história?', 'O que você gostaria que o outro entendesse?', 'O que precisaria ser dito antes de imaginar uma resposta?'],
+    personalizada: ['O que pede uma carta hoje?', 'Qual assunto está vivo dentro de você agora?', 'Se essa carta tivesse uma intenção, qual seria?'],
+};
+
+const structurePrompts = [
+    { title: 'O que aconteceu', text: 'O que aconteceu:\n' },
+    { title: 'O que isso deixou em mim', text: '\n\nO que isso deixou em mim:\n' },
+    { title: 'O que eu gostaria de dizer agora', text: '\n\nO que eu gostaria de dizer agora:\n' },
+    { title: 'Como eu quero encerrar esta carta', text: '\n\nComo eu quero encerrar esta carta:\n' },
+];
+
+const responseToneOptions: Array<{ id: ResponseTone; label: string; desc: string }> = [
+    { id: 'acolhedor', label: 'Acolhedor', desc: 'mais gentil e cuidadoso' },
+    { id: 'honesto', label: 'Honesto', desc: 'mais direto e realista' },
+    { id: 'reparador', label: 'Reparador', desc: 'mais orientado a reparar e reconhecer' },
+];
+
+export default function CartaTerapeuticaSection({ darkMode: dm, registerBackHandler, initialDraft, initialDraftKey, initialType, onNavigate }: CartaTerapeuticaSectionProps) {
     const { toast } = useToast();
 
     // View States
     const [viewingSaved, setViewingSaved] = useState(false);
     const [savedLetters, setSavedLetters] = useState<SavedLetter[]>([]);
+    const [savedSearch, setSavedSearch] = useState('');
+    const [savedFilter, setSavedFilter] = useState<'all' | Exclude<LetterType, null>>('all');
+    const [expandedSavedId, setExpandedSavedId] = useState<string | null>(null);
 
     // Editor States
     const [selectedType, setSelectedType] = useState<LetterType>(null);
     const [letterContent, setLetterContent] = useState('');
     const [responseContent, setResponseContent] = useState('');
+    const [responseTone, setResponseTone] = useState<ResponseTone>('acolhedor');
 
     // Toggling between original/response
     const [activeTab, setActiveTab] = useState<'original' | 'resposta'>('original');
@@ -48,6 +89,18 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
     const [isStoring, setIsStoring] = useState(false);
     const [isPraying, setIsPraying] = useState(false);
     const [isWritingResponse, setIsWritingResponse] = useState(false);
+
+    const activeModel = letterModels.find(m => m.id === selectedType);
+    const selectedPrompts = selectedType ? letterPrompts[selectedType] : [];
+
+    const filteredSavedLetters = useMemo(() => {
+        return savedLetters.filter((letter) => {
+            if (savedFilter !== 'all' && letter.type !== savedFilter) return false;
+            const query = savedSearch.trim().toLowerCase();
+            if (!query) return true;
+            return `${letter.title} ${letter.content}`.toLowerCase().includes(query);
+        });
+    }, [savedFilter, savedLetters, savedSearch]);
 
     useEffect(() => {
         // cleanup expired ripped letters and load saved letters
@@ -60,11 +113,57 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
         setSavedLetters(valid);
     }, [viewingSaved]);
 
+    useEffect(() => {
+        if (!registerBackHandler) return;
+
+        const handler = () => {
+            if (viewingSaved) {
+                setViewingSaved(false);
+                return true;
+            }
+
+            if (selectedType) {
+                setSelectedType(null);
+                setIsWritingResponse(false);
+                setActiveTab('original');
+                return true;
+            }
+
+            return false;
+        };
+
+        registerBackHandler(handler);
+        return () => registerBackHandler(null);
+    }, [registerBackHandler, selectedType, viewingSaved]);
+
+    useEffect(() => {
+        if (!initialDraft) return;
+        setViewingSaved(false);
+        setSelectedType(initialType || 'personalizada');
+        setLetterContent(initialDraft);
+        setResponseContent('');
+        setIsWritingResponse(false);
+        setActiveTab('original');
+    }, [initialDraft, initialDraftKey, initialType]);
+
     const saveToLocalStorage = (newLetter: SavedLetter) => {
         const existing = JSON.parse(localStorage.getItem('psico_therapeutic_letters') || '[]');
         const updated = [newLetter, ...existing];
         localStorage.setItem('psico_therapeutic_letters', JSON.stringify(updated));
         setSavedLetters(updated);
+    };
+
+    const appendPrompt = (text: string, target: 'original' | 'resposta' = 'original') => {
+        if (target === 'resposta') {
+            setResponseContent((prev) => prev.trim() ? `${prev.trim()}\n\n${text}` : text);
+            return;
+        }
+        setLetterContent((prev) => prev.trim() ? `${prev.trim()}\n\n${text}` : text);
+    };
+
+    const applyStructure = () => {
+        const structureText = structurePrompts.map((item) => item.text).join('');
+        setLetterContent((prev) => prev.trim() ? `${prev.trim()}\n${structureText}` : structureText.trimStart());
     };
 
     const handleBurn = () => {
@@ -144,7 +243,7 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    message: "Transforme o seguinte desabafo/carta em uma oração ou prece acolhedora e espiritual (sem mencionar nenhuma religião específica, apenas focando em pedir por luz, aceitação, paz, força, cura e alívio para o coração): " + textToTransform,
+                    message: `Transforme o seguinte desabafo/carta em uma oração ou prece acolhedora e espiritual (sem mencionar nenhuma religião específica, apenas focando em pedir por luz, aceitação, paz, força, cura e alívio para o coração): ${textToTransform}`,
                     history: [],
                     userContext: {}
                 })
@@ -175,6 +274,39 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
         setActiveTab('resposta');
     };
 
+    const generateImaginedResponse = async () => {
+        if (!letterContent.trim()) {
+            toast({ title: "Atenção", description: "Escreva a sua carta primeiro para elaborar uma resposta imaginada." });
+            return;
+        }
+
+        setIsPraying(true);
+        try {
+            const res = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: `Crie uma resposta imaginada para esta carta. Essa resposta deve ser apresentada como um recurso terapêutico de elaboração, e não como verdade literal. Use um tom ${responseToneOptions.find((tone) => tone.id === responseTone)?.desc}. Carta: ${letterContent}`,
+                    history: [],
+                    userContext: {}
+                })
+            });
+            const data = await res.json();
+            setIsWritingResponse(true);
+            setActiveTab('resposta');
+            if (data.response) setResponseContent(data.response);
+            toast({
+                title: "Resposta imaginada criada 💬",
+                description: "Use esse texto como recurso de elaboração, não como uma verdade sobre o outro.",
+                className: dm ? 'bg-cyan-900 text-cyan-100 border-cyan-700' : 'bg-cyan-50 text-cyan-900 border-cyan-200'
+            });
+        } catch (e) {
+            toast({ title: "Erro", description: "Falha ao gerar a resposta imaginada no momento." });
+        } finally {
+            setIsPraying(false);
+        }
+    };
+
     const resetState = () => {
         setLetterContent('');
         setResponseContent('');
@@ -185,9 +317,8 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
         setIsWritingResponse(false);
         setActiveTab('original');
         setIsPraying(false);
+        setResponseTone('acolhedor');
     };
-
-    const activeModel = letterModels.find(m => m.id === selectedType);
 
     // ============================================
     // viewSaved screen
@@ -195,48 +326,81 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
     if (viewingSaved) {
         return (
             <div className={`min-h-[calc(100vh-5rem)] p-4 sm:p-6 pb-32 animate-fade-in ${dm ? 'bg-slate-900 text-slate-100' : 'bg-amber-50/30 text-gray-800'}`}>
-                <div className="flex justify-between items-center mb-8 max-w-3xl mx-auto">
-                    <button
-                        onClick={() => setViewingSaved(false)}
-                        className={`font-bold flex items-center gap-2 ${dm ? 'text-slate-300 hover:text-white' : 'text-amber-800 hover:text-amber-900'}`}
-                    >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
-                        Voltar para Escrever
-                    </button>
+                <div className="flex justify-end items-center mb-8 max-w-3xl mx-auto">
                     <span className="text-3xl">🗃️</span>
                 </div>
 
                 <h2 className={`text-3xl font-extrabold tracking-tight mb-2 text-center ${dm ? 'text-amber-400' : 'text-amber-800'}`}>Sua Gaveta de Cartas</h2>
-                <p className="text-center font-medium opacity-70 mb-10 max-w-md mx-auto">Suas lembranças, guardadas em segurança. Cartas rasgadas irão sumir após 7 dias.</p>
+                <p className="text-center font-medium opacity-70 mb-6 max-w-md mx-auto">Cartas guardadas permanecem com você. Cartas rasgadas desaparecem sozinhas após 7 dias.</p>
 
-                <div className="max-w-3xl mx-auto space-y-8">
-                    {savedLetters.length === 0 ? (
+                {savedLetters.length > 0 && (
+                    <div className={`max-w-3xl mx-auto rounded-[2rem] p-5 border shadow-sm mb-6 ${dm ? 'bg-slate-800 border-slate-700' : 'bg-white border-amber-100'}`}>
+                        <div className="grid grid-cols-1 gap-3">
+                            <input
+                                type="text"
+                                value={savedSearch}
+                                onChange={(e) => setSavedSearch(e.target.value)}
+                                placeholder="Buscar por título ou palavras da carta..."
+                                className={`w-full px-4 py-3 rounded-2xl border text-sm font-medium outline-none ${dm ? 'bg-slate-900 border-slate-700 text-white placeholder-slate-500' : 'bg-amber-50/60 border-amber-100 text-gray-800'}`}
+                            />
+                            <div className="flex gap-2 flex-wrap">
+                                <button onClick={() => setSavedFilter('all')} className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${savedFilter === 'all' ? 'bg-amber-500 text-white shadow-md' : (dm ? 'bg-slate-900 text-slate-300 border border-slate-700' : 'bg-amber-50 text-amber-800 border border-amber-100')}`}>Tudo</button>
+                                {letterModels.map((model) => (
+                                    <button key={model.id} onClick={() => setSavedFilter(model.id as Exclude<LetterType, null>)} className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${savedFilter === model.id ? 'bg-amber-500 text-white shadow-md' : (dm ? 'bg-slate-900 text-slate-300 border border-slate-700' : 'bg-amber-50 text-amber-800 border border-amber-100')}`}>
+                                        {model.icon} {model.title}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                <div className="max-w-3xl mx-auto space-y-4">
+                    {filteredSavedLetters.length === 0 ? (
                         <div className="text-center p-10 opacity-50">Sua gaveta está vazia no momento.</div>
                     ) : (
-                        savedLetters.map(letter => {
+                        filteredSavedLetters.map(letter => {
                             const daysLeft = letter.expiresAt ? Math.ceil((letter.expiresAt - Date.now()) / (1000 * 60 * 60 * 24)) : null;
+                            const isExpanded = expandedSavedId === letter.id;
                             return (
-                                <div key={letter.id} className={`p-8 rounded-[2rem] border shadow-lg relative overflow-hidden ${dm ? 'bg-slate-800 border-slate-700' : 'bg-white border-amber-100'}`}>
+                                <div key={letter.id} className={`rounded-[2rem] border shadow-lg relative overflow-hidden transition-all ${letter.status === 'ripped'
+                                    ? (dm ? 'bg-gradient-to-br from-slate-800 to-slate-900 border-slate-600' : 'bg-gradient-to-br from-slate-50 to-white border-slate-200')
+                                    : (dm ? 'bg-gradient-to-br from-slate-800 to-amber-950/20 border-amber-700/40' : 'bg-gradient-to-br from-white to-amber-50/70 border-amber-100')}`}>
                                     {letter.status === 'ripped' && (
                                         <div className="absolute inset-0 top-0 left-0 border-t-2 border-dashed border-slate-300 pointer-events-none transform -rotate-3 scale-110 opacity-30"></div>
                                     )}
-                                    <div className="flex justify-between items-start mb-6">
-                                        <div className="flex items-center gap-4">
-                                            <span className="text-4xl">{letter.status === 'ripped' ? '🗡️' : '📔'}</span>
-                                            <div>
-                                                <h4 className="font-extrabold text-xl">{letter.title}</h4>
-                                                <p className="text-sm opacity-60 font-semibold mt-1">{new Date(letter.date).toLocaleString('pt-BR')}</p>
+                                    {letter.status === 'saved' && (
+                                        <div className={`absolute inset-0 pointer-events-none opacity-40 ${dm ? 'bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.18),transparent_40%)]' : 'bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.14),transparent_38%)]'}`} />
+                                    )}
+                                    <button onClick={() => setExpandedSavedId(isExpanded ? null : letter.id)} className="w-full text-left p-8">
+                                        <div className="flex justify-between items-start gap-4 mb-4">
+                                            <div className="flex items-center gap-4">
+                                                <span className="text-4xl">{letter.status === 'ripped' ? '🗡️' : '📔'}</span>
+                                                <div>
+                                                    <div className="flex items-center gap-2 flex-wrap">
+                                                        <h4 className="font-extrabold text-xl">{letter.title}</h4>
+                                                        <span className={`px-3 py-1 rounded-full text-[11px] font-black ${letter.status === 'ripped' ? 'bg-slate-200 text-slate-700' : 'bg-amber-100 text-amber-800'}`}>
+                                                            {letter.status === 'ripped' ? 'Rasgada' : 'Guardada'}
+                                                        </span>
+                                                    </div>
+                                                    <p className="text-sm opacity-60 font-semibold mt-1">{new Date(letter.date).toLocaleString('pt-BR')}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-3">
+                                                {daysLeft !== null && (
+                                                    <span className="px-4 py-1.5 bg-red-100 text-red-800 text-xs font-extrabold rounded-full border border-red-200 shadow-sm">
+                                                        Some em {daysLeft} dias
+                                                    </span>
+                                                )}
+                                                <span className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
+                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="6,9 12,15 18,9" /></svg>
+                                                </span>
                                             </div>
                                         </div>
-                                        {daysLeft !== null && (
-                                            <span className="px-4 py-1.5 bg-red-100 text-red-800 text-xs font-extrabold rounded-full border border-red-200 shadow-sm">
-                                                Some em {daysLeft} dias
-                                            </span>
-                                        )}
-                                    </div>
-                                    <div className={`p-5 rounded-2xl text-base leading-relaxed whitespace-pre-wrap font-serif italic ${dm ? 'bg-slate-900/50 text-slate-300' : 'bg-amber-50/50 text-slate-700'}`}>
-                                        {letter.content}
-                                    </div>
+                                        <div className={`p-5 rounded-2xl text-base leading-relaxed whitespace-pre-wrap font-serif italic ${dm ? 'bg-slate-900/50 text-slate-300' : 'bg-amber-50/50 text-slate-700'}`}>
+                                            {isExpanded ? letter.content : `${letter.content.slice(0, 220).trim()}${letter.content.length > 220 ? '...' : ''}`}
+                                        </div>
+                                    </button>
                                 </div>
                             )
                         })
@@ -251,12 +415,14 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
 
             {/* Header */}
             {!selectedType && (
-                <div className="text-center pt-8 mb-6">
-                    <span className="text-6xl mb-4 block filter drop-shadow-md">🤎</span>
-                    <h2 className={`text-3xl font-extrabold tracking-tight mb-2 ${dm ? 'text-amber-400' : 'text-amber-800'}`}>Carta Terapêutica</h2>
-                    <p className={`mt-2 font-medium max-w-lg mx-auto ${dm ? 'text-slate-400' : 'text-gray-500'}`}>
-                        Escrever é organizar a alma. Escolha o propósito da sua carta de hoje.
-                    </p>
+                <div className="pt-4 mb-6 max-w-2xl mx-auto">
+                    <SectionHeroCard
+                        darkMode={dm}
+                        eyebrow="Escrita de elaboração"
+                        title="Carta Terapêutica"
+                        description="Escreva para organizar o que ficou preso, dar contorno ao que doeu e encontrar uma forma mais íntegra de encerrar ou responder."
+                        icon="🤎"
+                    />
                 </div>
             )}
 
@@ -299,19 +465,35 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
                         ${isRipping ? 'animate-shatter' : ''} 
                         ${!isBurning && !isStoring && !isRipping ? 'animate-slide-up' : ''}
                     `}>
+                        {isStoring && (
+                            <div className="absolute inset-0 z-40 pointer-events-none overflow-hidden rounded-[2rem]">
+                                <div className="absolute inset-0 bg-gradient-to-b from-amber-200/10 via-transparent to-indigo-500/10 animate-pulse" />
+                                <div className="absolute top-8 left-8 text-2xl animate-[floatSoft_1.8s_ease-in-out_infinite]">✉️</div>
+                                <div className="absolute top-16 right-10 text-xl opacity-80 animate-[floatSoft_2.2s_ease-in-out_infinite]">✨</div>
+                                <div className="absolute bottom-14 right-12 text-2xl opacity-80 animate-[floatSoft_2s_ease-in-out_infinite]">🗃️</div>
+                            </div>
+                        )}
 
                         <div className={`p-6 sm:p-8 rounded-[2rem] border shadow-2xl transition-all duration-500 relative ${dm ? 'bg-[#1a1c29] border-slate-700' : 'bg-[#fffdf8] border-amber-100'}`}>
 
-                            <div className="flex justify-between items-center mb-6 relative z-10">
-                                <button
-                                    onClick={() => setSelectedType(null)}
-                                    disabled={isBurning || isPraying}
-                                    className={`flex items-center gap-2 text-sm font-bold opacity-70 hover:opacity-100 transition-opacity ${dm ? 'text-slate-300' : 'text-amber-900'}`}
-                                >
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
-                                    Voltar
-                                </button>
+                            <div className="flex justify-end items-center mb-6 relative z-10">
                                 <span className="text-3xl drop-shadow-sm">{activeModel?.icon}</span>
+                            </div>
+
+                            <div className={`rounded-[1.75rem] p-5 mb-6 border ${dm ? 'bg-slate-800/70 border-slate-700' : 'bg-amber-50/60 border-amber-100'}`}>
+                                <div className="flex flex-col gap-4">
+                                    <div className="min-w-0 flex-1">
+                                        <p className={`text-xs font-black uppercase tracking-[0.2em] ${dm ? 'text-amber-300' : 'text-amber-700'}`}>Propósito da carta</p>
+                                        <h3 className={`font-extrabold mt-2 font-serif leading-tight text-[clamp(1.5rem,5vw,2rem)] ${dm ? 'text-amber-200' : 'text-amber-900'}`}>
+                                            {activeTab === 'resposta' ? 'A resposta imaginada' : activeModel?.title}
+                                        </h3>
+                                        <p className={`text-sm mt-2 font-medium leading-relaxed max-w-2xl ${dm ? 'text-slate-300' : 'text-slate-600'}`}>
+                                            {activeTab === 'resposta'
+                                                ? 'Isto nao e a verdade sobre o outro. E um recurso de elaboracao para ajudar voce a imaginar reconhecimento, reparo ou encerramento.'
+                                                : activeModel?.desc}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
 
                             {/* Letter Tabs for Toggling */}
@@ -332,57 +514,118 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
                                 </div>
                             )}
 
-                            <h3 className={`font-extrabold text-2xl mb-2 text-center font-serif ${dm ? 'text-amber-300' : 'text-amber-900'}`}>
-                                {activeTab === 'resposta' ? 'A Resposta Imaginada' : activeModel?.title}
-                            </h3>
-
                             {selectedType === 'resposta' && activeTab === 'original' && !isWritingResponse && (
                                 <p className="text-center text-xs opacity-70 italic max-w-sm mx-auto mb-4 font-medium">
-                                    Comece escrevendo seu desabafo. Depois usaremos o botão "Responder" para que você possa se colocar na pele da outra pessoa de forma empática.
+                                    Comece pela sua carta. Depois, se fizer sentido, voce pode imaginar uma resposta para elaborar melhor o que ficou aberto.
                                 </p>
                             )}
 
                             {isPraying && <p className="text-center text-xs text-purple-500 font-bold mb-4 animate-pulse">A IA está transformando em oração...</p>}
 
+                            {selectedPrompts.length > 0 && activeTab === 'original' && (
+                                <div className={`rounded-[1.5rem] p-4 mb-5 border ${dm ? 'bg-slate-800/40 border-slate-700' : 'bg-white/80 border-amber-100'}`}>
+                                    <div className="flex items-center justify-between gap-3 mb-3">
+                                        <p className={`text-xs font-black uppercase tracking-[0.2em] ${dm ? 'text-slate-400' : 'text-gray-500'}`}>Se travar</p>
+                                        <button
+                                            onClick={applyStructure}
+                                            className={`px-3 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 ${dm ? 'bg-slate-900 text-amber-300 border border-slate-700' : 'bg-amber-50 text-amber-800 border border-amber-100'}`}
+                                        >
+                                            Estrutura opcional
+                                        </button>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {selectedPrompts.map((prompt) => (
+                                            <button
+                                                key={prompt}
+                                                onClick={() => appendPrompt(prompt)}
+                                                className={`px-3 py-2 rounded-full text-xs font-bold transition-all active:scale-95 ${dm ? 'bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800' : 'bg-amber-50 text-amber-800 border border-amber-100 hover:bg-amber-100'}`}
+                                            >
+                                                {prompt}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {activeTab === 'resposta' && (
+                                <div className={`rounded-[1.5rem] p-4 mb-5 border ${dm ? 'bg-cyan-900/20 border-cyan-800/40' : 'bg-cyan-50/70 border-cyan-100'}`}>
+                                    <div className="flex items-start justify-between gap-3">
+                                        <div>
+                                            <p className={`text-xs font-black uppercase tracking-[0.2em] ${dm ? 'text-cyan-300' : 'text-cyan-700'}`}>Recurso de elaboração</p>
+                                            <p className={`text-sm mt-2 font-medium leading-relaxed ${dm ? 'text-slate-300' : 'text-slate-700'}`}>
+                                                Esta resposta imaginada nao serve para afirmar o que o outro pensa. Ela serve para ajudar voce a elaborar, imaginar reconhecimento e encontrar mais fechamento interno.
+                                            </p>
+                                        </div>
+                                        <div className="flex flex-wrap gap-2 justify-end">
+                                            {responseToneOptions.map((tone) => (
+                                                <button
+                                                    key={tone.id}
+                                                    onClick={() => setResponseTone(tone.id)}
+                                                    className={`px-3 py-2 rounded-full text-xs font-bold transition-all ${responseTone === tone.id
+                                                        ? 'bg-cyan-500 text-white shadow-md'
+                                                        : (dm ? 'bg-slate-900 text-slate-300 border border-slate-700' : 'bg-white text-cyan-800 border border-cyan-100')}`}
+                                                >
+                                                    {tone.label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
                             <div className={`relative transition-opacity duration-300 ${isPraying ? 'opacity-50' : 'opacity-100'}`}>
+                                <div className={`rounded-[1.75rem] border shadow-inner overflow-hidden ${dm ? 'bg-[#171925] border-slate-700' : 'bg-[#fffdf8] border-amber-200'}`}>
+                                    <div className={`flex items-center justify-between px-4 py-3 border-b ${dm ? 'bg-slate-800/80 border-slate-700' : 'bg-amber-50/80 border-amber-200'}`}>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-lg">{activeTab === 'resposta' ? '📝' : '✉️'}</span>
+                                            <p className={`text-sm font-bold ${dm ? 'text-slate-200' : 'text-amber-900'}`}>
+                                                {activeTab === 'resposta' ? 'Folha da resposta imaginada' : 'Papel da sua carta'}
+                                            </p>
+                                        </div>
+                                        <div className={`text-xs font-bold ${dm ? 'text-slate-400' : 'text-amber-700'}`}>
+                                            {activeTab === 'resposta' ? 'Elaboração' : 'Escrita livre'}
+                                        </div>
+                                    </div>
 
-                                {/* ORIGINAL LETTER TXT */}
-                                <textarea
-                                    value={letterContent}
-                                    onChange={(e) => setLetterContent(e.target.value)}
-                                    disabled={isBurning || isStoring || isRipping || isPraying}
-                                    placeholder={selectedType === 'resposta' ? "Escreva o seu lado da história..." : "Querido(a)..."}
-                                    className={`w-full min-h-[350px] p-4 text-lg font-serif leading-relaxed bg-transparent resize-none focus:outline-none placeholder-opacity-40 transition-all ${activeTab !== 'original' ? 'hidden' : ''} ${dm ? 'text-slate-200 placeholder-slate-500' : 'text-slate-800 placeholder-amber-800'}`}
-                                    style={{
-                                        backgroundImage: dm ? 'none' : 'repeating-linear-gradient(transparent, transparent 31px, rgba(217, 119, 6, 0.1) 31px, rgba(217, 119, 6, 0.1) 32px)',
-                                        lineHeight: '32px',
-                                        paddingTop: '6px'
-                                    }}
-                                />
+                                    <div className={`relative ${dm ? 'bg-[#171925]' : 'bg-[#fffdf8]'}`}>
+                                        <div className={`absolute inset-y-0 left-6 w-px ${dm ? 'bg-rose-500/25' : 'bg-rose-300/80'}`} />
+                                        <div
+                                            className="absolute inset-0 pointer-events-none"
+                                            style={{
+                                                backgroundImage: dm
+                                                    ? 'repeating-linear-gradient(to bottom, transparent 0, transparent 35px, rgba(71, 85, 105, 0.55) 35px, rgba(71, 85, 105, 0.55) 36px)'
+                                                    : 'repeating-linear-gradient(to bottom, transparent 0, transparent 35px, rgba(217, 119, 6, 0.12) 35px, rgba(217, 119, 6, 0.12) 36px)',
+                                            }}
+                                        />
 
-                                {/* RESPONSE LETTER TXT */}
-                                <textarea
-                                    value={responseContent}
-                                    onChange={(e) => setResponseContent(e.target.value)}
-                                    disabled={isBurning || isStoring || isRipping || isPraying}
-                                    placeholder="Escreva como se fosse o outro: 'Eu sei que te machuquei...'"
-                                    className={`w-full min-h-[350px] p-4 text-lg font-serif italic leading-relaxed bg-transparent resize-none focus:outline-none placeholder-opacity-40 cursor-[url('/pencil.png'),_text] transition-all ${activeTab !== 'resposta' ? 'hidden' : ''} ${dm ? 'text-slate-300 placeholder-slate-500' : 'text-slate-700 placeholder-indigo-800/40'}`}
-                                    style={{
-                                        backgroundImage: dm ? 'none' : 'repeating-linear-gradient(transparent, transparent 31px, rgba(99, 102, 241, 0.1) 31px, rgba(99, 102, 241, 0.1) 32px)',
-                                        lineHeight: '32px',
-                                        paddingTop: '6px'
-                                    }}
-                                />
+                                        <textarea
+                                            value={letterContent}
+                                            onChange={(e) => setLetterContent(e.target.value)}
+                                            disabled={isBurning || isStoring || isRipping || isPraying}
+                                            placeholder={selectedType === 'resposta' ? "Escreva o seu lado da história..." : "Querido(a)..."}
+                                            className={`relative w-full min-h-[620px] px-12 pb-10 pt-[2px] text-lg font-serif bg-transparent resize-none focus:outline-none placeholder-opacity-40 transition-all ${activeTab !== 'original' ? 'hidden' : ''} ${dm ? 'text-slate-200 placeholder-slate-500' : 'text-slate-800 placeholder-amber-800'}`}
+                                            style={{ lineHeight: '36px' }}
+                                        />
 
+                                        <textarea
+                                            value={responseContent}
+                                            onChange={(e) => setResponseContent(e.target.value)}
+                                            disabled={isBurning || isStoring || isRipping || isPraying}
+                                            placeholder="Escreva como se fosse o outro: 'Eu sei que te machuquei...'"
+                                            className={`relative w-full min-h-[620px] px-12 pb-10 pt-[2px] text-lg font-serif italic bg-transparent resize-none focus:outline-none placeholder-opacity-40 cursor-[url('/pencil.png'),_text] transition-all ${activeTab !== 'resposta' ? 'hidden' : ''} ${dm ? 'text-slate-300 placeholder-slate-500' : 'text-slate-700 placeholder-indigo-800/40'}`}
+                                            style={{ lineHeight: '36px' }}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         {/* Actions Toolbar */}
-                        <div className="mt-8 grid grid-cols-2 md:grid-cols-5 gap-3 max-w-4xl mx-auto items-stretch">
+                        <div className="mt-8 grid grid-cols-2 min-[520px]:grid-cols-3 gap-3 max-w-4xl mx-auto items-stretch">
                             <button
                                 onClick={handleStore}
                                 disabled={!letterContent.trim() || isBurning || isStoring || isRipping || isPraying}
-                                className={`py-3 px-2 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-indigo-900/50 text-indigo-300 hover:bg-indigo-900/80 border border-indigo-700/50' : 'bg-indigo-50 text-indigo-800 hover:bg-indigo-100 border border-indigo-200'}`}
+                                className={`min-h-[112px] py-3 px-3 rounded-2xl text-[11px] leading-tight text-center font-bold flex flex-col items-center justify-center gap-2 transition-all break-words active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-indigo-900/50 text-indigo-300 hover:bg-indigo-900/80 border border-indigo-700/50' : 'bg-indigo-50 text-indigo-800 hover:bg-indigo-100 border border-indigo-200'}`}
                             >
                                 <span className="text-xl">🗃️</span> Guardar na Gaveta
                             </button>
@@ -390,7 +633,7 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
                             <button
                                 onClick={handleRip}
                                 disabled={!letterContent.trim() || isBurning || isStoring || isRipping || isPraying}
-                                className={`py-3 px-2 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300'}`}
+                                className={`min-h-[112px] py-3 px-3 rounded-2xl text-[11px] leading-tight text-center font-bold flex flex-col items-center justify-center gap-2 transition-all break-words active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300'}`}
                             >
                                 <span className="text-xl">🗡️</span> Rasgar e Descartar
                             </button>
@@ -398,7 +641,7 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
                             <button
                                 onClick={handleBurn}
                                 disabled={!letterContent.trim() || isBurning || isStoring || isRipping || isPraying}
-                                className={`py-3 px-2 rounded-2xl text-xs font-bold flex flex-col items-center justify-center gap-1 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-orange-900/50 text-orange-400 hover:bg-orange-900/80 border border-orange-700/50' : 'bg-orange-50 text-orange-700 hover:bg-orange-100 border border-orange-200'}`}
+                                className={`min-h-[112px] py-3 px-3 rounded-2xl text-[11px] leading-tight text-center font-bold flex flex-col items-center justify-center gap-2 transition-all break-words active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-orange-900/50 text-orange-400 hover:bg-orange-900/80 border border-orange-700/50' : 'bg-orange-50 text-orange-700 hover:bg-orange-100 border border-orange-200'}`}
                             >
                                 <span className="text-xl">🔥</span> Queimar (Imediato)
                             </button>
@@ -406,20 +649,46 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
                             <button
                                 onClick={handlePray}
                                 disabled={(!letterContent.trim() && !responseContent.trim()) || isBurning || isStoring || isRipping || isPraying}
-                                className={`relative overflow-hidden py-3 px-2 rounded-2xl text-[10px] leading-tight text-center font-bold flex flex-col items-center justify-center gap-1 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-purple-900/40 text-purple-300 hover:bg-purple-900/60 border border-purple-700/50' : 'bg-purple-50 text-purple-800 hover:bg-purple-100 border border-purple-200'}`}
+                                className={`relative overflow-hidden min-h-[112px] py-3 px-3 rounded-2xl text-[11px] leading-tight text-center font-bold flex flex-col items-center justify-center gap-2 transition-all break-words active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-purple-900/40 text-purple-300 hover:bg-purple-900/60 border border-purple-700/50' : 'bg-purple-50 text-purple-800 hover:bg-purple-100 border border-purple-200'}`}
                             >
                                 <span className="absolute top-1 right-2 text-yellow-500 text-[10px]">👑</span>
                                 <span className="text-xl">✨</span> Transformar em Oração
                             </button>
 
                             <button
-                                onClick={handleWriteResponse}
-                                disabled={isWritingResponse || !letterContent.trim() || isBurning || isStoring || isRipping || isPraying}
-                                className={`py-3 px-2 rounded-2xl text-[10px] leading-tight text-center font-bold flex flex-col items-center justify-center gap-1 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-cyan-900/50 text-cyan-300 hover:bg-cyan-900/80 border border-cyan-700/50' : 'bg-cyan-50 text-cyan-700 hover:bg-cyan-100 border border-cyan-200'}`}
+                                onClick={isWritingResponse ? generateImaginedResponse : handleWriteResponse}
+                                disabled={!letterContent.trim() || isBurning || isStoring || isRipping || isPraying}
+                                className={`min-h-[112px] py-3 px-3 rounded-2xl text-[11px] leading-tight text-center font-bold flex flex-col items-center justify-center gap-2 transition-all break-words active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed h-full ${dm ? 'bg-cyan-900/50 text-cyan-300 hover:bg-cyan-900/80 border border-cyan-700/50' : 'bg-cyan-50 text-cyan-700 hover:bg-cyan-100 border border-cyan-200'}`}
                             >
-                                <span className="text-xl">📝</span> Adicionar Resposta Imaginada
+                                <span className="text-xl">📝</span> {isWritingResponse ? 'Gerar Resposta Imaginada' : 'Adicionar Resposta Imaginada'}
                             </button>
                         </div>
+
+                        {!!(letterContent.trim() || responseContent.trim()) && (
+                            <div className={`mt-4 rounded-[1.6rem] p-4 border max-w-4xl mx-auto ${dm ? 'bg-slate-800/60 border-slate-700' : 'bg-white border-amber-100'}`}>
+                                <p className={`text-[11px] font-black uppercase tracking-[0.2em] ${dm ? 'text-slate-400' : 'text-slate-500'}`}>Continuar com essa escrita</p>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3">
+                                    <button
+                                        onClick={() => onNavigate?.('diary', { diaryMode: 'quick', diaryDraft: activeTab === 'resposta' ? responseContent : letterContent, diaryDraftKey: Date.now() })}
+                                        className={`px-3 py-3 rounded-2xl text-xs font-bold ${dm ? 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/20' : 'bg-indigo-50 text-indigo-700 border border-indigo-100'}`}
+                                    >
+                                        Levar ao diário
+                                    </button>
+                                    <button
+                                        onClick={() => onNavigate?.('solta', { soltaDraft: activeTab === 'resposta' ? responseContent : letterContent, soltaDraftKey: Date.now() })}
+                                        className={`px-3 py-3 rounded-2xl text-xs font-bold ${dm ? 'bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/20' : 'bg-fuchsia-50 text-fuchsia-700 border border-fuchsia-100'}`}
+                                    >
+                                        Soltar daqui
+                                    </button>
+                                    <button
+                                        onClick={() => onNavigate?.('esperanca', { muralDraft: activeTab === 'resposta' ? responseContent : letterContent, muralDraftKey: Date.now() })}
+                                        className={`px-3 py-3 rounded-2xl text-xs font-bold ${dm ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20' : 'bg-emerald-50 text-emerald-700 border border-emerald-100'}`}
+                                    >
+                                        Usar no mural
+                                    </button>
+                                </div>
+                            </div>
+                        )}
 
                         {/* Effects Overlays */}
                         {isBurning && (
@@ -520,6 +789,12 @@ export default function CartaTerapeuticaSection({ darkMode: dm }: { darkMode?: b
                 }
                 .animate-store-drawer {
                     animation: store-drawer 2s forwards cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                }
+
+                @keyframes floatSoft {
+                    0% { transform: translateY(0px); opacity: 0.6; }
+                    50% { transform: translateY(-10px); opacity: 1; }
+                    100% { transform: translateY(0px); opacity: 0.6; }
                 }
             `}</style>
         </div>

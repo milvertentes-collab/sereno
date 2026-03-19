@@ -12,7 +12,10 @@ export async function POST(req: NextRequest) {
     await upsertSub({
       endpoint: sub.endpoint,
       keys: { p256dh: sub.keys.p256dh, auth: sub.keys.auth },
+      email: body?.email,
+      name: body?.name,
       birthdate: body?.birthdate,
+      sex: body?.sex,
       reminders: body?.reminders || {},
       capsules: Array.isArray(body?.capsules) ? body.capsules : [],
       updatedAt: new Date().toISOString(),

@@ -2,18 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import webpush from 'web-push';
 import { addBroadcast } from '@/lib/broadcastStore';
 import { readSubs, removeSub } from '@/lib/pushStore';
-
-const VAPID_PUBLIC = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || 'BJar0t2x5oCuEHbokX5OnPoruHVuDEgG-vUSEOYnRd5j_M4SnH8xjTADJR5nMi5K5Vyvfl0O-rDFRMqWc-32Sl4';
-const VAPID_PRIVATE = process.env.VAPID_PRIVATE_KEY || 'z0LZFpu1zwIurQF_8kqYTwJbHvj87NoRLcS7cFbu-o8';
-const SUBJECT = process.env.VAPID_SUBJECT || 'mailto:contato@pontewebstudio.com.br';
-const SECRET = process.env.PUSH_DISPATCH_SECRET || 'sereno-local-secret';
-
-webpush.setVapidDetails(SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
+import { getPushDispatchSecret, getVapidConfig } from '@/lib/vapidConfig';
 
 export async function POST(req: NextRequest) {
   try {
+    const { publicKey, privateKey, subject } = getVapidConfig();
+    const secret = getPushDispatchSecret();
+    webpush.setVapidDetails(subject, publicKey, privateKey);
+
     const auth = req.headers.get('x-dispatch-secret');
-    if (auth !== SECRET) return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
+    if (auth !== secret) return NextResponse.json({ ok: false, error: 'unauthorized' }, { status: 401 });
 
     const body = await req.json();
     const title = String(body?.title || '').trim();

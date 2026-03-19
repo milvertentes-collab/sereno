@@ -1,0 +1,352 @@
+[
+  {
+    "id": "reg-basica",
+    "title": "Regulação Básica",
+    "situation": "Você percebe que seu humor mudou de repente e sente um leve aperto no peito.",
+    "steps": ["Respirar 4 ciclos", "Nomear a emoção", "Checar o corpo", "Escolher micro-ação de 5 min"],
+    "explanation": "💡 Começar pelo corpo e pela nomeação ajuda a acalmar o sistema antes de tentar agir. Isso evita que o impulso tome conta."
+  },
+  {
+    "id": "crise-panico",
+    "title": "Foco em Crise",
+    "situation": "Seus pensamentos estão acelerados, a respiração está curta e você sente que pode perder o controle.",
+    "steps": ["Grounding 5-4-3-2-1", "Afirmar: \"estou seguro\"", "Água gelada no rosto", "Ligar para alguém seguro"],
+    "explanation": "💡 Em crise, o foco é o presente sensorial. Grounding e resfriamento físico cortam o pico da adrenalina mais rápido."
+  },
+  {
+    "id": "conflito-rel",
+    "title": "Pós-Conflito",
+    "situation": "Após uma discussão tensa, você sente o corpo rígido e a mente remoendo o que foi dito.",
+    "steps": ["Pausa silêncio 5 min", "Anotar sentimentos", "Validar própria dor", "Retomar com clareza"],
+    "explanation": "💡 Após um conflito, o sistema está reativo. O intervalo e a validação evitam que você responda por defesa ou ataque."
+  },
+  {
+    "id": "autocobranca-foco",
+    "title": "Foco e Autocobrança",
+    "situation": "A pressão por entregar resultados está gerando paralisia e você não sabe por onde começar.",
+    "steps": ["Soltar ombros e ar", "Pausar comparação", "Dividir tarefa em 3", "Focar no primeiro passo"],
+    "explanation": "💡 Autocobrança trava. Simplificar a tarefa e soltar o corpo reduz a pressão interna para que você possa começar."
+  },
+  {
+    "id": "ansiedade-social",
+    "title": "Ansiedade Social",
+    "situation": "Você está em um evento e sente que todos estão te julgando ou observando seus erros.",
+    "steps": ["Identificar o medo", "Olhar ao redor (fatos)", "Focar em uma conversa", "Elogiar-se por estar lá"],
+    "explanation": "💡 Focar nos fatos externos reduz a hipervigilância interna. A auto-validação ajuda a manter a segurança."
+  },
+  {
+    "id": "raiva-trabalho",
+    "title": "Gestão de Raiva",
+    "situation": "Um colega levou o crédito pelo seu trabalho e você sente o sangue ferver.",
+    "steps": ["Afastar-se do local", "Respirar pelo diafragma", "Escrever rascunho (off)", "Conversar com calma"],
+    "explanation": "💡 A raiva precisa de espaço físico para baixar. O rascunho ajuda a processar o sentimento sem gerar conflito desnecessário."
+  },
+  {
+    "id": "tristeza-inesperada",
+    "title": "Onda de Tristeza",
+    "situation": "Uma música ou lembrança trouxe uma tristeza profunda e vontade de chorar no meio do dia.",
+    "steps": ["Acolher o choro", "Validar o motivo", "Beber um copo d'água", "Ouvir algo relaxante"],
+    "explanation": "💡 Reprimir a tristeza gasta mais energia. Acolher e depois reidratar o corpo ajuda a concluir o ciclo da emoção."
+  },
+  {
+    "id": "frustracao-falha",
+    "title": "Frustração por Falha",
+    "situation": "Você cometeu um erro bobo em algo importante e não para de se xingar mentalmente.",
+    "steps": ["Interromper o insulto", "Tratar-se como amigo", "Identificar a lição", "Tentar de novo (ou reparar)"],
+    "explanation": "💡 A autocrítica excessiva impede o aprendizado. A autocompaixão foca na solução e não no erro."
+  },
+  {
+    "id": "limites-familia",
+    "title": "Estabelecendo Limites",
+    "situation": "Um familiar pede um favor que você realmente não pode fazer, mas sente culpa em dizer não.",
+    "steps": ["Reconhecer a intenção", "Dizer não de forma clara", "Não justificar demais", "Lidar com o desconforto"],
+    "explanation": "💡 Dizer não é um ato de autocuidado. Justificar demais dá margem para negociação e aumenta a sua culpa."
+  },
+  {
+    "id": "sono-insonia",
+    "title": "Combate à Insônia",
+    "situation": "Já é tarde, mas sua mente não para de planejar o dia de amanhã e você está alerta.",
+    "steps": ["Sair da cama (se 20m)", "Fazer lista de tarefas", "Luz baixa / sem telas", "Relaxamento muscular progressive"],
+    "explanation": "💡 A cama deve ser associada ao sono. Tirar as preocupações da cabeça para o papel sinaliza ao cérebro que ele pode descansar."
+  },
+  {
+    "id": "comparacao-rede",
+    "title": "Fadiga de Redes Sociais",
+    "situation": "Você passou 1h no Instagram e agora sente que sua vida é péssima comparada aos outros.",
+    "steps": ["Fechar o aplicativo", "Sentir o momento presente", "Listar 3 gratidões reais", "Fazer algo manual"],
+    "explanation": "💡 Telas geram comparação irreal. Atividades manuais ou sensoriais trazem você de volta para a sua realidade única."
+  },
+  {
+    "id": "vergonha-gafe",
+    "title": "Lidando com a Vergonha",
+    "situation": "Você disse algo errado em uma reunião e sente que nunca mais vão te respeitar.",
+    "steps": ["Respirar e sentir a pele", "Reconhecer a humanidade", "Rir do erro (se possível)", "Seguir para o próximo tema"],
+    "explanation": "💡 A vergonha vive no segredo. Normalizar o erro como algo humano quebra o poder desse sentimento sobre você."
+  },
+  {
+    "id": "medo-futuro",
+    "title": "Incerteza do Futuro",
+    "situation": "A notícia de uma mudança na empresa te deixou paralisado de medo do que pode acontecer.",
+    "steps": ["Focar no que você controla", "Listar seus recursos", "Planejar o plano B", "Viver apenas hoje"],
+    "explanation": "💡 O medo do futuro é ansiedade. Focar nos seus recursos atuais e no que está sob seu controle direto reduz a sensação de desamparo."
+  },
+  {
+    "id": "perfeccionismo-trava",
+    "title": "Perfeccionismo",
+    "situation": "Você não consegue começar um texto porque a primeira frase não está perfeita.",
+    "steps": ["Permitir-se ser medíocre", "Escrever qualquer coisa", "Prometer revisar depois", "Concluir sem perfeição"],
+    "explanation": "💡 Feito é melhor que perfeito. O perfeccionismo é uma forma de procrastinação disfarçada de excelência."
+  },
+  {
+    "id": "exaustao-menta",
+    "title": "Cansaço Mental",
+    "situation": "Depois de muitas horas de estudo, nada mais entra na cabeça e você começa a errar tudo.",
+    "steps": ["Parar tudo agora", "Lanche ou água gelada", "Caminhada curta/Alongar", "Descanso sem culpa"],
+    "explanation": "💡 O cérebro tem limite de processamento. Descansar é parte fundamental da produtividade, e não uma falha."
+  },
+  {
+    "id": "dependencia-aprov",
+    "title": "Necessidade de Aprovação",
+    "situation": "Você postou algo e está checando os likes a cada 2 minutos.",
+    "steps": ["Deixar o celular longe", "Perguntar: por que isso importa?", "Validar-se internamente", "Focar em outro interesse"],
+    "explanation": "💡 A aprovação externa é volátil. Construir sua própria validação cria uma autoestima mais sólida e independente."
+  },
+  {
+    "id": "luto-saudade",
+    "title": "Luto e Saudade",
+    "situation": "Um objeto te lembrou de alguém que partiu e a falta dessa pessoa dói fisicamente.",
+    "steps": ["Sentir o aperto", "Lembrar de um momento bom", "Anotar uma mensagem grata", "Permitir o tempo passar"],
+    "explanation": "💡 O luto não some, ele se transforma. Honrar a memória e permitir-se sentir a falta é o caminho da cura."
+  },
+  {
+    "id": "impulsividade-compra",
+    "title": "Impulso de Compra",
+    "situation": "Você está chateado e acha que comprar aquele item caro vai resolver seu problema.",
+    "steps": ["Esperar 24 horas", "Beber água/Comer", "Ver o saldo bancário", "Identificar a carência real"],
+    "explanation": "💡 Compras por impulso buscam dopamina rápida para abafar desconforto emocional. O tempo de espera quebra o padrão automático."
+  },
+  {
+    "id": "irritabilidade-ato",
+    "title": "Fadiga de Decisão",
+    "situation": "No final do dia, até escolher a janta parece um fardo impossível e você quer gritar.",
+    "steps": ["Reconhecer o esgotamento", "Escolher o mais simples", "Silenciar barulhos", "Dormir o quanto antes"],
+    "explanation": "💡 Decisões gastam glicose cerebral. Quando o estoque acaba, a irritabilidade sobe. Simplifique tudo ao máximo."
+  },
+  {
+    "id": "clima-pesado",
+    "title": "Energia do Ambiente",
+    "situation": "Você entrou em uma sala onde as pessoas estavam brigando e o clima te contagiou.",
+    "steps": ["Sair do ambiente", "Sacudir o corpo", "Lavar as mãos", "Focar no seu próprio centro"],
+    "explanation": "💡 Somos seres empáticos e absorvemos o clima. Atos físicos como lavar as mãos ajudam o cérebro a sinalizar uma quebra de conexão."
+  },
+  {
+    "id": "medo-critica",
+    "title": "Receio de Julgamento",
+    "situation": "Você quer usar uma roupa diferente, mas teme o que seus colegas vão pensar.",
+    "steps": ["Questionar: e se pensarem?", "Lembrar do seu estilo", "Focar no seu conforto", "Sair de casa assim mesmo"],
+    "explanation": "💡 A opinião alheia diz mais sobre eles do que sobre você. Expor-se gradualmente reduz o impacto do medo do julgamento."
+  },
+  {
+    "id": "ansiedade-saude",
+    "title": "Ansiedade com a Saúde",
+    "situation": "Uma dorzinha leve te fez pesquisar no Google e agora você acha que tem uma doença rara.",
+    "steps": ["Fechar o navegador", "Medir os fatos reais", "Marcar um médico (se durar)", "Focar no bem-estar agora"],
+    "explanation": "💡 Dr. Google aumenta o alerta sem base clínica. Se há dúvida real, procure um humano especialista; se não, cuide do momento."
+  },
+  {
+    "id": "culpa-ociosidade",
+    "title": "Culpa por folga",
+    "situation": "Domingo à tarde e você se sente mal por não estar produzindo nada.",
+    "steps": ["Relembrar: sou um ser humano", "Valorizar o repouso", "Fazer algo puramente lúdico", "Desligar o relógio"],
+    "explanation": "💡 O descanso não é recompensa pelo trabalho, é uma necessidade vital. A ociosidade criativa é o berço de novas ideias."
+  },
+  {
+    "id": "sobrecarga-inf",
+    "title": "Excesso de notícias",
+    "situation": "Lendo sobre tragédias no mundo, você sente que a humanidade não tem jeito e fica sem esperança.",
+    "steps": ["Desligar o portal", "Buscar uma notícia boa", "Agir no seu bairro", "Reconhecer sua bolha"],
+    "explanation": "💡 O cérebro evoluiu para alertar sobre o perigo, por isso notícias ruins prendem tanto. Buscar o micro-bem equilibra a visão."
+  },
+  {
+    "id": "medo-conduzir",
+    "title": "Fobia Específica",
+    "situation": "Você precisa fazer algo que te dá medo (ex: dirigir, voar) e o estômago está embrulhado.",
+    "steps": ["Aceitar o frio na barriga", "Respirar 4-2-6", "Preparar-se tecnicamente", "Ir com medo mesmo"],
+    "explanation": "💡 A coragem não é ausência de medo, mas agir apesar dele. O foco na técnica e na respiração ancora sua atenção."
+  },
+  {
+    "id": "rejeicao-amorosa",
+    "title": "Lidando com Rejeição",
+    "situation": "A pessoa que você gosta não respondeu e você sente que não tem valor.",
+    "steps": ["Sentir o dor sem julgá-la", "Separar fato de valor", "Falar com um amigo", "Cuidar de si mesmo"],
+    "explanation": "💡 O não de alguém não diminui quem você é. A dor da rejeição é real, mas ela não deve definir sua identidade."
+  },
+  {
+    "id": "conflito-interno",
+    "title": "Dúvida Cruel",
+    "situation": "Você tem duas opções e está perdendo o sono porque não quer errar a escolha.",
+    "steps": ["Listar prós e contras", "Ouvir a intuição (corpo)", "Dar um prazo final", "Aceitar que não há perfeição"],
+    "explanation": "💡 A paralisia por análise gasta mais energia que a escolha errada. Decidir é também abrir mão de uma possibilidade."
+  },
+  {
+    "id": "desamparo-aprendiz",
+    "title": "Aprendendo algo novo",
+    "situation": "Você começou um curso e se sente o mais burro da sala, querendo desistir.",
+    "steps": ["Reconhecer o início", "Valorizar o esforço", "Pedir ajuda/Dúvidas", "Celebrar o pingo de progresso"],
+    "explanation": "💡 A curva de aprendizado exige humildade. Ninguém nasce sabendo; o desconforto é o cérebro criando novas conexões."
+  },
+  {
+    "id": "injustica-vida",
+    "title": "Sentimento de Injustiça",
+    "situation": "Algo ruim aconteceu com você e parece que o mundo é injusto e cruel.",
+    "steps": ["Validar a indignação", "Expressar a raiva (papel)", "Buscar o que ainda é bom", "Focar na resiliência"],
+    "explanation": "💡 Sentir injustiça é legítimo. Processar o sentimento permite que você saia do papel de vítima e retome seu poder sobre sua vida."
+  },
+  {
+    "id": "desconexao-social",
+    "title": "Sentir-se invisível",
+    "situation": "Em uma roda de amigos, ninguém parece ouvir o que você diz.",
+    "steps": ["Observar a dinâmica", "Falar um pouco mais alto", "Mudar de interlocutor", "Avaliar a qualidade do grupo"],
+    "explanation": "💡 Às vezes a falha é da dinâmica do grupo, não sua. Tentar micro-conexões 1:1 é mais fácil que conquistar o grupo todo."
+  },
+  {
+    "id": "procrastinacao-dor",
+    "title": "Procrastinação",
+    "situation": "Você sabe que precisa fazer algo, mas o corpo se recusa a sair do sofá.",
+    "steps": ["Apenas levantar (sem pensar)", "Prometer só 2 minutos", "Reduzir a distração", "Comemorar o começo"],
+    "explanation": "💡 O segredo é vencer a inércia. A regra dos 2 minutos engana o cérebro: ele acha que é fácil e para de lutar contra."
+  },
+  {
+    "id": "obsessao-erro",
+    "title": "Pensamento em Loop",
+    "situation": "Sua mente fica repetindo o que você \"deveria ter dito\" em uma briga ontem.",
+    "steps": ["Dizer \"STOP\" mentalmente", "Anotar o loop no papel", "Fazer algo cognitivo (ex: sudoku)", "Aceitar o que já passou"],
+    "explanation": "💡 Ruminação é o cérebro tentando resolver um passado que não existe mais. Atividades cognitivas fortes quebram o padrão repetitivo."
+  },
+  {
+    "id": "pressao-temporal",
+    "title": "Correria e Pressão",
+    "situation": "Você está atrasado e o trânsito está parado. Você sente o coração pulando.",
+    "steps": ["Aceitar o atraso (é fato)", "Avisar quem te espera", "Ouvir um podcast calmo", "Respirar e soltar o volante"],
+    "explanation": "💡 Lutar contra o trânsito só gera estresse interno. Aceitar o fato e gerenciar a expectativa alheia é a única solução real."
+  },
+  {
+    "id": "desmotivacao-total",
+    "title": "Falta de Propósito",
+    "situation": "Acordou e não vê sentido em nada do que está fazendo, sente um vazio.",
+    "steps": ["Apenas cumprir a higiene", "Tomar um banho quente", "Fazer uma pequena gentileza", "Esperar o humor virar"],
+    "explanation": "💡 Motivação não é constante. Em dias sem brilho, focar na rotina básica e em pequenas conexões ajuda a manter os trilhos."
+  },
+  {
+    "id": "fome-emocional",
+    "title": "Fome Emocional",
+    "situation": "Você teve um dia ruim e parece que só um pote de sorvete pode te consolar.",
+    "steps": ["Escutar a emoção", "Beber chá ou água", "Esperar 15 minutos", "Identificar o cansaço real"],
+    "explanation": "💡 Comemos emoções para não senti-las. Identificar se é cansaço, tédio ou tristeza ajuda a escolher um consolo mais saudável."
+  },
+  {
+    "id": "autopiedade-loop",
+    "title": "Espiral de Coitadismo",
+    "situation": "Você sente que sua vida é muito mais difícil que a de todo mundo ao redor.",
+    "steps": ["Ouvir a reclamação interna", "Buscar alguém para ajudar", "Listar privilégios ocultos", "Mudar o foco para ação"],
+    "explanation": "💡 A autopiedade paralisa. Virar o foco para fora (ajudar alguém) ou para a gratidão ativa áreas cerebrais de bem-estar."
+  },
+  {
+    "id": "inveja-amigo",
+    "title": "Lidando com a Inveja",
+    "situation": "Um amigo conquistou algo que você queria muito e você sente um amargor.",
+    "steps": ["Aceitar o sentimento (é humano)", "Celebrar com ele (mesmo sem querer)", "Usar como bússola de desejo", "Focar no seu caminho"],
+    "explanation": "💡 Inveja é sinal do que valorizamos. Em vez de se culpar, use esse sinal para entender o que você quer construir para si."
+  },
+  {
+    "id": "excesso-de-zelo",
+    "title": "Controle Excessivo",
+    "situation": "Você está tentando controlar o que seu parceiro(a) faz para que ele não sofra.",
+    "steps": ["Reconhecer seu medo", "Devolver a autonomia dele", "Cuidar da própria ansiedade", "Dar suporte, não comando"],
+    "explanation": "💡 Controlar o outro é projeção da nossa própria insegurança. Permitir que o outro erre é respeitar a jornada dele."
+  },
+  {
+    "id": "distracao-foco",
+    "title": "Dificuldade de Foco",
+    "situation": "Você sentou para ler, mas sua mente voa para 1000 lugares diferentes.",
+    "steps": ["Trazer a mente de volta", "Pausar e alongar", "Reduzir estímulos visuais", "Focar numa unidade pequena"],
+    "explanation": "💡 O foco é um músculo. Cada vez que você traz a mente de volta sem se julgar, você está treinando sua atenção."
+  },
+  {
+    "id": "desconforto-corpo",
+    "title": "Autoimagem",
+    "situation": "Você se olhou no espelho e não gostou nada do que viu hoje.",
+    "steps": ["Ser neutro com o corpo", "Focar na função (ele te leva)", "Vestir algo confortável", "Sair do espelho"],
+    "explanation": "💡 Nem todo dia é dia de auto-amor, mas podemos buscar a auto-neutralidade. Seu valor não está na estética de hoje."
+  },
+  {
+    "id": "medo-conflito",
+    "title": "Medo de Confrontar",
+    "situation": "Alguém furou a fila e você está tremendo, mas quer reclamar.",
+    "steps": ["Respirar fundo 2 vezes", "Falar com tom calmo/firme", "Manter contato visual breve", "Aceitar a sua defesa"],
+    "explanation": "💡 Reclamar do que é justo nos fortalece. O treino da assertividade começa em situações pequenas e cotidianas."
+  },
+  {
+    "id": "excesso-empatia",
+    "title": "Ressaca Emocional",
+    "situation": "Você ouviu o desabafo pesado de um amigo e agora está exausto.",
+    "steps": ["Imaginar uma redoma", "Tomar um banho de sal/erva", "Ficar em silêncio", "Separar o que é seu"],
+    "explanation": "💡 Empatia sem limites vira contágio emocional. Praticar o desligamento após o suporte é vital para quem ajuda."
+  },
+  {
+    "id": "vazio-pos-projeto",
+    "title": "Vazio Pós-Meta",
+    "situation": "Você terminou algo grande e, em vez de feliz, sente um vazio e falta de rumo.",
+    "steps": ["Apenas descansar o feito", "Sentir o silêncio", "Não planejar nada agora", "Celebrar o caminho percorrido"],
+    "explanation": "💡 A queda da adrenalina após um grande esforço gera essa sensação de vazio. Dê tempo ao sistema para se recalibrar."
+  },
+  {
+    "id": "irritacao-ruido",
+    "title": "Hipersensibilidade",
+    "situation": "O barulho da obra vizinha ou de alguém mastigando está te deixando louco.",
+    "steps": ["Usar protetor/fone", "Sair do local se possível", "Focar no seu próprio ritmo", "Acalmar o sistema nervoso"],
+    "explanation": "💡 Às vezes o sistema sensorial está sobrecarregado. Reduzir os estímulos de entrada é a melhor forma de auto-regulação."
+  },
+  {
+    "id": "medo-abandon",
+    "title": "Medo de Abandono",
+    "situation": "Um amigo não te chamou para sair e você acha que ele cansou de você.",
+    "steps": ["Checar as evidências", "Lembrar de outras vezes", "Chamar ele para outro dia", "Gostar da própria companhia"],
+    "explanation": "💡 Nossa mente cria dramas onde há apenas coincidências. Manter a proatividade social ajuda a combater o medo de ficar de fora."
+  },
+  {
+    "id": "desespero-financeiro",
+    "title": "Pressão de Grana",
+    "situation": "A fatura do cartão veio alta e você sente um desespero no peito.",
+    "steps": ["Abrir a planilha/contas", "Encarar o número real", "Cortar o supérfluo hoje", "Planejar a recuperação"],
+    "explanation": "💡 O medo cresce no escuro. Encarar os números reais, por piores que sejam, permite que a mente comece a buscar soluções."
+  },
+  {
+    "id": "impaciencia-outros",
+    "title": "Falta de Paciência",
+    "situation": "Alguém está te explicando algo de forma lenta e você quer completar a frase dela.",
+    "steps": ["Relaxar a mandíbula", "Praticar o ouvir ativo", "Validar o tempo do outro", "Dar espaço para a pessoa"],
+    "explanation": "💡 Nossa pressa é uma forma de ansiedade. Dar tempo ao outro melhora imensamente a qualidade das suas relações."
+  },
+  {
+    "id": "culpa-mae-pai",
+    "title": "Culpa Familiar",
+    "situation": "Você não visitou seus pais e eles te ligaram cobrando presença.",
+    "steps": ["Reconhecer sua vida atual", "Dizer que os ama (se for)", "Agendar uma data real", "Soltar a culpa excessiva"],
+    "explanation": "💡 Criar autonomia familiar exige que você lide com a culpa de não atender a todas as expectativas deles."
+  },
+  {
+    "id": "medo-escuro-sozinho",
+    "title": "Medo de Estar Só",
+    "situation": "A noite chegou e a casa vazia te traz uma sensação de insegurança ou solidão pesada.",
+    "steps": ["Acender luzes suaves", "Colocar um som ambiente", "Falar consigo mesmo", "Aproveitar o seu espaço"],
+    "explanation": "💡 Transformar solidão em solitude exige que criemos um ambiente acolhedor para nós mesmos no nosso próprio lar."
+  },
+  {
+    "id": "conclusao-desafio",
+    "title": "Resumo da Jornada",
+    "situation": "Você completou muitos passos e agora reflete sobre sua evolução emocional.",
+    "steps": ["Olhar para trás com orgulho", "Identificar sua força", "Prometer seguir treinando", "Sentir a paz de se conhecer"],
+    "explanation": "💡 O autoconhecimento é um caminho sem fim. Cada vez que você regula uma emoção, você ganha mais maestria sobre sua vida."
+  }
+]

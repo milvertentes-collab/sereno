@@ -1,10 +1,11 @@
 @echo off
+setlocal
 chcp 65001 >nul
-title Programa Psicologia
+title Sereno App
 color 0A
 
 echo ============================================
-echo    Iniciando Programa Psicologia...
+echo    Iniciando App do Sereno...
 echo ============================================
 echo.
 
@@ -27,6 +28,15 @@ echo [OK] Node.js encontrado:
 node --version
 echo.
 
+:: Se a porta 3001 ja estiver em uso, apenas abrir o app
+netstat -ano | findstr /R /C:":3001 .*LISTENING" >nul 2>&1
+if %errorlevel% equ 0 (
+    echo [INFO] O servidor ja parece estar rodando na porta 3001.
+    echo [INFO] Abrindo apenas o app...
+    start "" "http://localhost:3001/app"
+    exit /b 0
+)
+
 :: Instalar dependencias se necessario
 if not exist "node_modules" (
     echo [INFO] Instalando dependencias... Isso pode levar alguns minutos.
@@ -47,15 +57,16 @@ if not exist "node_modules" (
 
 :: Abrir o navegador apos alguns segundos
 echo [INFO] Abrindo o navegador em 5 segundos...
-start "" cmd /c "timeout /t 5 /nobreak >nul && start http://localhost:3001"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process cmd -ArgumentList '/c timeout /t 5 /nobreak >nul & start \"\" \"http://localhost:3001/app\"' -WindowStyle Hidden" >nul 2>&1
 
 :: Iniciar o servidor de desenvolvimento
 echo [INFO] Iniciando o servidor de desenvolvimento...
 echo.
 echo ============================================
-echo    Acesse: http://localhost:3001
+echo    App: http://localhost:3001/app
 echo    Para parar: feche esta janela ou Ctrl+C
 echo ============================================
 echo.
 
-call npx next dev -p 3001
+call npm run dev
+endlocal

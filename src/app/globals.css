@@ -28,8 +28,109 @@
 
 /* Base styles */
 body {
+  min-height: 100vh;
+  font-family: var(--font-app-sans), system-ui, sans-serif;
   background-color: var(--color-background);
+  background-image:
+    radial-gradient(circle at top, hsl(217 91% 60% / 0.06), transparent 28%),
+    radial-gradient(circle at bottom, hsl(173 80% 40% / 0.05), transparent 24%);
   color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.012em;
+  line-height: 1.45;
+}
+
+h1,
+h2,
+h3,
+.sereno-display {
+  font-family: var(--font-app-display), var(--font-app-sans), system-ui, sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.sereno-title {
+  font-size: clamp(1.55rem, 1.2rem + 1.1vw, 2.2rem);
+  line-height: 1.02;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #0f172a;
+}
+
+.dark .sereno-title,
+[data-theme="dark"] .sereno-title {
+  color: #f8fafc;
+}
+
+.sereno-heading {
+  font-size: 1.08rem;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+}
+
+.sereno-subtitle {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  font-weight: 500;
+  color: #516072;
+}
+
+.sereno-kicker {
+  font-size: 0.68rem;
+  line-height: 1;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #64748b;
+}
+
+.sereno-card-primary {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 251, 255, 0.98) 100%);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+}
+
+.sereno-card-secondary {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(248, 250, 252, 0.92);
+}
+
+.sereno-surface-tint {
+  border: 1px solid rgba(186, 230, 253, 0.4);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(239, 249, 255, 0.95) 100%);
+}
+
+.sereno-input {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.sereno-input::placeholder {
+  color: #94a3b8;
+}
+
+.sereno-neutral-button {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  color: #334155;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.sereno-floating-action {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 /* Custom scrollbar */
@@ -44,6 +145,27 @@ body {
 ::-webkit-scrollbar-thumb {
   background: hsl(215 16% 47% / 0.3);
   border-radius: 2px;
+}
+
+.sereno-blue-scrollbar {
+  scrollbar-width: auto;
+  scrollbar-color: rgba(59, 130, 246, 0.9) rgba(148, 163, 184, 0.12);
+}
+
+.sereno-blue-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.sereno-blue-scrollbar::-webkit-scrollbar-track {
+  background: rgba(148, 163, 184, 0.12);
+  border-radius: 999px;
+}
+
+.sereno-blue-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.98) 0%, rgba(59, 130, 246, 0.98) 100%);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 /* Animations */
@@ -107,6 +229,15 @@ body {
   }
 }
 
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
 @keyframes ripple {
   0% {
     transform: scale(0.8);
@@ -117,6 +248,70 @@ body {
     transform: scale(2);
     opacity: 0;
   }
+}
+
+@keyframes violetBorderOrbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes violetProgressSweep {
+  0% {
+    transform: translateX(-140%) skewX(-20deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateX(240%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer-text {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0),
+    transparent
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer-text 3s linear infinite;
 }
 
 .animate-breathe {
@@ -133,6 +328,17 @@ body {
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-x {
+  background-size: 200% auto;
+  animation: gradient-x 6s ease infinite;
 }
 
 .animate-slide-up {
@@ -199,9 +405,131 @@ body {
   transform: translateY(0);
 }
 
+.sereno-ornament-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.sereno-ornament-card[data-allow-overflow='true'] {
+  overflow: visible;
+}
+
+.sereno-ornament-card::after {
+  content: attr(data-card-glyph);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: clamp(3.6rem, 7.4vw, 4.4rem);
+  height: clamp(3.6rem, 7.4vw, 4.4rem);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 0.1rem;
+  padding-bottom: 0.18rem;
+  overflow: hidden;
+  clip-path: inset(0 round 1.2rem);
+  font-size: clamp(2.95rem, 6.4vw, 4rem);
+  line-height: 1;
+  opacity: 0.14;
+  pointer-events: none;
+  transform: scale(1);
+  transform-origin: bottom right;
+  transition: transform 260ms ease, opacity 260ms ease;
+  filter: grayscale(0.08) saturate(0.82) brightness(0.58) contrast(1.08) drop-shadow(0 0 8px rgba(15,23,42,0.04));
+}
+
+.dark .sereno-ornament-card::after,
+[data-theme="dark"] .sereno-ornament-card::after {
+  opacity: 0.1;
+  filter: grayscale(0.18) saturate(0.7) brightness(0.72) drop-shadow(0 0 8px rgba(255,255,255,0.02));
+}
+
+.sereno-ornament-card:hover::after,
+.sereno-ornament-card:focus-visible::after,
+.sereno-ornament-card:active::after {
+  transform: scale(1.1);
+  opacity: 0.19;
+}
+
+.dark .sereno-ornament-card:hover::after,
+.dark .sereno-ornament-card:focus-visible::after,
+.dark .sereno-ornament-card:active::after,
+[data-theme="dark"] .sereno-ornament-card:hover::after,
+[data-theme="dark"] .sereno-ornament-card:focus-visible::after,
+[data-theme="dark"] .sereno-ornament-card:active::after {
+  opacity: 0.15;
+}
+
+.sereno-violet-trail {
+  position: relative;
+  overflow: hidden;
+}
+
+.sereno-violet-trail::before {
+  content: '';
+  position: absolute;
+  inset: -140%;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 300deg,
+    rgba(168, 85, 247, 0.15) 320deg,
+    rgba(196, 181, 253, 0.95) 336deg,
+    rgba(129, 140, 248, 0.88) 348deg,
+    rgba(168, 85, 247, 0.15) 360deg
+  );
+  animation: violetBorderOrbit 3.2s linear infinite;
+  pointer-events: none;
+}
+
+.sereno-violet-trail > * {
+  position: relative;
+  z-index: 1;
+}
+
+.sereno-violet-trail::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: inherit;
+  -webkit-mask:
+    linear-gradient(#000 0 0);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sereno-progress-trail {
+  position: relative;
+  overflow: hidden;
+}
+
+.sereno-progress-trail::after {
+  content: '';
+  position: absolute;
+  top: -35%;
+  bottom: -35%;
+  width: 34%;
+  right: 0;
+  background: linear-gradient(110deg, transparent 0%, rgba(196, 181, 253, 0.16) 24%, rgba(216, 180, 254, 0.92) 50%, rgba(129, 140, 248, 0.42) 68%, transparent 100%);
+  filter: blur(3px);
+  animation: violetProgressSweep 2.7s linear infinite;
+  pointer-events: none;
+}
+
 /* Safe area padding for mobile */
 .safe-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Global Font Scaling and Family classes set on html tag */
@@ -231,7 +559,7 @@ html.family-serif {
 }
 
 html.family-dyslexic {
-  font-family: 'OpenDyslexic', sans-serif !important;
+  font-family: 'Verdana', 'Tahoma', 'Arial', sans-serif !important;
 }
 
 /* In a web app, "Discreet Mode" blurs when the window loses focus */

@@ -2,16 +2,37 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { ambientSounds } from '@/components/AmbientPlayer';
+import SectionHeroCard from './SectionHeroCard';
 
 interface FreeTimerSectionProps {
     darkMode: boolean;
+    onComplete?: (minutes: number) => void;
+    embedded?: boolean;
+    title?: string;
+    description?: string;
 }
 
-export default function FreeTimerSection({ darkMode: dm }: FreeTimerSectionProps) {
+export default function FreeTimerSection({
+    darkMode: dm,
+    onComplete,
+    embedded = false,
+    title = 'Time Livre',
+    description = 'Sem narração, apenas você, o silêncio e, se quiser, um ambiente sonoro.',
+}: FreeTimerSectionProps) {
+    const intentionPresets = [
+        { id: 'silenciar', label: 'Silenciar a mente', duration: 5, soundId: 'chuva1' },
+        { id: 'presenca', label: 'Ficar presente', duration: 10, soundId: 'riacho1' },
+        { id: 'descanso', label: 'Descansar', duration: 15, soundId: 'noite1' },
+        { id: 'respirar', label: 'Só respirar', duration: 3, soundId: 'silencio' },
+    ] as const;
+    const featuredSoundIds = new Set(['silencio', 'chuva1', 'riacho1', 'noite1', 'vento1', 'mar1']);
+    const silentSound = { id: 'silencio', name: 'Silêncio', emoji: '🤍', category: 'sem som', file: '' };
+    const freeTimerSounds = [silentSound, ...ambientSounds];
+    const featuredSounds = freeTimerSounds.filter((sound) => featuredSoundIds.has(sound.id)).slice(0, 6);
     const [duration, setDuration] = useState(10); // minutes
     const [timeLeft, setTimeLeft] = useState(0);
     const [isActive, setIsActive] = useState(false);
-    const [selectedSound, setSelectedSound] = useState(ambientSounds[0]);
+    const [selectedSound, setSelectedSound] = useState(freeTimerSounds[0]);
     const [volume, setVolume] = useState(40);
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -19,12 +40,13 @@ export default function FreeTimerSection({ darkMode: dm }: FreeTimerSectionProps
     const startTimer = () => {
         setTimeLeft(duration * 60);
         setIsActive(true);
-        // Play sound
-        const audio = new Audio(selectedSound.file);
-        audio.loop = true;
-        audio.volume = volume / 100;
-        audio.play().catch(console.error);
-        audioRef.current = audio;
+        if (selectedSound.file) {
+            const audio = new Audio(selectedSound.file);
+            audio.loop = true;
+            audio.volume = volume / 100;
+            audio.play().catch(console.error);
+            audioRef.current = audio;
+        }
     };
 
     const stopTimer = useCallback(() => {
@@ -38,7 +60,7 @@ export default function FreeTimerSection({ darkMode: dm }: FreeTimerSectionProps
         if (isActive && timeLeft > 0) {
             intervalRef.current = setInterval(() => {
                 setTimeLeft(prev => {
-                    if (prev <= 1) { stopTimer(); return 0; }
+                    if (prev <= 1) { onComplete?.(duration); stopTimer(); return 0; }
                     return prev - 1;
                 });
             }, 1000);
@@ -88,19 +110,25 @@ export default function FreeTimerSection({ darkMode: dm }: FreeTimerSectionProps
                     </div>
                 </div>
 
-                <p className="text-white/90 text-xl font-medium mb-10 tracking-wide z-10 drop-shadow-sm">Respire... Esteja presente.</p>
+                <p className="text-white/90 text-xl font-medium mb-10 tracking-wide z-10 drop-shadow-sm">Silencie por dentro. Fique aqui.</p>
 
                 {/* Volume & Control */}
                 <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/10 z-10 w-full max-w-xs flex flex-col items-center gap-6">
-                    <div className="flex items-center gap-4 w-full px-2">
-                        <span className="text-white/60 text-lg">🔉</span>
-                        <input type="range" min="0" max="100" value={volume} onChange={(e) => {
-                            const v = Number(e.target.value);
-                            setVolume(v);
-                            if (audioRef.current) audioRef.current.volume = v / 100;
-                        }} className="flex-1 accent-white h-2 bg-white/20 rounded-full appearance-none outline-none overflow-hidden" />
-                        <span className="text-white/60 text-lg">🔊</span>
-                    </div>
+                    {selectedSound.file ? (
+                        <div className="flex items-center gap-4 w-full px-2">
+                            <span className="text-white/60 text-lg">🔉</span>
+                            <input type="range" min="0" max="100" value={volume} onChange={(e) => {
+                                const v = Number(e.target.value);
+                                setVolume(v);
+                                if (audioRef.current) audioRef.current.volume = v / 100;
+                            }} className="flex-1 accent-white h-2 bg-white/20 rounded-full appearance-none outline-none overflow-hidden" />
+                            <span className="text-white/60 text-lg">🔊</span>
+                        </div>
+                    ) : (
+                        <div className="w-full rounded-2xl bg-white/8 px-4 py-3 text-center text-sm font-semibold text-white/75">
+                            Sessão em silêncio
+                        </div>
+                    )}
 
                     <button onClick={stopTimer} className="w-full py-4 bg-white text-indigo-900 rounded-2xl font-bold shadow-lg hover:shadow-xl active:scale-95 transition-all text-sm uppercase tracking-wider">
                         Encerrar Sessão
@@ -111,13 +139,58 @@ export default function FreeTimerSection({ darkMode: dm }: FreeTimerSectionProps
     }
 
     return (
-        <div className={`p-4 animate-fade-in pb-24 max-w-lg mx-auto ${dm ? 'text-white' : ''}`}>
-            <div className="text-center mb-8 pt-4">
-                <span className="text-6xl block mb-4 filter drop-shadow-md">⏱️</span>
-                <h2 className={`text-3xl font-extrabold tracking-tight ${dm ? 'text-white' : 'text-gray-900'}`}>Meditação Livre</h2>
-                <p className={`mt-2 font-medium leading-relaxed ${dm ? 'text-gray-400' : 'text-gray-600'}`}>
-                    Sem narração, apenas você e o silêncio<br />(ou um som de fundo)
+        <div className={`animate-fade-in max-w-lg mx-auto ${embedded ? 'p-0 pb-4' : 'p-4 pb-24'} ${dm ? 'text-white' : ''}`}>
+            {!embedded && (
+                <div className="mb-8 pt-4">
+                    <SectionHeroCard
+                        darkMode={dm}
+                        eyebrow="No seu tempo"
+                        title={title}
+                        description="Sem narração. Só você, o tempo e a presença que quiser cultivar agora."
+                        icon="⏱️"
+                    />
+                </div>
+            )}
+
+            <div className={`rounded-3xl p-6 mb-6 shadow-sm border ${dm ? 'bg-gray-800/80 border-gray-700' : 'bg-white/90 border-gray-100'}`}>
+                <h3 className={`font-bold text-lg mb-2 flex items-center gap-2 ${dm ? 'text-gray-200' : 'text-gray-800'}`}>
+                    <span>✨</span> Entrar no clima
+                </h3>
+                <p className={`text-sm mb-4 leading-relaxed ${dm ? 'text-gray-400' : 'text-gray-500'}`}>
+                    Escolha uma intenção rápida e o tempo já se ajusta para você começar sem pensar demais.
                 </p>
+                <div className="grid grid-cols-2 gap-2.5">
+                    {intentionPresets.map((preset) => (
+                        <button
+                            key={preset.id}
+                            onClick={() => {
+                                setDuration(preset.duration);
+                                const matchedSound = freeTimerSounds.find((sound) => sound.id === preset.soundId);
+                                if (matchedSound) setSelectedSound(matchedSound);
+                            }}
+                            className={`rounded-2xl px-4 py-3 text-left text-sm font-semibold transition-all active:scale-[0.98] ${
+                                preset.id === 'silenciar'
+                                    ? dm
+                                        ? 'bg-sky-950/40 text-sky-100 border border-sky-900/60 hover:bg-sky-900/45'
+                                        : 'bg-sky-50 text-sky-800 border border-sky-100 hover:bg-sky-100'
+                                    : preset.id === 'presenca'
+                                        ? dm
+                                            ? 'bg-emerald-950/38 text-emerald-100 border border-emerald-900/60 hover:bg-emerald-900/42'
+                                            : 'bg-emerald-50 text-emerald-800 border border-emerald-100 hover:bg-emerald-100'
+                                        : preset.id === 'descanso'
+                                            ? dm
+                                                ? 'bg-indigo-950/40 text-indigo-100 border border-indigo-900/60 hover:bg-indigo-900/44'
+                                                : 'bg-indigo-50 text-indigo-800 border border-indigo-100 hover:bg-indigo-100'
+                                            : dm
+                                                ? 'bg-violet-950/38 text-violet-100 border border-violet-900/60 hover:bg-violet-900/42'
+                                                : 'bg-violet-50 text-violet-800 border border-violet-100 hover:bg-violet-100'
+                            }`}
+                        >
+                            <span className="block font-black">{preset.label}</span>
+                            <span className={`mt-1 block text-xs ${dm ? 'text-gray-400' : 'text-slate-500'}`}>{preset.duration} min</span>
+                        </button>
+                    ))}
+                </div>
             </div>
 
             {/* Duration */}
@@ -136,13 +209,45 @@ export default function FreeTimerSection({ darkMode: dm }: FreeTimerSectionProps
                 </div>
             </div>
 
+            <div className={`rounded-3xl p-6 mb-6 shadow-sm border ${dm ? 'bg-gray-800/80 border-gray-700' : 'bg-white/90 border-gray-100'}`}>
+                <h3 className={`font-bold text-lg mb-2 flex items-center gap-2 ${dm ? 'text-gray-200' : 'text-gray-800'}`}>
+                    <span>🤍</span> Modo de prática
+                </h3>
+                <p className={`text-sm leading-relaxed ${dm ? 'text-gray-400' : 'text-gray-500'}`}>
+                    Você pode fazer essa sessão em silêncio total ou com um ambiente discreto ao fundo.
+                </p>
+            </div>
+
             {/* Sound Selection */}
             <div className={`rounded-3xl p-6 mb-8 shadow-sm border ${dm ? 'bg-gray-800/80 border-gray-700' : 'bg-white/90 border-gray-100'}`}>
-                <h3 className={`font-bold text-lg mb-4 flex items-center gap-2 ${dm ? 'text-gray-200' : 'text-gray-800'}`}>
-                    <span>🎵</span> Som de Fundo
+                <h3 className={`font-bold text-lg mb-2 flex items-center gap-2 ${dm ? 'text-gray-200' : 'text-gray-800'}`}>
+                    <span>🎵</span> Ambiente sonoro
                 </h3>
-                <div className="h-44 sm:h-52 overflow-y-auto space-y-2 pr-2 scrollbar-hide">
-                    {ambientSounds.map(sound => (
+                <div className="grid grid-cols-2 gap-2.5 mb-4">
+                    {featuredSounds.map(sound => (
+                        <button
+                            key={sound.id}
+                            onClick={() => setSelectedSound(sound)}
+                            className={`rounded-2xl px-4 py-3 text-left transition-all active:scale-[0.98] ${
+                                selectedSound.id === sound.id
+                                    ? 'bg-indigo-50 border border-indigo-200 text-indigo-700 dark:bg-indigo-900/30 dark:border-indigo-800 dark:text-indigo-300'
+                                    : dm
+                                        ? 'bg-gray-900/40 border border-gray-700/50 text-gray-300 hover:bg-gray-700'
+                                        : 'bg-slate-50 border border-slate-100 text-slate-700 hover:bg-slate-100'
+                            }`}
+                        >
+                            <div className="flex items-center justify-between gap-2">
+                                <span className="text-xl">{sound.emoji}</span>
+                                <span className={`rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] ${selectedSound.id === sound.id ? 'bg-indigo-100 dark:bg-indigo-900/50' : dm ? 'bg-gray-800 text-gray-400' : 'bg-white text-slate-500'}`}>
+                                    {sound.category}
+                                </span>
+                            </div>
+                            <p className="mt-3 text-sm font-black">{sound.name}</p>
+                        </button>
+                    ))}
+                </div>
+                <div className="sereno-blue-scrollbar h-40 sm:h-44 overflow-y-auto space-y-2 pr-2">
+                    {freeTimerSounds.map(sound => (
                         <button key={sound.id} onClick={() => setSelectedSound(sound)}
                             className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-left text-sm font-medium transition-all active:scale-[0.98] ${selectedSound.id === sound.id
                                 ? 'bg-indigo-50 border-indigo-200 text-indigo-700 shadow-sm border dark:bg-indigo-900/30 dark:border-indigo-800 dark:text-indigo-300'
@@ -160,7 +265,7 @@ export default function FreeTimerSection({ darkMode: dm }: FreeTimerSectionProps
             <button onClick={startTimer}
                 className="w-full py-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-2xl font-bold text-lg shadow-lg shadow-purple-500/30 hover:shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2"
             >
-                <span className="text-xl">🧘</span> Iniciar Meditação
+                <span className="text-xl">🧘</span> Iniciar prática livre
             </button>
         </div>
     );

@@ -1,84 +1,399 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import SectionHeroCard from './SectionHeroCard';
 
-export default function SuggestionsSection({ darkMode: dm }: { darkMode?: boolean }) {
-    const [suggestion, setSuggestion] = useState('');
-    const [messageType, setMessageType] = useState('Sugestões');
+type SuggestionType = 'sugestao' | 'melhoria' | 'bug' | 'elogio' | 'recurso';
 
-    const sendEmail = () => {
-        if (!suggestion.trim()) {
-            alert('Escreva uma mensagem antes de enviar.');
-            return;
+type SentSuggestion = {
+  id: string;
+  type: SuggestionType;
+  title: string;
+  message: string;
+  where?: string;
+  expected?: string;
+  createdAt: string;
+};
+
+type SuggestionMeta = {
+  source?: string;
+  platform?: string;
+  userAgent?: string;
+  language?: string;
+  viewport?: string;
+  currentUrl?: string;
+  sentAt?: string;
+};
+
+const typeMeta: Record<SuggestionType, { label: string; emoji: string; accent: string; helper: string }> = {
+  sugestao: {
+    label: 'Sugestão',
+    emoji: '💡',
+    accent: 'bg-amber-500',
+    helper: 'Para um ajuste geral no app.',
+  },
+  melhoria: {
+    label: 'Melhoria',
+    emoji: '✨',
+    accent: 'bg-violet-500',
+    helper: 'Explique o que falta e por que ajudaria.',
+  },
+  bug: {
+    label: 'Bug',
+    emoji: '🐛',
+    accent: 'bg-rose-500',
+    helper: 'Descreva onde foi, o que você fez e o que falhou.',
+  },
+  elogio: {
+    label: 'Elogio',
+    emoji: '❤️',
+    accent: 'bg-emerald-500',
+    helper: 'Para destacar o que está funcionando bem.',
+  },
+  recurso: {
+    label: 'Pedido de recurso',
+    emoji: '🧩',
+    accent: 'bg-sky-500',
+    helper: 'Explique qual recurso faria diferença e quando ajudaria.',
+  },
+};
+
+const buildDraftBody = ({
+  type,
+  title,
+  message,
+  where,
+  expected,
+}: {
+  type: SuggestionType;
+  title: string;
+  message: string;
+  where: string;
+  expected: string;
+}) => {
+  const sections = [
+    `Tipo: ${typeMeta[type].label}`,
+    `Título: ${title.trim()}`,
+    '',
+    'Mensagem:',
+    message.trim(),
+  ];
+
+  if (where.trim()) {
+    sections.push('', 'Onde isso aconteceu:', where.trim());
+  }
+
+  if (expected.trim()) {
+    sections.push('', type === 'bug' ? 'O que você esperava / o que deu errado:' : 'O que você esperava:');
+    sections.push(expected.trim());
+  }
+
+  return sections.join('\n');
+};
+
+export default function SuggestionsSection({ darkMode: dm, onNavigate, initialSource }: { darkMode?: boolean; onNavigate?: (tab: any, params?: Record<string, any>) => void; initialSource?: string }) {
+  const [draft, setDraft] = useLocalStorage<{
+    type: SuggestionType;
+    title: string;
+    message: string;
+    where: string;
+    expected: string;
+  }>('psico_suggestions_draft', {
+    type: 'sugestao',
+    title: '',
+    message: '',
+    where: '',
+    expected: '',
+  });
+  const [sentHistory, setSentHistory] = useLocalStorage<SentSuggestion[]>('psico_suggestions_history', []);
+  const [feedbackState, setFeedbackState] = useState<{ kind: 'success' | 'error'; text: string } | null>(null);
+  const [sending, setSending] = useState(false);
+
+  const c = (l: string, d: string) => (dm ? d : l);
+  const currentMeta = typeMeta[draft.type];
+
+  const preview = useMemo(() => buildDraftBody(draft), [draft]);
+  const fallbackSuggestionsEmail = process.env.NEXT_PUBLIC_SUGGESTIONS_TO_EMAIL || '';
+
+  useEffect(() => {
+    if (!initialSource) return;
+    setDraft((prev) => {
+      if (prev.where?.trim()) return prev;
+      return { ...prev, where: initialSource };
+    });
+  }, [initialSource, setDraft]);
+
+  const setField = (field: keyof typeof draft, value: string) => {
+    setDraft((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const validate = () => {
+    if (!draft.title.trim()) {
+      setFeedbackState({ kind: 'error', text: 'Adicione um título curto antes de enviar.' });
+      return false;
+    }
+    if (!draft.message.trim()) {
+      setFeedbackState({ kind: 'error', text: 'Escreva a mensagem antes de enviar.' });
+      return false;
+    }
+    return true;
+  };
+
+  const openMailtoFallback = () => {
+    if (typeof window === 'undefined' || !fallbackSuggestionsEmail) return false;
+    const subject = `[${typeMeta[draft.type].label}] ${draft.title.trim() || 'Sugestão - Sereno'}`;
+    const body = buildDraftBody(draft);
+    window.location.href = `mailto:${encodeURIComponent(fallbackSuggestionsEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    return true;
+  };
+
+  const sendEmail = async () => {
+    if (!validate()) return;
+    setSending(true);
+    try {
+      const meta: SuggestionMeta = {
+        source: initialSource || undefined,
+        platform: typeof navigator !== 'undefined' ? navigator.platform : undefined,
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined,
+        language: typeof navigator !== 'undefined' ? navigator.language : undefined,
+        viewport: typeof window !== 'undefined' ? `${window.innerWidth}x${window.innerHeight}` : undefined,
+        currentUrl: typeof window !== 'undefined' ? window.location.href : undefined,
+        sentAt: new Date().toISOString(),
+      };
+
+      const response = await fetch('/api/suggestions/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...draft, meta }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data?.ok) {
+        if (data?.code === 'email_config_missing' && openMailtoFallback()) {
+          setFeedbackState({ kind: 'success', text: 'Seu app de e-mail foi aberto para concluir o envio.' });
+          return;
         }
-        const subject = encodeURIComponent(`[${messageType}] Feedback app Sereno`);
-        const body = encodeURIComponent(suggestion);
-        window.location.href = `mailto:milvertentes@gmail.com?subject=${subject}&body=${body}`;
-        setSuggestion('');
-    };
+        throw new Error(data?.error || 'Falha ao enviar.');
+      }
 
-    return (
-        <div className={`p-6 animate-fade-in pb-32 min-h-screen flex flex-col items-center justify-center ${dm ? 'bg-slate-900 text-slate-100' : 'bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 text-gray-800'}`}>
+      setSentHistory((prev) => [
+        {
+          id: crypto.randomUUID(),
+          type: draft.type,
+          title: draft.title.trim(),
+          message: draft.message.trim(),
+          where: draft.where.trim(),
+          expected: draft.expected.trim(),
+          createdAt: new Date().toISOString(),
+        },
+        ...prev,
+      ].slice(0, 10));
 
-            <div className="w-full max-w-lg mb-10 mt-8">
-                <div className={`w-28 h-28 mx-auto mb-8 rounded-[2.5rem] flex items-center justify-center text-6xl shadow-lg border-4 ${dm ? 'bg-slate-800 border-slate-700' : 'bg-white border-yellow-100'} rotate-3 hover:rotate-6 transition-transform duration-300`}>
-                    💡
-                </div>
+      setDraft({
+        type: 'sugestao',
+        title: '',
+        message: '',
+        where: '',
+        expected: '',
+      });
+      setFeedbackState({ kind: 'success', text: 'Mensagem enviada.' });
+    } catch (error) {
+      setFeedbackState({ kind: 'error', text: `${error instanceof Error ? error.message : 'Não foi possível enviar agora.'} Tente de novo.` });
+    } finally {
+      setSending(false);
+    }
+  };
 
-                <h2 className={`text-4xl sm:text-5xl font-extrabold tracking-tight mb-6 text-center leading-tight ${dm ? 'text-yellow-400' : 'bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-orange-500'}`}>
-                    Ajude a Construir
-                </h2>
+  const reopenHistoryItem = (item: SentSuggestion) => {
+    setDraft({
+      type: item.type,
+      title: item.title,
+      message: item.message,
+      where: item.where || '',
+      expected: item.expected || '',
+    });
+    setFeedbackState(null);
+  };
 
-                <div className={`p-6 rounded-3xl border shadow-sm ${dm ? 'bg-slate-800/60 border-slate-700' : 'bg-white/60 backdrop-blur-md border-white/50'}`}>
-                    <p className={`text-lg font-medium leading-relaxed text-center ${dm ? 'text-slate-300' : 'text-gray-700'}`}>
-                        O app Sereno é um espaço nosso.
-                        Queremos ouvir suas ideias, críticas e pedidos de novas ferramentas para tornar o app cada vez mais útil para o seu dia a dia.
-                    </p>
-                </div>
-            </div>
+  return (
+    <div className={`p-4 pb-24 max-w-lg mx-auto ${dm ? 'text-slate-100' : 'text-slate-900'}`}>
+      <div className="pt-4 mb-6">
+        <SectionHeroCard
+          darkMode={dm}
+          eyebrow="Escuta ativa"
+          title="Sugestões"
+          description="Envie sugestão, melhoria, bug, elogio ou pedido de recurso com mais clareza e contexto."
+          icon="💡"
+        />
+      </div>
 
-            <div className={`w-full max-w-lg p-8 rounded-[2.5rem] shadow-xl border relative overflow-hidden ${dm ? 'bg-slate-800/90 border-slate-700 backdrop-blur-xl' : 'bg-white/90 backdrop-blur-xl border-white'}`}>
-
-                {/* Decorative subtle blurred shapes */}
-                <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full blur-3xl opacity-50 ${dm ? 'bg-yellow-900/30' : 'bg-yellow-200/50'}`}></div>
-                <div className={`absolute -bottom-10 -left-10 w-40 h-40 rounded-full blur-3xl opacity-50 ${dm ? 'bg-orange-900/30' : 'bg-orange-200/50'}`}></div>
-
-                <div className="relative z-10">
-                    <label className={`block text-sm font-bold uppercase tracking-widest mb-3 ${dm ? 'text-yellow-500' : 'text-yellow-600'}`}>
-                        Tipo de Mensagem
-                    </label>
-                    <select
-                        value={messageType}
-                        onChange={(e) => setMessageType(e.target.value)}
-                        className={`w-full p-4 text-base font-semibold rounded-2xl border focus:outline-none focus:ring-4 focus:ring-yellow-500/30 transition-all mb-6 appearance-none ${dm ? 'bg-slate-900/80 border-slate-600 text-white' : 'bg-white border-yellow-200 text-gray-800'}`}
-                    >
-                        <option value="Sugestões">💡 Sugestão</option>
-                        <option value="Melhorias">✨ Melhoria</option>
-                        <option value="Bugs">🐛 Relatar um Bug</option>
-                        <option value="Críticas">💬 Crítica</option>
-                        <option value="Elogios">❤️ Elogio</option>
-                    </select>
-
-                    <label className={`block text-sm font-bold uppercase tracking-widest mb-3 ${dm ? 'text-yellow-500' : 'text-yellow-600'}`}>
-                        Sua Mensagem
-                    </label>
-                    <textarea
-                        value={suggestion}
-                        onChange={(e) => setSuggestion(e.target.value)}
-                        placeholder="Digite aqui o seu comentário sobre o aplicativo..."
-                        rows={7}
-                        className={`w-full p-5 text-lg rounded-3xl border focus:outline-none focus:ring-4 focus:ring-yellow-500/30 transition-all resize-none mb-8 ${dm ? 'bg-slate-900/80 border-slate-600 text-white placeholder-slate-500' : 'bg-gray-50/80 border-gray-200 text-gray-900 placeholder-gray-400 focus:bg-white'}`}
-                    />
-
-                    <button
-                        onClick={sendEmail}
-                        className={`w-full py-5 rounded-3xl font-extrabold text-lg shadow-lg hover:shadow-xl transition-all active:scale-95 text-white flex items-center justify-center gap-3 ${dm ? 'bg-gradient-to-r from-yellow-600 to-orange-500 shadow-[0_0_20px_rgba(234,179,8,0.2)]' : 'bg-gradient-to-r from-yellow-400 to-orange-500 shadow-[0_10px_20px_rgba(245,158,11,0.2)]'}`}
-                    >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                        Enviar Mensagem via E-mail
-                    </button>
-                </div>
-            </div>
+      {initialSource && (
+        <div className={`rounded-2xl border p-4 mb-5 ${c('bg-indigo-50 border-indigo-100', 'bg-indigo-950/20 border-indigo-900/30')}`}>
+          <p className={`text-[11px] font-black uppercase tracking-[0.16em] ${c('text-indigo-700', 'text-indigo-300')}`}>Origem detectada</p>
+          <p className="mt-2 text-sm">Esta mensagem está sendo montada a partir de: <span className="font-black">{initialSource}</span>.</p>
         </div>
-    );
+      )}
+
+      <div data-card-glyph={currentMeta.emoji} className={`sereno-ornament-card rounded-3xl border p-5 mb-5 ${c('bg-white border-slate-200', 'bg-slate-900/70 border-slate-800')}`}>
+        <p className={`text-[11px] font-black uppercase tracking-[0.18em] ${c('text-slate-500', 'text-slate-400')}`}>Tipo de mensagem</p>
+        <div className="grid grid-cols-2 gap-2 mt-4">
+          {(Object.keys(typeMeta) as SuggestionType[]).map((type) => (
+            <button
+              key={type}
+              onClick={() => setDraft((prev) => ({ ...prev, type }))}
+              className={`rounded-2xl border px-3 py-3 text-left text-sm font-bold ${
+                draft.type === type
+                  ? 'bg-indigo-600 border-indigo-500 text-white'
+                  : c('bg-slate-50 border-slate-200 text-slate-700', 'bg-slate-800 border-slate-700 text-slate-200')
+              }`}
+            >
+              <span className="mr-2">{typeMeta[type].emoji}</span>
+              {typeMeta[type].label}
+            </button>
+          ))}
+        </div>
+        <div className={`mt-4 rounded-2xl border p-4 ${c('bg-slate-50 border-slate-200', 'bg-slate-800 border-slate-700')}`}>
+          <p className="text-sm font-bold">{currentMeta.emoji} {currentMeta.label}</p>
+          <p className={`mt-2 text-sm ${c('text-slate-600', 'text-slate-300')}`}>{currentMeta.helper}</p>
+        </div>
+      </div>
+
+      <div data-card-glyph="📝" className={`sereno-ornament-card rounded-3xl border p-5 mb-5 ${c('bg-white border-slate-200', 'bg-slate-900/70 border-slate-800')}`}>
+        <p className={`text-[11px] font-black uppercase tracking-[0.18em] ${c('text-slate-500', 'text-slate-400')}`}>Estrutura do envio</p>
+        <div className={`mt-4 rounded-2xl border p-4 ${c('bg-slate-50 border-slate-200', 'bg-slate-800 border-slate-700')}`}>
+          <p className="text-sm font-bold">Ordem sugerida</p>
+          <p className={`mt-2 text-sm ${c('text-slate-600', 'text-slate-300')}`}>
+            Título curto, mensagem principal e, se fizer sentido, contexto e resultado esperado.
+          </p>
+        </div>
+        <div className="space-y-4 mt-4">
+          <div>
+            <label className={`block text-sm font-bold mb-2 ${c('text-slate-700', 'text-slate-200')}`}>Título curto</label>
+            <input
+              value={draft.title}
+              onChange={(e) => setField('title', e.target.value)}
+              placeholder="Ex: atalho do quiz não funcionou"
+              className={`w-full rounded-2xl border px-4 py-3 text-sm ${c('bg-slate-50 border-slate-200 text-slate-800', 'bg-slate-800 border-slate-700 text-slate-100')}`}
+            />
+          </div>
+
+          <div>
+            <label className={`block text-sm font-bold mb-2 ${c('text-slate-700', 'text-slate-200')}`}>Mensagem</label>
+            <textarea
+              value={draft.message}
+              onChange={(e) => setField('message', e.target.value)}
+              rows={6}
+              placeholder={
+                draft.type === 'bug'
+                  ? 'Conte o que você fez e o que aconteceu.'
+                  : draft.type === 'melhoria'
+                    ? 'Explique o que falta hoje e o que melhoraria.'
+                    : 'Escreva sua mensagem de forma clara e direta.'
+              }
+              className={`w-full rounded-2xl border px-4 py-3 text-sm resize-none ${c('bg-slate-50 border-slate-200 text-slate-800', 'bg-slate-800 border-slate-700 text-slate-100')}`}
+            />
+          </div>
+
+          <div>
+            <label className={`block text-sm font-bold mb-2 ${c('text-slate-700', 'text-slate-200')}`}>
+              Onde isso aconteceu? <span className={`font-medium ${c('text-slate-500', 'text-slate-400')}`}>(opcional)</span>
+            </label>
+            <input
+              value={draft.where}
+              onChange={(e) => setField('where', e.target.value)}
+              placeholder={draft.type === 'bug' ? 'Ex: Linguagens do Amor, botão de histórico' : 'Ex: home, perfil, trilhas, quiz'}
+              className={`w-full rounded-2xl border px-4 py-3 text-sm ${c('bg-slate-50 border-slate-200 text-slate-800', 'bg-slate-800 border-slate-700 text-slate-100')}`}
+            />
+          </div>
+
+          <div>
+            <label className={`block text-sm font-bold mb-2 ${c('text-slate-700', 'text-slate-200')}`}>
+              {draft.type === 'bug' ? 'O que você esperava / o que deu errado?' : 'O que você esperava?'}{' '}
+              <span className={`font-medium ${c('text-slate-500', 'text-slate-400')}`}>(opcional)</span>
+            </label>
+            <textarea
+              value={draft.expected}
+              onChange={(e) => setField('expected', e.target.value)}
+              rows={3}
+              placeholder={
+                draft.type === 'bug'
+                  ? 'Ex: eu esperava abrir o histórico, mas a tela travou.'
+                  : draft.type === 'melhoria'
+                    ? 'Ex: um atalho mais claro deixaria o fluxo mais rápido.'
+                    : 'Ex: utilidade, resultado esperado ou impacto.'
+              }
+              className={`w-full rounded-2xl border px-4 py-3 text-sm resize-none ${c('bg-slate-50 border-slate-200 text-slate-800', 'bg-slate-800 border-slate-700 text-slate-100')}`}
+            />
+          </div>
+        </div>
+      </div>
+
+      {(draft.type === 'bug' || draft.type === 'melhoria') && (
+        <div data-card-glyph="🧭" className={`sereno-ornament-card rounded-3xl border p-5 mb-5 ${c('bg-white border-slate-200', 'bg-slate-900/70 border-slate-800')}`}>
+          <p className={`text-[11px] font-black uppercase tracking-[0.18em] ${c('text-slate-500', 'text-slate-400')}`}>Guia rápido</p>
+          <div className="grid gap-2 mt-4 text-sm">
+            {draft.type === 'bug' ? (
+              <>
+                <div className={`rounded-2xl border p-3 ${c('bg-rose-50 border-rose-200 text-rose-900', 'bg-rose-950/20 border-rose-800/40 text-rose-100')}`}>1. Onde aconteceu</div>
+                <div className={`rounded-2xl border p-3 ${c('bg-rose-50 border-rose-200 text-rose-900', 'bg-rose-950/20 border-rose-800/40 text-rose-100')}`}>2. O que você fez</div>
+                <div className={`rounded-2xl border p-3 ${c('bg-rose-50 border-rose-200 text-rose-900', 'bg-rose-950/20 border-rose-800/40 text-rose-100')}`}>3. O que deu errado</div>
+              </>
+            ) : (
+              <>
+                <div className={`rounded-2xl border p-3 ${c('bg-violet-50 border-violet-200 text-violet-900', 'bg-violet-950/20 border-violet-800/40 text-violet-100')}`}>1. O que falta hoje</div>
+                <div className={`rounded-2xl border p-3 ${c('bg-violet-50 border-violet-200 text-violet-900', 'bg-violet-950/20 border-violet-800/40 text-violet-100')}`}>2. Por que seria útil</div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {feedbackState && (
+        <div className={`rounded-2xl border p-4 mb-5 text-sm font-bold ${feedbackState.kind === 'success'
+          ? c('bg-emerald-50 border-emerald-200 text-emerald-800', 'bg-emerald-950/20 border-emerald-800/40 text-emerald-200')
+          : c('bg-rose-50 border-rose-200 text-rose-800', 'bg-rose-950/20 border-rose-800/40 text-rose-200')}`}>
+          {feedbackState.text}
+        </div>
+      )}
+
+      <div data-card-glyph="👀" className={`sereno-ornament-card rounded-3xl border p-5 mb-5 ${c('bg-white border-slate-200', 'bg-slate-900/70 border-slate-800')}`}>
+        <div className="flex items-center justify-between gap-3">
+          <p className={`text-[11px] font-black uppercase tracking-[0.18em] ${c('text-slate-500', 'text-slate-400')}`}>Prévia</p>
+          <span className={`text-xs font-bold ${c('text-slate-500', 'text-slate-400')}`}>{preview.length} caracteres</span>
+        </div>
+        <pre className={`mt-4 whitespace-pre-wrap text-sm leading-relaxed font-sans ${c('text-slate-700', 'text-slate-200')}`}>{preview}</pre>
+      </div>
+
+      <div className="grid grid-cols-1 gap-3">
+        <button onClick={sendEmail} disabled={sending} className="rounded-2xl bg-indigo-600 py-4 text-sm font-black text-white disabled:opacity-60">
+          {sending ? 'Enviando...' : 'Enviar por e-mail'}
+        </button>
+      </div>
+
+      {sentHistory.length > 0 && (
+        <div data-card-glyph="📚" className={`sereno-ornament-card rounded-3xl border p-5 mt-5 ${c('bg-white border-slate-200', 'bg-slate-900/70 border-slate-800')}`}>
+          <div className="flex items-center justify-between gap-3">
+            <p className={`text-[11px] font-black uppercase tracking-[0.18em] ${c('text-slate-500', 'text-slate-400')}`}>Últimas enviadas</p>
+            <span className={`text-xs font-bold ${c('text-slate-500', 'text-slate-400')}`}>{sentHistory.length} salvas</span>
+          </div>
+          <div className="space-y-3 mt-4">
+            {sentHistory.slice(0, 5).map((item) => (
+              <button
+                key={item.id}
+                onClick={() => reopenHistoryItem(item)}
+                data-card-glyph={typeMeta[item.type].emoji}
+                className={`sereno-ornament-card w-full rounded-2xl border p-4 text-left ${c('bg-slate-50 border-slate-200', 'bg-slate-800 border-slate-700')}`}
+              >
+                <p className="text-sm font-black">{typeMeta[item.type].emoji} {item.title}</p>
+                <p className={`mt-1 text-xs ${c('text-slate-600', 'text-slate-400')}`}>{new Date(item.createdAt).toLocaleString('pt-BR')}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
