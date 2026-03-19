@@ -1619,22 +1619,17 @@ const BreathingSection = ({ darkMode: dm, initialExerciseId, onComplete, onNavig
     }
     setPreparing(true);
     setPreparationPaused(false);
+    breathingPreparationRemainingMsRef.current = 2200;
+    breathingPreparationStartedAtRef.current = Date.now();
+    breathingPreparationTimeoutRef.current = window.setTimeout(() => {
+      completeSilentPreparation();
+    }, 2200);
     if (defaultVoice === 'nenhuma' || !audioEnabled) {
-      breathingPreparationRemainingMsRef.current = 2200;
-      breathingPreparationStartedAtRef.current = Date.now();
-      breathingPreparationTimeoutRef.current = window.setTimeout(() => {
-        completeSilentPreparation();
-      }, 2200);
       return;
     }
     const prepNarration = [selectedGuidance.greeting, selectedGuidance.intro, ...selectedGuidance.items, 'Agora vamos iniciar.'].join(' ');
     playBreathingText(prepNarration, () => {
-      breathingPreparationStartedAtRef.current = null;
-      breathingPreparationRemainingMsRef.current = 2200;
-      setPreparationPaused(false);
-      setPreparing(false);
-      setSessionCompleted(false);
-      setRunning(true);
+      completeSilentPreparation();
     });
   }, [audioEnabled, breathingSteps, completeSilentPreparation, defaultVoice, playBreathingText, preparing, remaining, round, running, selected.in, selectedGuidance, sessionCompleted]);
 

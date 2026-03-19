@@ -4,6 +4,7 @@ export type BrowserSpeechVoice = 'feminino' | 'masculino';
 
 let activeUtterance: SpeechSynthesisUtterance | null = null;
 let activeResolve: ((value: boolean) => void) | null = null;
+let activeTimeout: number | null = null;
 
 function hasBrowserSpeech() {
   return typeof window !== 'undefined' && 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
@@ -33,6 +34,10 @@ export function cancelBrowserSpeech() {
   if (!hasBrowserSpeech()) return;
   window.speechSynthesis.cancel();
   activeUtterance = null;
+  if (activeTimeout !== null) {
+    window.clearTimeout(activeTimeout);
+    activeTimeout = null;
+  }
   if (activeResolve) {
     activeResolve(false);
     activeResolve = null;
@@ -86,18 +91,28 @@ export async function speakBrowserText(
 
     activeUtterance = utterance;
     activeResolve = resolve;
+    const estimatedDurationMs = Math.min(15000, Math.max(1800, text.trim().split(/\s+/).length * 450));
+
+    const finalize = (result: boolean) => {
+      if (activeUtterance === utterance) activeUtterance = null;
+      if (activeResolve === resolve) activeResolve = null;
+      if (activeTimeout !== null) {
+        window.clearTimeout(activeTimeout);
+        activeTimeout = null;
+      }
+      resolve(result);
+    };
+
+    activeTimeout = window.setTimeout(() => finalize(true), estimatedDurationMs);
 
     utterance.onend = () => {
-      if (activeUtterance === utterance) activeUtterance = null;
-      if (activeResolve === resolve) activeResolve = null;
-      resolve(true);
+      finalize(true);
     };
     utterance.onerror = () => {
-      if (activeUtterance === utterance) activeUtterance = null;
-      if (activeResolve === resolve) activeResolve = null;
-      resolve(false);
+      finalize(false);
     };
 
+    window.speechSynthesis.resume();
     window.speechSynthesis.speak(utterance);
   });
 }
