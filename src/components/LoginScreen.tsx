@@ -286,10 +286,21 @@ export default function LoginScreen({ onLogin, desktopMode = false }: LoginScree
     setOauthLoading(provider);
     setError('');
     try {
+      const redirectTo = typeof window !== 'undefined'
+        ? (() => {
+            const callbackUrl = new URL('/auth/callback', window.location.origin);
+            const next = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+            if (next && next !== '/auth/callback') {
+              callbackUrl.searchParams.set('next', next);
+            }
+            return callbackUrl.toString();
+          })()
+        : undefined;
+
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: typeof window !== 'undefined' ? window.location.origin : undefined,
+          redirectTo,
         },
       });
       if (oauthError) throw oauthError;
