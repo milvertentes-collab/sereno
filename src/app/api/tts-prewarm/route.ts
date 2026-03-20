@@ -32,7 +32,7 @@ async function runPrewarm(jobs: Job[], origin: string, concurrency = 4) {
       if (idx >= jobs.length) return;
       const j = jobs[idx];
       try {
-        const r = await fetch(`${origin}/api/piper-tts`, {
+        const r = await fetch(`${origin}/api/tts/azure`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(j),

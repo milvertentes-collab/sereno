@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { parseSRT, Subtitle } from '@/lib/srtParser';
 import { loadAmbientFavoriteMixOptions, loadNatureMixPresets, natureMixerTracks, type NatureMixPreset } from '@/components/NatureMixerSection';
 import { cancelBrowserSpeech, speakBrowserText } from '@/lib/browserSpeech';
+import { fetchAzureTtsObjectUrl } from '@/lib/ttsClient';
 
 interface ModernAudioPlayerProps {
   title: string;
@@ -280,15 +281,8 @@ export default function ModernAudioPlayer({
 
     (async () => {
       try {
-        const response = await fetch('/api/piper-tts', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: sourceText, gender, voice }),
-        });
-        if (!response.ok || cancelled) return;
-        const blob = await response.blob();
+        const url = await fetchAzureTtsObjectUrl({ text: sourceText, gender, voice });
         if (cancelled) return;
-        const url = URL.createObjectURL(blob);
         setGeneratedSessionAudio((prev) => {
           if (prev[targetVoice]) {
             URL.revokeObjectURL(prev[targetVoice] as string);
@@ -680,16 +674,11 @@ export default function ModernAudioPlayer({
 
         let usedBrowserFallback = false;
         try {
-          const response = await fetch('/api/piper-tts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: sentence, gender, voice }),
-          });
-          if (!response.ok || guidanceRunIdRef.current !== currentRunId) {
+          const url = await fetchAzureTtsObjectUrl({ text: sentence, gender, voice });
+          if (guidanceRunIdRef.current !== currentRunId) {
+            URL.revokeObjectURL(url);
             usedBrowserFallback = true;
           } else {
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
             await new Promise<void>((resolve) => {
               guidanceSegmentResolveRef.current = resolve;
               const audio = new Audio(url);
@@ -784,10 +773,50 @@ export default function ModernAudioPlayer({
     for (let index = 0; index < sentences.length; index += 1) {
       if (sessionSpeechRunIdRef.current !== currentRunId) return;
       const sentence = sentences[index];
-      await speakBrowserText(sentence, {
-        voice: selectedVoice === 'masculino' ? 'masculino' : 'feminino',
-        volume,
-      });
+      let usedBrowserFallback = false;
+      try {
+        const url = await fetchAzureTtsObjectUrl({
+          text: sentence,
+          gender: selectedVoice === 'masculino' ? 'masculino' : 'feminino',
+          voice: selectedVoice === 'masculino' ? 'pt-BR-AntonioNeural' : 'pt-BR-FranciscaNeural',
+        });
+
+        await new Promise<void>((resolve) => {
+          const audio = new Audio(url);
+          guidanceAudioRef.current = audio;
+          audio.volume = volume;
+          let settled = false;
+
+          const finalize = () => {
+            if (settled) return;
+            settled = true;
+            URL.revokeObjectURL(url);
+            if (guidanceAudioRef.current === audio) guidanceAudioRef.current = null;
+            resolve();
+          };
+
+          audio.onended = finalize;
+          audio.onerror = finalize;
+          audio.onpause = () => {
+            if (guidanceManualPauseRef.current) return;
+            finalize();
+          };
+          audio.play().catch(() => {
+            usedBrowserFallback = true;
+            finalize();
+          });
+        });
+      } catch {
+        usedBrowserFallback = true;
+      }
+
+      if (usedBrowserFallback) {
+        await speakBrowserText(sentence, {
+          voice: selectedVoice === 'masculino' ? 'masculino' : 'feminino',
+          volume,
+        });
+      }
+
       if (sessionSpeechRunIdRef.current !== currentRunId) return;
       if (index < sentences.length - 1) {
         const pauseMs = /respire|sinta|perceba|observe|solte|deixe|acolha|permaneça|escute|ouça/i.test(sentence) ? 2200 : 1100;

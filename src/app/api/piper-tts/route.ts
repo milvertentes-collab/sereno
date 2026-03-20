@@ -5,6 +5,7 @@ import os from 'os';
 import { randomUUID, createHash } from 'crypto';
 import { execFile } from 'child_process';
 import { promisify } from 'util';
+import { AzureTtsError, synthesizeAzureTts } from '@/lib/server/azureTts';
 
 const execFileAsync = promisify(execFile);
 
@@ -16,6 +17,26 @@ export async function POST(req: Request) {
     const { text, gender, voice } = await req.json();
     if (!text || typeof text !== 'string') {
       return NextResponse.json({ ok: false, error: 'Texto inválido' }, { status: 400 });
+    }
+
+    if (process.env.AZURE_TTS_KEY?.trim() && process.env.AZURE_TTS_REGION?.trim()) {
+      try {
+        const { audio, cached, voiceName } = await synthesizeAzureTts({ text, gender, voice });
+        return new Response(new Uint8Array(audio), {
+          status: 200,
+          headers: {
+            'Content-Type': 'audio/mpeg',
+            'Cache-Control': cached ? 'public, max-age=3600, stale-while-revalidate=86400' : 'no-store',
+            'X-Sereno-TTS-Voice': voiceName,
+            'X-Sereno-TTS-Engine': 'azure',
+          },
+        });
+      } catch (error) {
+        if (error instanceof AzureTtsError) {
+          return NextResponse.json({ ok: false, error: error.message }, { status: error.status });
+        }
+        throw error;
+      }
     }
 
     const root = process.cwd();

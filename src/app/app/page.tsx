@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { useAppPersistence } from '@/hooks/useAppPersistence';
 import dynamic from 'next/dynamic';
 import { cancelBrowserSpeech, speakBrowserText } from '@/lib/browserSpeech';
+import { fetchAzureTtsObjectUrl } from '@/lib/ttsClient';
 import ExploracaoVocacionalSection from '@/components/ExploracaoVocacionalSection';
 import FiveFingersMethodSection from '@/components/FiveFingersMethodSection';
 import EmotionalMindMapSection from '@/components/EmotionalMindMapSection';
@@ -564,12 +565,8 @@ const ChatSection = ({
       }
 
       const gender = defaultVoice === 'feminino' ? 'feminino' : 'masculino';
-      const response = await fetch('/api/piper-tts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: spokenContent, gender }),
-      });
-      if (!response.ok) {
+      const url = await fetchAzureTtsObjectUrl({ text: spokenContent, gender });
+      if (!url) {
         setSpeakingMessageIndex(index);
         const spoken = await speakBrowserText(spokenContent, {
           voice: gender,
@@ -580,8 +577,6 @@ const ChatSection = ({
         return;
       }
 
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
       audio.volume = Math.max(0, Math.min(1, Number(audioSettings?.voiceVolume ?? 80) / 100));
       chatAudioRef.current = audio;
@@ -1426,16 +1421,12 @@ const BreathingSection = ({ darkMode: dm, initialExerciseId, onComplete, onNavig
     }
     try {
       stopBreathingNarration();
-      const response = await fetch('/api/piper-tts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text,
-          gender: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
-          voice: defaultVoice === 'feminino' ? 'pt-BR-FranciscaNeural' : 'pt-BR-AntonioNeural',
-        }),
+      const url = await fetchAzureTtsObjectUrl({
+        text,
+        gender: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
+        voice: defaultVoice === 'feminino' ? 'pt-BR-FranciscaNeural' : 'pt-BR-AntonioNeural',
       });
-      if (!response.ok) {
+      if (!url) {
         await speakBrowserText(text, {
           voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
           volume: Number(audioSettings?.voiceVolume ?? 80),
@@ -1443,8 +1434,6 @@ const BreathingSection = ({ darkMode: dm, initialExerciseId, onComplete, onNavig
         onEnd?.();
         return;
       }
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
       breathingNarrationAudioRef.current = audio;
       audio.volume = breathingAudioEnabledRef.current
@@ -1719,17 +1708,13 @@ const BreathingSection = ({ darkMode: dm, initialExerciseId, onComplete, onNavig
           breathingNarrationAudioRef.current.pause();
           breathingNarrationAudioRef.current.currentTime = 0;
         }
-        const response = await fetch('/api/piper-tts', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const url = await fetchAzureTtsObjectUrl({
+          text: phrase,
+          gender: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
+          voice: defaultVoice === 'feminino' ? 'pt-BR-FranciscaNeural' : 'pt-BR-AntonioNeural',
           signal: controller.signal,
-          body: JSON.stringify({
-            text: phrase,
-            gender: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
-            voice: defaultVoice === 'feminino' ? 'pt-BR-FranciscaNeural' : 'pt-BR-AntonioNeural',
-          }),
         });
-        if (!response.ok) {
+        if (!url) {
           await speakBrowserText(phrase, {
             voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
             volume: breathingAudioEnabledRef.current
@@ -1738,8 +1723,6 @@ const BreathingSection = ({ darkMode: dm, initialExerciseId, onComplete, onNavig
           });
           return;
         }
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
         const audio = new Audio(url);
         breathingNarrationAudioRef.current = audio;
         audio.volume = breathingAudioEnabledRef.current
@@ -2649,16 +2632,7 @@ const MeditationSection = ({ darkMode: dm, onComplete, hasUnlimitedAccess = fals
         narrativePlan.map(async (cue) => {
           if (cue.type !== 'speech' || !cue.text) return cue;
           try {
-            const response = await fetch('/api/piper-tts', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ text: cue.text, gender, voice }),
-            });
-            if (!response.ok) {
-              return { ...cue, durationMs: Math.max(1000, cue.text!.split(/\s+/).filter(Boolean).length * 340) };
-            }
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
+            const url = await fetchAzureTtsObjectUrl({ text: cue.text, gender, voice });
             meditationPreloadedUrlsRef.current.push(url);
             const durationMs = await new Promise<number>((resolve) => {
               const probe = new Audio(url);
@@ -2686,20 +2660,15 @@ const MeditationSection = ({ darkMode: dm, onComplete, hasUnlimitedAccess = fals
         let shouldRevokeUrl = false;
         if (!url) {
           try {
-            const response = await fetch('/api/piper-tts', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ text, gender, voice }),
-            });
-            if (!response.ok || meditationRunIdRef.current !== currentRunId) {
+            url = await fetchAzureTtsObjectUrl({ text, gender, voice });
+            if (meditationRunIdRef.current !== currentRunId) {
               const spoken = await speakBrowserText(text, {
                 voice: defaultVoice === 'feminino' ? 'feminino' : 'masculino',
                 volume,
               });
+              URL.revokeObjectURL(url);
               return spoken;
             }
-            const blob = await response.blob();
-            url = URL.createObjectURL(blob);
             shouldRevokeUrl = true;
           } catch {
             const spoken = await speakBrowserText(text, {
@@ -13047,12 +13016,8 @@ function YogaNidraSection({ onComplete, darkMode: dm, onCheckAccess, defaultVoic
 
     setPiperLoading(true);
     try {
-      const res = await fetch('/api/piper-tts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, gender, voice }),
-      });
-      if (!res.ok) {
+      const url = await fetchAzureTtsObjectUrl({ text, gender, voice });
+      if (!url) {
         const spoken = await speakBrowserText(text, {
           voice: gender,
           volume: 80,
@@ -13060,9 +13025,6 @@ function YogaNidraSection({ onComplete, darkMode: dm, onCheckAccess, defaultVoic
         if (spoken) opts?.onEnd?.();
         return;
       }
-
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
       piperAudioRef.current = audio;
       const speed = Number(speedMode || '1.0');
@@ -13126,16 +13088,11 @@ function YogaNidraSection({ onComplete, darkMode: dm, onCheckAccess, defaultVoic
       try {
         const measuredSpeechDurations = await Promise.all(
           narrativeCues.map(async (cue) => {
-            const res = await fetch('/api/piper-tts', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ text: cue.text, gender: genderForRun, voice: voiceForRun }),
-            });
-            if (!res.ok || narrationRunRef.current !== runId) {
+            const url = await fetchAzureTtsObjectUrl({ text: cue.text, gender: genderForRun, voice: voiceForRun });
+            if (narrationRunRef.current !== runId) {
+              URL.revokeObjectURL(url);
               throw new Error('Failed to preload Yoga Nidra cue');
             }
-            const blob = await res.blob();
-            const url = URL.createObjectURL(blob);
             const durationMs = await new Promise<number>((resolve) => {
               const probe = new Audio(url);
               const finalize = () => {
