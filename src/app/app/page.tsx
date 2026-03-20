@@ -2627,12 +2627,8 @@ const MeditationSection = ({ darkMode: dm, onComplete, hasUnlimitedAccess = fals
       return true;
     };
 
-    if (staticAssets) {
-      const staticPlaybackWorked = await tryPlayStaticMeditation();
-      if (staticPlaybackWorked) {
-        return;
-      }
-    }
+    // On web deploy, the static meditation assets are less reliable than the live/browser narration path.
+    // Skip them here so the session always follows the same runtime narration flow.
 
     let speechIndex = 0;
     const narrativePlan: Array<{ type: 'speech' | 'pause'; text?: string; pauseMs?: number; speechIndex?: number }> = buildMeditationNarrativePlan(routine?.meditation || []).map((cue) =>
@@ -7339,9 +7335,9 @@ export default function MentalHealthApp({ desktopMode = false }: { desktopMode?:
         )}
         {activeTab === 'safety' && <SafetyPlanSection safetyPlan={safetyPlan} setSafetyPlan={setSafetyPlan} darkMode={dm} />}
         {activeTab === 'reminders' && <RemindersSection settings={reminderSettings} setSettings={setReminderSettings} darkMode={dm} />}
-        {activeTab === 'yoga' && <YogaNidraDocSection onComplete={() => {
+        {activeTab === 'yoga' && <YogaNidraSection onComplete={() => {
           setUserProgress(prev => ({ ...prev, yogaCompleted: prev.yogaCompleted + 1 }));
-        }} darkMode={dm} onCheckAccess={checkAccess} defaultVoice={defaultVoice} setDefaultVoice={setDefaultVoice} audioSettings={audioSettings} />}
+        }} darkMode={dm} onCheckAccess={checkAccess} defaultVoice={defaultVoice} setDefaultVoice={setDefaultVoice} />}
         {activeTab === 'solta' && <SoltaAquiSection entries={soltaEntries} setEntries={(value) => {
           const next = typeof value === 'function' ? (value as any)(soltaEntries) : value;
           setSoltaEntries(next);

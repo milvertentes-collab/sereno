@@ -179,6 +179,7 @@ export default function HooponoponoSection({
         preStartGuidance={selected.preStartGuidance}
         guidedNarration={selected.guidedNarration}
         guidedAudio={selected.guidedAudio}
+        preferGeneratedNarration
       />
     );
   }

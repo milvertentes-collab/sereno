@@ -56,6 +56,7 @@ interface ModernAudioPlayerProps {
     feminino: string;
     masculino?: string;
   };
+  preferGeneratedNarration?: boolean;
 }
 
 type VoiceOption = 'feminino' | 'masculino' | 'nenhuma';
@@ -93,6 +94,7 @@ export default function ModernAudioPlayer({
   guidedNarration,
   guidedAudio,
   ttsNarration,
+  preferGeneratedNarration = false,
 }: ModernAudioPlayerProps) {
   const [selectedVoice, setSelectedVoice] = useState<VoiceOption>(initialVoice || 'feminino');
   const [isPlaying, setIsPlaying] = useState(false);
@@ -140,6 +142,9 @@ export default function ModernAudioPlayer({
   const guidancePauseRemainingMsRef = useRef(0);
   const guidancePauseStartedAtRef = useRef<number | null>(null);
   const guidanceManualPauseRef = useRef(false);
+  const sessionSpeechRunIdRef = useRef(0);
+  const sessionSpeechTickerRef = useRef<number | null>(null);
+  const sessionSpeechStartedAtRef = useRef<number | null>(null);
   const previewAudioRef = useRef<HTMLAudioElement | null>(null);
   const previewMixerRefs = useRef<Record<string, HTMLAudioElement>>({});
   const ambientRefs = useRef<Record<string, HTMLAudioElement>>({});
@@ -158,9 +163,9 @@ export default function ModernAudioPlayer({
   const playbackVoice: Exclude<VoiceOption, 'nenhuma'> = selectedVoice === 'nenhuma' ? lastAudibleVoiceRef.current : selectedVoice;
   const mainVoiceKey = playbackVoice === 'masculino' ? 'masculino' : 'feminino';
   const directAudioSrc = playbackVoice === 'feminino'
-    ? (failedStaticSessionAudio.feminino ? null : audio?.feminino)
+    ? ((preferGeneratedNarration || failedStaticSessionAudio.feminino) ? null : audio?.feminino)
     : playbackVoice === 'masculino'
-      ? (failedStaticSessionAudio.masculino ? null : audio?.masculino)
+      ? ((preferGeneratedNarration || failedStaticSessionAudio.masculino) ? null : audio?.masculino)
       : null;
   const audioSrc = playbackVoice === 'feminino'
     ? (directAudioSrc || generatedSessionAudio.feminino)
@@ -565,7 +570,23 @@ export default function ModernAudioPlayer({
     }, pauseSeconds * 1000);
   }, [autoPauseActive, currentTime, isPlaying, pauseDurations, selectedVoice, subtitleChunks, userPaused]);
 
+  const stopSessionSpeech = useCallback((preserveProgress = false) => {
+    sessionSpeechRunIdRef.current += 1;
+    cancelBrowserSpeech();
+    if (sessionSpeechTickerRef.current) {
+      window.clearInterval(sessionSpeechTickerRef.current);
+      sessionSpeechTickerRef.current = null;
+    }
+    sessionSpeechStartedAtRef.current = null;
+    setIsPlaying(false);
+    if (!preserveProgress) {
+      setCurrentTime(0);
+      setUserPaused(false);
+    }
+  }, []);
+
   const resetSession = useCallback(() => {
+    stopSessionSpeech();
     if (pauseTimeoutRef.current) {
       window.clearTimeout(pauseTimeoutRef.current);
       pauseTimeoutRef.current = null;
@@ -597,7 +618,7 @@ export default function ModernAudioPlayer({
     setLivePauseElapsed(0);
     setAutoPauseActive(false);
     setShowFullText(false);
-  }, []);
+  }, [stopSessionSpeech]);
 
   const stopAll = useCallback(() => {
     resetSession();
@@ -735,6 +756,61 @@ export default function ModernAudioPlayer({
     }
   }, [selectedVoice, stopGuidanceAudio, voiceVolume]);
 
+  const playSessionSpeech = useCallback(async (text: string, onEnd?: () => void) => {
+    if (!text?.trim() || selectedVoice === 'nenhuma') {
+      onEnd?.();
+      return;
+    }
+
+    stopSessionSpeech(true);
+    const currentRunId = sessionSpeechRunIdRef.current;
+    const volume = Math.max(0, Math.min(1, voiceVolume / 100));
+    const sentences = (text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [])
+      .map((sentence) => sentence.replace(/\s+/g, ' ').trim())
+      .filter(Boolean);
+    const estimatedDurationSeconds = idealDurationSeconds || Math.max(30, sentences.join(' ').split(/\s+/).filter(Boolean).length * 0.45);
+
+    setDuration(estimatedDurationSeconds);
+    setCurrentTime(0);
+    setUserPaused(false);
+    setIsPlaying(true);
+    sessionSpeechStartedAtRef.current = performance.now();
+    sessionSpeechTickerRef.current = window.setInterval(() => {
+      if (sessionSpeechStartedAtRef.current === null) return;
+      const elapsedSeconds = (performance.now() - sessionSpeechStartedAtRef.current) / 1000;
+      setCurrentTime(Math.min(estimatedDurationSeconds, elapsedSeconds));
+    }, 200);
+
+    for (let index = 0; index < sentences.length; index += 1) {
+      if (sessionSpeechRunIdRef.current !== currentRunId) return;
+      const sentence = sentences[index];
+      await speakBrowserText(sentence, {
+        voice: selectedVoice === 'masculino' ? 'masculino' : 'feminino',
+        volume,
+      });
+      if (sessionSpeechRunIdRef.current !== currentRunId) return;
+      if (index < sentences.length - 1) {
+        const pauseMs = /respire|sinta|perceba|observe|solte|deixe|acolha|permaneça|escute|ouça/i.test(sentence) ? 2200 : 1100;
+        await new Promise<void>((resolve) => {
+          const timeout = window.setTimeout(() => {
+            window.clearTimeout(timeout);
+            resolve();
+          }, pauseMs);
+        });
+      }
+    }
+
+    if (sessionSpeechRunIdRef.current === currentRunId) {
+      if (sessionSpeechTickerRef.current) {
+        window.clearInterval(sessionSpeechTickerRef.current);
+        sessionSpeechTickerRef.current = null;
+      }
+      setCurrentTime(estimatedDurationSeconds);
+      setIsPlaying(false);
+      onEnd?.();
+    }
+  }, [idealDurationSeconds, selectedVoice, stopSessionSpeech, voiceVolume]);
+
   const playGuidanceClipWithFallback = useCallback(async (
     text: string,
     onEnd?: () => void,
@@ -748,6 +824,9 @@ export default function ModernAudioPlayer({
     const voiceKey = selectedVoice === 'masculino' ? 'masculino' : 'feminino';
     const clipSource = clipType
       ? (
+          preferGeneratedNarration
+            ? undefined
+            :
           voiceKey === 'feminino'
             ? guidedAudio?.[clipType]?.feminino
             : (guidedAudio?.[clipType]?.masculino || guidedAudio?.[clipType]?.feminino)
@@ -805,19 +884,45 @@ export default function ModernAudioPlayer({
     failedStaticGuidanceAudio,
     guidedAudio,
     playGuidanceClip,
+    preferGeneratedNarration,
     selectedVoice,
     stopGuidanceAudio,
     voiceVolume,
   ]);
 
   const startMainAudio = useCallback(() => {
-    if (!audioRef.current || !audioSrc) return;
+    if (!audioSrc) {
+      const sessionText = mainVoiceKey === 'feminino' ? ttsNarration?.feminino : (ttsNarration?.masculino || ttsNarration?.feminino);
+      if (sessionText?.trim()) {
+        void playSessionSpeech(sessionText, onComplete);
+      }
+      return;
+    }
+    if (!audioRef.current) return;
     setUserPaused(false);
     audioRef.current.play().catch(console.error);
-  }, [audioSrc]);
+  }, [audioSrc, mainVoiceKey, onComplete, playSessionSpeech, ttsNarration?.feminino, ttsNarration?.masculino]);
 
   const startSessionPlayback = useCallback((skipPreparation = false) => {
-    if (!audioRef.current || !audioSrc) return;
+    if (!audioSrc) {
+      if (skipPreparation || !guidedNarration?.preparationText || selectedVoice === 'nenhuma') {
+        setGuidancePreparing(false);
+        setGuidancePaused(false);
+        startMainAudio();
+        return;
+      }
+      setGuidancePreparing(true);
+      setGuidancePaused(false);
+      setGuidanceSpeaking(false);
+      playGuidanceClipWithFallback(guidedNarration.preparationText, () => {
+        setGuidancePreparing(false);
+        setGuidancePaused(false);
+        setGuidanceSpeaking(false);
+        startMainAudio();
+      }, 'preparation');
+      return;
+    }
+    if (!audioRef.current) return;
     if (skipPreparation || !guidedNarration?.preparationText || selectedVoice === 'nenhuma') {
       setGuidancePreparing(false);
       setGuidancePaused(false);
@@ -914,7 +1019,16 @@ export default function ModernAudioPlayer({
       stopGuidanceAudio();
       return;
     }
-    if (!audioRef.current || !audioSrc) return;
+    if (!audioSrc) {
+      if (isPlaying) {
+        stopSessionSpeech(true);
+        setUserPaused(true);
+        return;
+      }
+      startSessionPlayback(currentTime > 0.01 || userPaused);
+      return;
+    }
+    if (!audioRef.current) return;
     if (!isPlaying && currentTime <= 0.01 && !userPaused) {
       startSessionPlayback(false);
       return;
